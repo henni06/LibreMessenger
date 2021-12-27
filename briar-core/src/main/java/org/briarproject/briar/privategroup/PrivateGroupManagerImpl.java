@@ -22,6 +22,9 @@ import org.briarproject.bramble.api.sync.Group;
 import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.MessageId;
+import org.briarproject.bramble.api.sync.event.MessageAddedEvent;
+import org.briarproject.bramble.api.sync.event.MessageSharedEvent;
+import org.briarproject.bramble.api.sync.event.MessageStateChangedEvent;
 import org.briarproject.briar.api.client.MessageTracker;
 import org.briarproject.briar.api.client.MessageTracker.GroupCount;
 import org.briarproject.briar.api.client.ProtocolStateException;
@@ -40,7 +43,10 @@ import org.briarproject.briar.api.privategroup.Visibility;
 import org.briarproject.briar.api.privategroup.event.ContactRelationshipRevealedEvent;
 import org.briarproject.briar.api.privategroup.event.GroupDissolvedEvent;
 import org.briarproject.briar.api.privategroup.event.GroupMessageAddedEvent;
+import org.briarproject.briar.api.privategroup.event.LocationMessageAddEvent;
+import org.briarproject.briar.api.privategroup.location.LocationMessageHeader;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,9 +62,11 @@ import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Inject;
 
 import static org.briarproject.bramble.api.sync.validation.IncomingMessageHook.DeliveryAction.ACCEPT_SHARE;
+import static org.briarproject.bramble.api.sync.validation.MessageState.DELIVERED;
 import static org.briarproject.briar.api.identity.AuthorInfo.Status.UNVERIFIED;
 import static org.briarproject.briar.api.identity.AuthorInfo.Status.VERIFIED;
 import static org.briarproject.briar.api.privategroup.MessageType.JOIN;
+import static org.briarproject.briar.api.privategroup.MessageType.LOCATION;
 import static org.briarproject.briar.api.privategroup.MessageType.POST;
 import static org.briarproject.briar.api.privategroup.Visibility.INVISIBLE;
 import static org.briarproject.briar.api.privategroup.Visibility.REVEALED_BY_CONTACT;
@@ -242,6 +250,28 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		}
 	}
 
+	@Override
+	public void sendMessage(Transaction txn,GroupMessage m){
+	try {
+		BdfDictionary meta = new BdfDictionary();
+		meta.put(KEY_TYPE, LOCATION.getInt());
+		if (m.getParent() != null)
+			meta.put(KEY_PARENT_MSG_ID, m.getParent());
+		addMessageMetadata(meta, m);
+
+		attachLocationAddedEvent(txn, m.getMessage(), meta, true);
+		txn.attach(new MessageAddedEvent(m.getMessage(), null));
+		txn.attach(new MessageStateChangedEvent(m.getMessage().getId(), true,
+				DELIVERED));
+		txn.attach(new MessageSharedEvent(m.getMessage().getId()));
+
+	}
+	catch (Exception fe){
+		fe.printStackTrace();
+	}
+
+	}
+
 	private void addMessageMetadata(BdfDictionary meta, GroupMessage m) {
 		meta.put(KEY_MEMBER, clientHelper.toList(m.getMember()));
 		meta.put(KEY_TIMESTAMP, m.getMessage().getTimestamp());
@@ -333,6 +363,13 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		return body.getString(4);
 	}
 
+	private String getLocationText(BdfList body) throws FormatException {
+		// Message type (0), member (1), parent ID (2), previous message ID (3),
+		// text (4), signature (5)
+		return body.getString(2);
+	}
+
+
 	@Override
 	public Collection<GroupMessageHeader> getHeaders(GroupId g)
 			throws DbException {
@@ -373,6 +410,32 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		}
 	}
 
+
+
+	/*private LocationMessageHeader getLocationMessageHeader(Transaction txn, GroupId g,
+			MessageId id, BdfDictionary meta,
+			Map<AuthorId, AuthorInfo> authorInfos)
+			throws DbException, FormatException {
+
+		MessageId parentId = null;
+		if (meta.containsKey(KEY_PARENT_MSG_ID)) {
+			parentId = new MessageId(meta.getRaw(KEY_PARENT_MSG_ID));
+		}
+		long timestamp = meta.getLong(KEY_TIMESTAMP);
+
+		Author member = getAuthor(meta);
+		AuthorInfo authorInfo;
+		if (authorInfos.containsKey(member.getId())) {
+			authorInfo = authorInfos.get(member.getId());
+		} else {
+			authorInfo = authorManager.getAuthorInfo(txn, member.getId());
+		}
+		boolean read = meta.getBoolean(KEY_READ);
+
+		return new LocationMessageHeader(g, id, parentId, timestamp, member,
+				authorInfo, read);
+	}*/
+
 	private GroupMessageHeader getGroupMessageHeader(Transaction txn, GroupId g,
 			MessageId id, BdfDictionary meta,
 			Map<AuthorId, AuthorInfo> authorInfos)
@@ -406,6 +469,16 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 				getGroupMessageHeader(txn, g, id, meta, authorInfos);
 		boolean creator = meta.getBoolean(KEY_INITIAL_JOIN_MSG);
 		return new JoinMessageHeader(header, creator);
+	}
+
+	private LocationMessageHeader getLocationMessageHeader(Transaction txn, GroupId g,
+			MessageId id, BdfDictionary meta,
+			Map<AuthorId, AuthorInfo> authorInfos)
+			throws DbException, FormatException {
+
+		GroupMessageHeader header =
+				getGroupMessageHeader(txn, g, id, meta, authorInfos);
+		return new LocationMessageHeader(header);
 	}
 
 	@Override
@@ -532,6 +605,9 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 			case POST:
 				handleGroupMessage(txn, m, meta);
 				return ACCEPT_SHARE;
+			case LOCATION:
+				handleLocationMessage(txn, m, meta);
+				return ACCEPT_SHARE;
 			default:
 				// the validator should only let valid types pass
 				throw new RuntimeException("Unknown MessageType");
@@ -556,6 +632,51 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		// track message and broadcast event
 		messageTracker.trackIncomingMessage(txn, m);
 		attachJoinMessageAddedEvent(txn, m, meta, false);
+	}
+
+	private void handleLocationMessage(Transaction txn, Message m,
+			BdfDictionary meta) throws FormatException, DbException {
+		long timestamp = meta.getLong(KEY_TIMESTAMP);
+		byte[] parentIdBytes = meta.getOptionalRaw(KEY_PARENT_MSG_ID);
+		if (parentIdBytes != null) {
+			MessageId parentId = new MessageId(parentIdBytes);
+			BdfDictionary parentMeta = clientHelper
+					.getMessageMetadataAsDictionary(txn, parentId);
+			if (timestamp <= parentMeta.getLong(KEY_TIMESTAMP))
+				throw new FormatException();
+			MessageType parentType = MessageType
+					.valueOf(parentMeta.getLong(KEY_TYPE).intValue());
+			if (parentType != POST)
+				throw new FormatException();
+		}
+		// and the member's previous message
+		byte[] previousMsgIdBytes = meta.getRaw(KEY_PREVIOUS_MSG_ID);
+		MessageId previousMsgId = new MessageId(previousMsgIdBytes);
+		BdfDictionary previousMeta = clientHelper
+				.getMessageMetadataAsDictionary(txn, previousMsgId);
+		if (timestamp <= previousMeta.getLong(KEY_TIMESTAMP))
+			throw new FormatException();
+		// previous message must be from same member
+		if (!getAuthor(meta).equals(getAuthor(previousMeta)))
+			throw new FormatException();
+		// previous message must be a POST or JOIN
+		MessageType previousType = MessageType
+				.valueOf(previousMeta.getLong(KEY_TYPE).intValue());
+		if (previousType != LOCATION)
+			throw new FormatException();
+		// track message and broadcast event
+		messageTracker.trackIncomingMessage(txn, m);
+		attachLocationMessageAddedEvent(txn, m, meta, false);
+	}
+
+	private void attachLocationMessageAddedEvent(Transaction txn, Message m,
+			BdfDictionary meta, boolean local)
+			throws DbException, FormatException {
+		LocationMessageHeader header = getLocationMessageHeader(txn, m.getGroupId(),
+				m.getId(), meta, Collections.emptyMap());
+		String text = getMessageText(clientHelper.toList(m));
+		txn.attach(new GroupMessageAddedEvent(m.getGroupId(), header, text,
+				local));
 	}
 
 	private void handleGroupMessage(Transaction txn, Message m,
@@ -600,6 +721,16 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		GroupMessageHeader header = getGroupMessageHeader(txn, m.getGroupId(),
 				m.getId(), meta, Collections.emptyMap());
 		String text = getMessageText(clientHelper.toList(m));
+		txn.attach(new GroupMessageAddedEvent(m.getGroupId(), header, text,
+				local));
+	}
+
+	private void attachLocationAddedEvent(Transaction txn, Message m,
+			BdfDictionary meta, boolean local)
+			throws DbException, FormatException {
+		LocationMessageHeader header = getLocationMessageHeader(txn, m.getGroupId(),
+				m.getId(), meta, Collections.emptyMap());
+		String text = getLocationText(clientHelper.toList(m));
 		txn.attach(new GroupMessageAddedEvent(m.getGroupId(), header, text,
 				local));
 	}

@@ -5,6 +5,20 @@ apply plugin: 'witness'
 apply from: 'witness.gradle'
 
 android {
+	signingConfigs {
+		debug {
+			storeFile file('C:\\Users\\nhennrich\\androidks.jks')
+			storePassword 'nico1978'
+			keyAlias 'key1'
+			keyPassword 'nico1978'
+		}
+		release {
+			storeFile file('C:\\Users\\nhennrich\\androidks.jks')
+			storePassword 'nico1978'
+			keyAlias 'key1'
+			keyPassword 'nico1978'
+		}
+	}
 	compileSdkVersion 30
 	buildToolsVersion '30.0.3'
 

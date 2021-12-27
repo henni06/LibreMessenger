@@ -15,12 +15,12 @@
 		android:layout_weight="1"
 		android:background="@color/thread_item_background">
 
-		<org.briarproject.briar.android.view.BriarRecyclerView
-			android:id="@+id/list"
+		<LinearLayout
+			android:id="@+id/conversation_container"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:emptyText="@string/no_forum_posts"
-			app:scrollToEnd="false" />
+			android:orientation="horizontal"/>
+
 
 		<org.briarproject.briar.android.view.UnreadMessageButton
 			android:id="@+id/upButton"

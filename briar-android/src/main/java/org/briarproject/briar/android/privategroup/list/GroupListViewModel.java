@@ -18,6 +18,7 @@ import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.event.GroupAddedEvent;
 import org.briarproject.bramble.api.sync.event.GroupRemovedEvent;
 import org.briarproject.bramble.api.system.AndroidExecutor;
+import org.briarproject.briar.api.privategroup.location.LocationMessageHeader;
 import org.briarproject.briar.android.viewmodel.DbViewModel;
 import org.briarproject.briar.android.viewmodel.LiveResult;
 import org.briarproject.briar.api.android.AndroidNotificationManager;
@@ -30,6 +31,7 @@ import org.briarproject.briar.api.privategroup.PrivateGroupManager;
 import org.briarproject.briar.api.privategroup.event.GroupDissolvedEvent;
 import org.briarproject.briar.api.privategroup.event.GroupInvitationRequestReceivedEvent;
 import org.briarproject.briar.api.privategroup.event.GroupMessageAddedEvent;
+import org.briarproject.briar.api.privategroup.event.LocationMessageAddEvent;
 import org.briarproject.briar.api.privategroup.invitation.GroupInvitationManager;
 
 import java.util.ArrayList;
@@ -87,6 +89,7 @@ class GroupListViewModel extends DbViewModel implements EventListener {
 		this.authorManager = authorManager;
 		this.notificationManager = notificationManager;
 		this.eventBus = eventBus;
+
 		this.eventBus.addListener(this);
 	}
 
@@ -110,6 +113,7 @@ class GroupListViewModel extends DbViewModel implements EventListener {
 
 	@Override
 	public void eventOccurred(Event e) {
+
 		if (e instanceof GroupMessageAddedEvent) {
 			GroupMessageAddedEvent g = (GroupMessageAddedEvent) e;
 			LOG.info("Private group message added");
@@ -166,6 +170,7 @@ class GroupListViewModel extends DbViewModel implements EventListener {
 		logDuration(LOG, "Loading groups", start);
 		return items;
 	}
+
 
 	@UiThread
 	private void onGroupMessageAdded(GroupMessageHeader header) {

@@ -1,6 +1,13 @@
 package org.briarproject.briar.android.threaded;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -21,18 +28,27 @@ import org.briarproject.briar.android.view.TextSendController;
 import org.briarproject.briar.android.view.TextSendController.SendListener;
 import org.briarproject.briar.android.view.TextSendController.SendState;
 import org.briarproject.briar.android.view.UnreadMessageButton;
+import org.briarproject.briar.android.viewmodel.LiveResult;
 import org.briarproject.briar.api.attachment.AttachmentHeader;
+import org.osmdroid.util.GeoPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static org.briarproject.bramble.util.StringUtils.isNullOrEmpty;
@@ -43,16 +59,25 @@ import static org.briarproject.briar.android.view.TextSendController.SendState.S
 public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadItemAdapter<I>>
 		extends BriarActivity implements SendListener, ThreadItemListener<I> {
 
+	public static final int V_LIST=0;
+	public static final int V_MAP=1;
+	public static final LocationObserver locationObserver=new LocationObserver();
+	private int view;
+	private FragmentStateAdapter pagerAdapter;
+
+	protected ThreadListFragment threadListFragment;
+	private ThreadMap threadMap;
 	protected final A adapter = createAdapter();
 	protected abstract ThreadListViewModel<I> getViewModel();
 	protected abstract A createAdapter();
-	protected BriarRecyclerView list;
+
 	protected TextInputView textInput;
 	protected TextSendController sendController;
 	protected GroupId groupId;
 
-	private LinearLayoutManager layoutManager;
-	private ThreadScrollListener<I> scrollListener;
+
+	private static LocationManager locationManager;
+	//private ThreadScrollListener<I> scrollListener;
 
 	@CallSuper
 	@Override
@@ -61,12 +86,16 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 		setContentView(R.layout.activity_threaded_conversation);
 
+		threadMap=new ThreadMap();
+
+
 		Intent i = getIntent();
 		byte[] b = i.getByteArrayExtra(GROUP_ID);
 		if (b == null) throw new IllegalStateException("No GroupId in intent.");
 		groupId = new GroupId(b);
 		ThreadListViewModel<I> viewModel = getViewModel();
 		viewModel.setGroupId(groupId);
+
 
 		textInput = findViewById(R.id.text_input_container);
 		sendController = new TextSendController(textInput, this, false);
@@ -76,26 +105,15 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 		UnreadMessageButton upButton = findViewById(R.id.upButton);
 		UnreadMessageButton downButton = findViewById(R.id.downButton);
+		threadListFragment=new ThreadListFragment(adapter,viewModel,upButton,downButton);
 
-		list = findViewById(R.id.list);
-		layoutManager = new LinearLayoutManager(this);
-		list.setLayoutManager(layoutManager);
-		list.setAdapter(adapter);
-		scrollListener = new ThreadScrollListener<>(adapter, viewModel,
-				upButton, downButton);
-		list.getRecyclerView().addOnScrollListener(scrollListener);
+		showView(V_LIST);
 
 		upButton.setOnClickListener(v -> {
-			int position = adapter.getVisibleUnreadPosTop(layoutManager);
-			if (position != NO_POSITION) {
-				list.getRecyclerView().scrollToPosition(position);
-			}
+			threadListFragment.scrollUp();
 		});
 		downButton.setOnClickListener(v -> {
-			int position = adapter.getVisibleUnreadPosBottom(layoutManager);
-			if (position != NO_POSITION) {
-				list.getRecyclerView().scrollToPosition(position);
-			}
+			threadListFragment.scrollDown();
 		});
 
 		viewModel.getItems().observe(this, result -> result
@@ -103,11 +121,14 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				.onSuccess(this::displayItems)
 		);
 
+		viewModel.getLocations().observe(this,this::handleLocationData);
 		viewModel.getSharingInfo().observe(this, this::setToolbarSubTitle);
 
 		viewModel.getGroupRemoved().observe(this, removed -> {
 			if (removed) supportFinishAfterTransition();
 		});
+		viewModel.setThreadMap(threadMap);
+
 	}
 
 	@CallSuper
@@ -115,7 +136,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 	public void onStart() {
 		super.onStart();
 		getViewModel().blockAndClearNotifications();
-		list.startPeriodicUpdate();
+
 	}
 
 	@CallSuper
@@ -123,7 +144,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 	public void onStop() {
 		super.onStop();
 		getViewModel().unblockNotifications();
-		list.stopPeriodicUpdate();
+
 	}
 
 	@Override
@@ -146,19 +167,12 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		}
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		// store list position, so we can restore it when coming back here
-		if (layoutManager != null && adapter != null) {
-			MessageId id = adapter.getFirstVisibleMessageId(layoutManager);
-			getViewModel().storeMessageId(id);
-		}
-	}
 
 	protected void displayItems(List<I> items) {
+
 		if (items.isEmpty()) {
-			list.showData();
+			threadListFragment.getList().showData();
+
 		} else {
 			adapter.submitList(items, () -> {
 				// do stuff *after* list had been updated
@@ -173,17 +187,22 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 	 * if one exists and this is the first time, the list gets displayed.
 	 * Or scrolls to a locally added item that has just been added to the list.
 	 */
+
 	private void scrollAfterListCommitted() {
 		MessageId restoredFirstVisibleItemId =
 				getViewModel().getAndResetRestoredMessageId();
 		MessageId scrollToItem =
 				getViewModel().getAndResetScrollToItem();
 		if (restoredFirstVisibleItemId != null) {
-			scrollToItemAtTop(restoredFirstVisibleItemId);
+			threadListFragment.scrollToItemAtTop(restoredFirstVisibleItemId);
 		} else if (scrollToItem != null) {
-			scrollToItemAtTop(scrollToItem);
+			threadListFragment.scrollToItemAtTop(scrollToItem);
 		}
-		scrollListener.updateUnreadButtons(layoutManager);
+		threadListFragment.scrollAfterListCommit();
+	}
+
+	protected void displaySnackbar(@StringRes int stringId) {
+		threadListFragment.displaySnackbar(stringId);
 	}
 
 	@Override
@@ -192,36 +211,35 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		updateTextInput();
 		// FIXME This does not work for a hardware keyboard
 		if (textInput.isKeyboardOpen()) {
-			scrollToItemAtTop(item.getId());
+			threadListFragment.scrollToItemAtTop(item.getId());
 		} else {
 			// wait with scrolling until keyboard opened
 			textInput.setOnKeyboardShownListener(() -> {
-				scrollToItemAtTop(item.getId());
+				threadListFragment.scrollToItemAtTop(item.getId());
 				textInput.setOnKeyboardShownListener(null);
 			});
 		}
 	}
 
+	protected void handleLocationData(LiveResult<List<GeoPoint>> points) {
+		System.out.println(points);
+	}
+
 	protected void setToolbarSubTitle(SharingInfo sharingInfo) {
 		ActionBar actionBar = getSupportActionBar();
+		if(locationObserver.isLocationActivated(groupId)){
+			actionBar.setSubtitle(R.string.sharing_warning);
+		}else
 		if (actionBar != null) {
 			actionBar.setSubtitle(getString(R.string.shared_with,
 					sharingInfo.total, sharingInfo.online));
 		}
 	}
 
-	private void scrollToItemAtTop(MessageId messageId) {
-		int position = adapter.findItemPosition(messageId);
-		if (position != NO_POSITION) {
-			layoutManager.scrollToPositionWithOffset(position, 0);
-		}
-	}
 
-	protected void displaySnackbar(@StringRes int stringId) {
-		new BriarSnackbarBuilder()
-				.make(list, stringId, Snackbar.LENGTH_SHORT)
-				.show();
-	}
+
+
+
 
 	private void updateTextInput() {
 		MessageId replyId = getViewModel().getReplyId();
@@ -233,6 +251,8 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		}
 		adapter.setHighlightedItem(replyId);
 	}
+
+
 
 	@Override
 	public LiveData<SendState> onSendClick(@Nullable String text,
@@ -250,4 +270,82 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 	protected abstract int getMaxTextLength();
 
+	protected int getView(){
+		return view;
+	}
+
+	protected void showView(int view){
+		this.view=view;
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		switch(view){
+			case V_LIST:
+				transaction.replace(R.id.conversation_container, threadListFragment);
+				break;
+			case V_MAP:
+				transaction.replace(R.id.conversation_container, threadMap);
+				break;
+		}
+		transaction.addToBackStack(null);
+
+		transaction.commit();
+	}
+
+	@SuppressLint("MissingPermission")
+	protected boolean publishLocation(){
+		if(locationManager==null){
+			locationManager =
+					(LocationManager) this
+							.getSystemService(Context.LOCATION_SERVICE);
+		}
+		if(!locationObserver.isLocationActivated(this.groupId)){
+
+
+
+			LocationListener locationListener = new LocationListener() {
+				public void onLocationChanged(Location location) {
+					try {
+						GeoPoint currentLocation =
+								new GeoPoint(location.getLatitude(),
+										location.getLongitude());
+						double bearing=location.getBearing();
+						//double speed=location.getSpeed();
+						//double alt=location.getAltitude();
+						getViewModel().createAndStoreMessage(
+								"{\"type\":\"location\",\"lng\":" +
+										currentLocation.getLongitude() +
+										",\"lat\":" +
+										currentLocation.getLatitude() + ",\"bearing\":"+
+					bearing+"}",
+								null);
+					} catch (Exception e) {
+					}
+				}
+
+				public void onStatusChanged(String provider, int status,
+						Bundle extras) {
+				}
+
+				public void onProviderEnabled(String provider) {
+				}
+
+				public void onProviderDisabled(String provider) {
+				}
+			};
+			Criteria criteria = new Criteria();
+			String provider = locationManager.getBestProvider(criteria, false);
+			ThreadMap.requestPermissionsIfNecessary(this, new String[] {
+					Manifest.permission.ACCESS_FINE_LOCATION,
+					Manifest.permission.WRITE_EXTERNAL_STORAGE,
+					Manifest.permission.ACCESS_COARSE_LOCATION});
+			locationManager.requestLocationUpdates(provider, 10000, 10,
+					locationListener);
+			locationObserver.add(this.groupId,locationListener);
+			return true;
+		}else{
+
+			locationManager.removeUpdates(locationObserver.get(groupId));
+			locationObserver.remove(this.groupId);
+			return false;
+		}
+	}
 }

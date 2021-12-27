@@ -88,6 +88,8 @@ public interface PrivateGroupManager {
 	GroupMessageHeader addLocalMessage(Transaction txn, GroupMessage p)
 			throws DbException;
 
+	void sendMessage(Transaction txn,GroupMessage p);
+
 	/**
 	 * Returns the private group with the given ID.
 	 */

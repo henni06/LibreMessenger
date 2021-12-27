@@ -41,6 +41,8 @@ import org.briarproject.bramble.util.StringUtils;
 import org.briarproject.briar.R;
 import org.briarproject.briar.android.reporting.FeedbackActivity;
 import org.briarproject.briar.android.view.ArticleMovementMethod;
+import org.briarproject.briar.api.privategroup.PrivateGroupManager;
+import org.briarproject.briar.privategroup.PrivateGroupManagerImpl_Factory;
 
 import java.util.Locale;
 import java.util.logging.Logger;

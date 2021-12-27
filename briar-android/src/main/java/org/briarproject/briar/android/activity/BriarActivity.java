@@ -1,6 +1,9 @@
 package org.briarproject.briar.android.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.transition.Transition;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -19,6 +22,7 @@ import org.briarproject.briar.android.login.StartupActivity;
 import org.briarproject.briar.android.logout.ExitActivity;
 import org.briarproject.briar.api.android.LockManager;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -28,6 +32,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
@@ -49,7 +55,7 @@ public abstract class BriarActivity extends BaseActivity {
 
 	public static final String GROUP_ID = "briar.GROUP_ID";
 	public static final String GROUP_NAME = "briar.GROUP_NAME";
-
+	private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 	private static final Logger LOG =
 			getLogger(BriarActivity.class.getName());
 
@@ -67,6 +73,11 @@ public abstract class BriarActivity extends BaseActivity {
 	public void onStart() {
 		super.onStart();
 		lockManager.onActivityStart();
+		requestPermissionsIfNecessary(this,new String[] {
+				Manifest.permission.ACCESS_FINE_LOCATION,
+				Manifest.permission.WRITE_EXTERNAL_STORAGE,
+				Manifest.permission.ACCESS_COARSE_LOCATION
+		});
 	}
 
 	@Override
@@ -171,6 +182,7 @@ public abstract class BriarActivity extends BaseActivity {
 			ab.setDisplayHomeAsUpEnabled(true);
 			ab.setDisplayShowCustomEnabled(ownLayout);
 			ab.setDisplayShowTitleEnabled(!ownLayout);
+
 		}
 		return toolbar;
 	}
@@ -249,5 +261,22 @@ public abstract class BriarActivity extends BaseActivity {
 	@Deprecated
 	protected void finishOnUiThread() {
 		runOnUiThreadUnlessDestroyed(this::supportFinishAfterTransition);
+	}
+
+	public static void requestPermissionsIfNecessary(Activity activity,String[] permissions) {
+		ArrayList<String> permissionsToRequest = new ArrayList<>();
+		for (String permission : permissions) {
+			if (ContextCompat.checkSelfPermission(activity, permission)
+					!= PackageManager.PERMISSION_GRANTED) {
+				// Permission is not granted
+				permissionsToRequest.add(permission);
+			}
+		}
+		if (permissionsToRequest.size() > 0) {
+			ActivityCompat.requestPermissions(
+					activity,
+					permissionsToRequest.toArray(new String[0]),
+					REQUEST_PERMISSIONS_REQUEST_CODE);
+		}
 	}
 }

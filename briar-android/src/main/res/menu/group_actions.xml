@@ -40,5 +40,17 @@
 		android:visible="false"
 		app:showAsAction="never"
 		tools:visible="true" />
+	<item
+		android:id="@+id/action_location_share"
+		android:title="@string/menu_send_location"
+		android:visible="true"
+		app:showAsAction="never"
+		tools:visible="true" />
+	<item
+		android:id="@+id/action_map"
+		android:title="@string/menu_map"
+		android:visible="true"
+		app:showAsAction="never"
+		tools:visible="true" />
 
 </menu>

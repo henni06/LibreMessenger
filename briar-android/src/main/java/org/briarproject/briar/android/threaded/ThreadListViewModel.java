@@ -27,6 +27,7 @@ import org.briarproject.briar.api.android.AndroidNotificationManager;
 import org.briarproject.briar.api.client.MessageTracker;
 import org.briarproject.briar.api.client.MessageTree;
 import org.briarproject.briar.client.MessageTreeImpl;
+import org.osmdroid.util.GeoPoint;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -64,10 +65,23 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	private final MessageTree<I> messageTree = new MessageTreeImpl<>();
 	private final MutableLiveData<LiveResult<List<I>>> items =
 			new MutableLiveData<>();
+	private final MutableLiveData<LiveResult<List<GeoPoint>>> locations =
+			new MutableLiveData<>();
+
 	private final MutableLiveData<Boolean> groupRemoved =
 			new MutableLiveData<>();
 	private final AtomicReference<MessageId> scrollToItem =
 			new AtomicReference<>();
+
+	private ThreadMap threadMap;
+
+	public ThreadMap getThreadMap() {
+		return threadMap;
+	}
+
+	public void setThreadMap(ThreadMap threadMap) {
+		this.threadMap = threadMap;
+	}
 
 	protected volatile GroupId groupId;
 	@Nullable
@@ -169,11 +183,21 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	public abstract void createAndStoreMessage(String text,
 			@Nullable MessageId parentMessageId);
 
+	public abstract void createAndStoreLocationMessage(double lng,double lat);
+
 	/**
 	 * Loads the ContactIds of all contacts the group is shared with
 	 * and adds them to {@link SharingController}.
 	 */
 	protected abstract void loadSharingContacts();
+
+	@UiThread
+	protected void addLocation(GeoPoint point) {
+		List<GeoPoint>locationLD=locations.getValue().getResultOrNull();
+		locationLD.add(point);
+		LiveResult<List<GeoPoint>> liveData=new LiveResult<>(locationLD);
+		locations.setValue(liveData);
+	}
 
 	@UiThread
 	protected void setItems(LiveResult<List<I>> items) {
@@ -199,7 +223,6 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 		// If items haven't loaded, we need to wait until they have.
 		// Since this was a R/W DB transaction, the load will pick up this item.
 		if (items.getValue() == null) return;
-
 		messageTree.add(item);
 		if (scrollToItem) this.scrollToItem.set(item.getId());
 		items.setValue(new LiveResult<>(messageTree.depthFirstOrder()));
@@ -215,6 +238,10 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	MessageId getReplyId() {
 		return replyId;
 	}
+
+	@UiThread
+	@Nullable
+	LiveData<LiveResult<List<GeoPoint>>> getLocations(){ return locations;}
 
 	@UiThread
 	void storeMessageId(@Nullable MessageId messageId) {
@@ -247,7 +274,7 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 		return items;
 	}
 
-	LiveData<SharingInfo> getSharingInfo() {
+	public LiveData<SharingInfo> getSharingInfo() {
 		return sharingController.getSharingInfo();
 	}
 

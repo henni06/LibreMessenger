@@ -36,7 +36,7 @@ public class ForumActivity extends
 
 	@Inject
 	ViewModelProvider.Factory viewModelFactory;
-
+	private Menu menu;
 	private ForumViewModel viewModel;
 
 	@Override
@@ -91,9 +91,11 @@ public class ForumActivity extends
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		this.menu=menu;
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.forum_actions, menu);
+
 		super.onCreateOptionsMenu(menu);
 		return true;
 	}
@@ -116,6 +118,27 @@ public class ForumActivity extends
 			return true;
 		} else if (itemId == R.id.action_forum_delete) {
 			showUnsubscribeDialog();
+			return true;
+		}else if(itemId==R.id.action_location_share){
+			menu.findItem(R.id.action_location_share).setChecked
+					(!menu.findItem(R.id.action_location_share).isChecked());
+			//getViewModel().createAndStoreLocationMessage(0.5,0.6);
+			if(publishLocation()){
+				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
+			}else{
+				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
+
+			}
+
+			return true;
+		}else if(itemId==R.id.action_map){
+			if(getView()==V_LIST){
+				showView(V_MAP);
+				menu.findItem(R.id.action_map).setTitle(R.string.menu_list);
+			}else{
+				showView(V_LIST);
+				menu.findItem(R.id.action_map).setTitle(R.string.menu_map);
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

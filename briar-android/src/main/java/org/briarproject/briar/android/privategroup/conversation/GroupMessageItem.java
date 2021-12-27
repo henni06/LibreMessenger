@@ -16,7 +16,7 @@ import androidx.annotation.UiThread;
 
 @UiThread
 @NotThreadSafe
-class GroupMessageItem extends ThreadItem {
+public class GroupMessageItem extends ThreadItem {
 
 	private final GroupId groupId;
 
@@ -27,7 +27,7 @@ class GroupMessageItem extends ThreadItem {
 		this.groupId = groupId;
 	}
 
-	GroupMessageItem(GroupMessageHeader h, String text) {
+	public GroupMessageItem(GroupMessageHeader h, String text) {
 		this(h.getId(), h.getGroupId(), h.getParentId(), text, h.getTimestamp(),
 				h.getAuthor(), h.getAuthorInfo(), h.isRead());
 	}

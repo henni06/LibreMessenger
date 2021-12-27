@@ -103,9 +103,10 @@ public class GroupListViewModelTest extends BrambleMockTestCase {
 		Executor dbExecutor = new ImmediateExecutor();
 		AndroidExecutor androidExecutor =
 				new AndroidExecutorTestImpl(dbExecutor);
+		LocationManager locationManager=new LocationManagerImpl();
 		viewModel = new GroupListViewModel(app, dbExecutor, lifecycleManager,
 				db, androidExecutor, groupManager, groupInvitationManager,
-				authorManager, notificationManager, eventBus);
+				authorManager, notificationManager, eventBus,locationManager);
 	}
 
 	@Test

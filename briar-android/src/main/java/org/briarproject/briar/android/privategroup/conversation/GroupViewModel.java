@@ -22,6 +22,7 @@ import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.bramble.api.system.Clock;
 import org.briarproject.briar.android.sharing.SharingController;
 import org.briarproject.briar.android.threaded.ThreadListViewModel;
+import org.briarproject.briar.android.threaded.ThreadMap;
 import org.briarproject.briar.api.android.AndroidNotificationManager;
 import org.briarproject.briar.api.client.MessageTracker;
 import org.briarproject.briar.api.client.MessageTracker.GroupCount;
@@ -44,9 +45,9 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -64,11 +65,15 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 	private final PrivateGroupManager privateGroupManager;
 	private final GroupMessageFactory groupMessageFactory;
 
+
 	private final MutableLiveData<PrivateGroup> privateGroup =
 			new MutableLiveData<>();
 	private final MutableLiveData<Boolean> isCreator = new MutableLiveData<>();
 	private final MutableLiveData<Boolean> isDissolved =
 			new MutableLiveData<>();
+
+
+
 
 	@Inject
 	GroupViewModel(Application application,
@@ -92,15 +97,28 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		this.groupMessageFactory = groupMessageFactory;
 	}
 
+
 	@Override
 	public void eventOccurred(Event e) {
+
 		if (e instanceof GroupMessageAddedEvent) {
 			GroupMessageAddedEvent g = (GroupMessageAddedEvent) e;
 			// only act on non-local messages in this group
 			if (!g.isLocal() && g.getGroupId().equals(groupId)) {
 				LOG.info("Group message received, adding...");
 				GroupMessageItem item = buildItem(g.getHeader(), g.getText());
-				addItem(item, false);
+				if(item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
+					try {
+
+						getThreadMap().handleLocationMessage(item);
+					}
+					catch(Exception ex){
+						ex.printStackTrace();
+					}
+
+				}else {
+					addItem(item, false);
+				}
 				// In case the join message comes from the creator,
 				// we need to reload the sharing contacts
 				// in case it was delayed and the sharing count is wrong (#850).
@@ -170,7 +188,13 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			start = now();
 			List<GroupMessageItem> items = new ArrayList<>();
 			for (GroupMessageHeader header : headers) {
-				items.add(loadItem(txn, header));
+				GroupMessageItem item=loadItem(txn, header);
+				if(item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
+
+				}else{
+					items.add(item);
+				}
+
 			}
 			logDuration(LOG, "Loading bodies and creating items", start);
 			return items;
@@ -214,6 +238,28 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		});
 	}
 
+	@Override
+	public void createAndStoreLocationMessage(double lng, double lat) {
+		cryptoExecutor.execute(() -> {
+			try{
+				LOG.info("Creating location message...");
+				LocalAuthor author = identityManager.getLocalAuthor();
+				GroupCount count = privateGroupManager.getGroupCount(groupId);
+
+				long timestamp = count.getLatestMsgTime();
+				timestamp = max(clock.currentTimeMillis(), timestamp + 1);
+				MessageId previousMsgId =
+						privateGroupManager.getPreviousMsgId(groupId);
+				GroupMessage msg = groupMessageFactory.createLocationMessage(groupId,
+					timestamp,author, lng,lat,previousMsgId);
+				storeLocation(msg, Double.toString(lng)+"/"+Double.toString(lat));
+			} catch (DbException e) {
+				handleException(e);
+			}
+		});
+
+	}
+
 	private void createMessage(String text, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author,
 			MessageId previousMsgId) {
@@ -223,6 +269,15 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 					timestamp, parentId, author, text, previousMsgId);
 			storePost(msg, text);
 		});
+	}
+
+	private void storeLocation(GroupMessage msg, String text) {
+		runOnDbThread(false, txn -> {
+			long start = now();
+			privateGroupManager.sendMessage(txn, msg);
+			logDuration(LOG, "Storing group message", start);
+
+		}, this::handleException);
 	}
 
 	private void storePost(GroupMessage msg, String text) {
