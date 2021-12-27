@@ -5,6 +5,7 @@ import org.briarproject.briar.api.identity.AuthorInfo;
 import org.briarproject.bramble.api.nullsafety.NotNullByDefault;
 import org.briarproject.bramble.api.sync.MessageId;
 import org.briarproject.briar.api.client.MessageTree.MessageNode;
+import org.osmdroid.util.GeoPoint;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -38,6 +39,7 @@ public abstract class ThreadItem implements MessageNode {
 		this.isRead = isRead;
 		this.highlighted = false;
 	}
+
 
 	public String getText() {
 		return text;

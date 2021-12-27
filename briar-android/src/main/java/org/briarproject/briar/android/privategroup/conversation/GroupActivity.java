@@ -1,6 +1,15 @@
 package org.briarproject.briar.android.privategroup.conversation;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,12 +24,21 @@ import org.briarproject.briar.android.privategroup.memberlist.GroupMemberListAct
 import org.briarproject.briar.android.privategroup.reveal.RevealContactsActivity;
 import org.briarproject.briar.android.threaded.ThreadListActivity;
 import org.briarproject.briar.android.threaded.ThreadListViewModel;
+import org.briarproject.briar.android.threaded.ThreadMap;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.Marker;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import static android.view.View.GONE;
@@ -39,6 +57,7 @@ public class GroupActivity extends
 	ViewModelProvider.Factory viewModelFactory;
 
 	private GroupViewModel viewModel;
+	private Menu menu;
 
 	@Override
 	public void injectActivity(ActivityComponent component) {
@@ -75,20 +94,26 @@ public class GroupActivity extends
 		observeOnce(viewModel.getPrivateGroup(), this, privateGroup ->
 				setTitle(privateGroup.getName())
 		);
-		observeOnce(viewModel.isCreator(), this, adapter::setIsCreator);
 
+
+
+		observeOnce(viewModel.isCreator(), this, adapter::setIsCreator);
 		// start with group disabled and enable when not dissolved
-		setGroupEnabled(false);
+		//NH solve issue!!!
+		//setGroupEnabled(false);
 		viewModel.isDissolved().observe(this, dissolved -> {
 			setGroupEnabled(!dissolved);
 			// only show dialog when no prior state
 			if (dissolved && state == null) onGroupDissolved();
 		});
+
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
+		this.menu=menu;
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.group_actions, menu);
 
@@ -98,8 +123,19 @@ public class GroupActivity extends
 			menu.findItem(R.id.action_group_invite).setVisible(isCreator);
 			menu.findItem(R.id.action_group_leave).setVisible(!isCreator);
 			menu.findItem(R.id.action_group_dissolve).setVisible(isCreator);
+			menu.findItem(R.id.action_location_share).setVisible(!isCreator);
+			menu.findItem(R.id.action_map).setVisible(isCreator);
+
 		});
 		super.onCreateOptionsMenu(menu);
+		if(locationObserver.isLocationActivated(groupId)){
+			menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
+
+		}else{
+
+			menu.findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
+
+		}
 		return true;
 	}
 
@@ -135,6 +171,30 @@ public class GroupActivity extends
 				throw new IllegalStateException();
 			showDissolveGroupDialog();
 			return true;
+		} else if(itemId==R.id.action_location_share){
+			menu.findItem(R.id.action_location_share).setChecked
+			(!menu.findItem(R.id.action_location_share).isChecked());
+			boolean sharing=publishLocation();
+			if(sharing){
+				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
+
+			}else{
+
+				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
+
+			}
+			getViewModel().getSharingInfo().observe(this, this::setToolbarSubTitle);
+
+			return true;
+		}else if(itemId==R.id.action_map){
+			if(getView()==V_LIST){
+				showView(V_MAP);
+				menu.findItem(R.id.action_map).setTitle(R.string.menu_list);
+			}else{
+				showView(V_LIST);
+				menu.findItem(R.id.action_map).setTitle(R.string.menu_map);
+			}
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -160,7 +220,8 @@ public class GroupActivity extends
 
 	private void setGroupEnabled(boolean enabled) {
 		sendController.setReady(enabled);
-		list.getRecyclerView().setAlpha(enabled ? 1f : 0.5f);
+		//NH to be solved!!
+		//threadListFragment.getList().getRecyclerView().setAlpha(enabled ? 1f : 0.5f);
 
 		if (!enabled) {
 			textInput.setVisibility(GONE);
@@ -206,5 +267,7 @@ public class GroupActivity extends
 		builder.setNeutralButton(R.string.ok, null);
 		builder.show();
 	}
+
+
 
 }

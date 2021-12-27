@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--Setup-->
-  <string name="setup_title">Benvenuto su Briar</string>
+  <string name="setup_title">Benvenuto su Freiheitsmessenger</string>
   <string name="setup_name_explanation">Il tuo nickname sarà accanto ad ogni contenuto pubblicato. Non potrai cambiarlo dopo aver creato l\'account.</string>
   <string name="setup_next">Avanti</string>
   <string name="setup_password_intro">Scegli una password</string>
-  <string name="setup_password_explanation">Il tuo account Briar resta memorizzato cifrato nel tuo dispositivo, non nel cloud. Se dimentichi la password o disinstalli Briar, non c\'è modo di ripristinare l\'account.\n\nScegli una password lunga difficile da indovinare, come quattro parole casuali o dieci lettere, numeri e simboli a caso.</string>
+  <string name="setup_password_explanation">Il tuo account Freiheitsmessenger resta memorizzato cifrato nel tuo dispositivo, non nel cloud. Se dimentichi la password o disinstalli Freiheitsmessenger, non c\'è modo di ripristinare l\'account.\n\nScegli una password lunga difficile da indovinare, come quattro parole casuali o dieci lettere, numeri e simboli a caso.</string>
   <string name="setup_doze_title">Connessioni in background</string>
-  <string name="setup_doze_intro">Per ricevere messaggi, Briar deve restare connesso in background.</string>
-  <string name="setup_doze_explanation">Per ricevere messaggi, Briar deve restare connesso in background. Disattiva le ottimizzazioni della batteria per mantenere Briar connesso.</string>
+  <string name="setup_doze_intro">Per ricevere messaggi, Freiheitsmessenger deve restare connesso in background.</string>
+  <string name="setup_doze_explanation">Per ricevere messaggi, Freiheitsmessenger deve restare connesso in background. Disattiva le ottimizzazioni della batteria per mantenere Freiheitsmessenger connesso.</string>
   <string name="setup_doze_button">Permetti le connessioni</string>
   <string name="choose_nickname">Scegli il tuo nickname</string>
   <string name="choose_password">Scegli la tua password</string>
@@ -19,41 +19,41 @@
   <string name="create_account_button">Crea account</string>
   <string name="more_info">Ulteriori Informazioni</string>
   <string name="don_t_ask_again">Non chiedere più</string>
-  <string name="setup_huawei_text">Premi il pulsante qua sotto e assicurati che Briar sia protetto nella schermata \"App protette\"</string>
-  <string name="setup_huawei_button">Proteggi Briar</string>
-  <string name="setup_huawei_help">Se Briar non viene aggiunto nell\'elenco di app protette, non potrà funzionare in background.</string>
-  <string name="setup_huawei_app_launch_text">Tocca il pulsante sotto, apri la schermata \"Esecuzione app\" e assicurati che Briar sia su \"Gestisci manualmente\".</string>
+  <string name="setup_huawei_text">Premi il pulsante qua sotto e assicurati che Freiheitsmessenger sia protetto nella schermata \"App protette\"</string>
+  <string name="setup_huawei_button">Proteggi Freiheitsmessenger</string>
+  <string name="setup_huawei_help">Se Freiheitsmessenger non viene aggiunto nell\'elenco di app protette, non potrà funzionare in background.</string>
+  <string name="setup_huawei_app_launch_text">Tocca il pulsante sotto, apri la schermata \"Esecuzione app\" e assicurati che Freiheitsmessenger sia su \"Gestisci manualmente\".</string>
   <string name="setup_huawei_app_launch_button">Apri impostazioni batteria</string>
-  <string name="setup_huawei_app_launch_help">Se Briar non è su \"Gestisci manualmente\" nella schermata \"Esecuzione app\", non potrà funzionare in secondo piano.</string>
-  <string name="setup_xiaomi_text">Per funzionare in secondo piano, Briar deve essere fissato nella lista di app recenti.</string>
-  <string name="setup_xiaomi_button">Proteggi Briar</string>
-  <string name="setup_xiaomi_help">Se Briar non è fissato nella lista di app recenti, non potrà funzionare in secondo piano.</string>
-  <string name="setup_xiaomi_dialog_body_old">1. Apri la lista di app recenti (chiamata anche app switcher)\n\n2. Scorri fino alla schermata di Briar per mostrare l\'icona del lucchetto\n\n3. Se il lucchetto non è chiuso, toccalo per chiuderlo</string>
-  <string name="setup_xiaomi_dialog_body_new">1. Apri la lista di app recenti (chiamata anche app switcher)\n\n2. Tieni premuta la schermata di Briar finché non compare l\'icona del lucchetto\n\n3. Se il lucchetto non è chiuso, toccalo per chiuderlo</string>
+  <string name="setup_huawei_app_launch_help">Se Freiheitsmessenger non è su \"Gestisci manualmente\" nella schermata \"Esecuzione app\", non potrà funzionare in secondo piano.</string>
+  <string name="setup_xiaomi_text">Per funzionare in secondo piano, Freiheitsmessenger deve essere fissato nella lista di app recenti.</string>
+  <string name="setup_xiaomi_button">Proteggi Freiheitsmessenger</string>
+  <string name="setup_xiaomi_help">Se Freiheitsmessenger non è fissato nella lista di app recenti, non potrà funzionare in secondo piano.</string>
+  <string name="setup_xiaomi_dialog_body_old">1. Apri la lista di app recenti (chiamata anche app switcher)\n\n2. Scorri fino alla schermata di Freiheitsmessenger per mostrare l\'icona del lucchetto\n\n3. Se il lucchetto non è chiuso, toccalo per chiuderlo</string>
+  <string name="setup_xiaomi_dialog_body_new">1. Apri la lista di app recenti (chiamata anche app switcher)\n\n2. Tieni premuta la schermata di Freiheitsmessenger finché non compare l\'icona del lucchetto\n\n3. Se il lucchetto non è chiuso, toccalo per chiuderlo</string>
   <string name="warning_dozed">%s non ha potuto funzionare in background</string>
   <!--Login-->
   <string name="enter_password">Password</string>
   <string name="try_again">Password sbagliata, riprova</string>
   <string name="dialog_title_cannot_check_password">Impossibile controllare la password</string>
-  <string name="dialog_message_cannot_check_password">Briar non riesce a controllare la tua password. Prova a riavviare il dispositivo per risolvere il problema.</string>
+  <string name="dialog_message_cannot_check_password">Freiheitsmessenger non riesce a controllare la tua password. Prova a riavviare il dispositivo per risolvere il problema.</string>
   <string name="sign_in_button">Entra</string>
   <string name="forgotten_password">Ho dimenticato la password</string>
   <string name="dialog_title_lost_password">Password persa</string>
-  <string name="dialog_message_lost_password">Il tuo account Briar si trova cifrato sul tuo dispositivo e non nel cloud, quindi non possiamo resettarti la tua password. Vorresti cancellare il tuo account e partire di nuovo?\n\nAttenzione: Le tue identità, contatti e messaggi verranno persi permanentemente.</string>
-  <string name="startup_failed_activity_title">Fallimento Avvio Briar</string>
-  <string name="startup_failed_clock_error">Briar non ha potuto avviarsi perchè l\'orologio del tuo dispositivo è sbagliato.\n\nRegola correttamente l\'orologio e riprova.</string>
-  <string name="startup_failed_db_error">Briar non ha potuto aprire il database contenente il tuo account, i contatti e i messaggi.\n\nAggiorna all\'ultima versione dell\'app e riprova, o configura un nuovo account scegliendo \'Ho dimenticato la password\' quando richiesto.</string>
+  <string name="dialog_message_lost_password">Il tuo account Freiheitsmessenger si trova cifrato sul tuo dispositivo e non nel cloud, quindi non possiamo resettarti la tua password. Vorresti cancellare il tuo account e partire di nuovo?\n\nAttenzione: Le tue identità, contatti e messaggi verranno persi permanentemente.</string>
+  <string name="startup_failed_activity_title">Fallimento Avvio Freiheitsmessenger</string>
+  <string name="startup_failed_clock_error">Freiheitsmessenger non ha potuto avviarsi perchè l\'orologio del tuo dispositivo è sbagliato.\n\nRegola correttamente l\'orologio e riprova.</string>
+  <string name="startup_failed_db_error">Freiheitsmessenger non ha potuto aprire il database contenente il tuo account, i contatti e i messaggi.\n\nAggiorna all\'ultima versione dell\'app e riprova, o configura un nuovo account scegliendo \'Ho dimenticato la password\' quando richiesto.</string>
   <string name="startup_failed_data_too_old_error">Il tuo account è stato creato con una vecchia versione dell\'app e non può essere aperto in questa versione.\n\nDevi reinstallare la vecchia versione oppure configurare un nuovo account scegliendo \'Ho dimenticato la password\' quando richiesto.</string>
   <string name="startup_failed_data_too_new_error">Il tuo account è stato creato con una versione più recente dell\'app e non può esere aperto in questa versione.\n\nAggiorna all\'ultima versione e riprova.</string>
-  <string name="startup_failed_service_error">Briar non ha potuto avviare un componente necessario.\n\nAggiorna all\'ultima versione dell\'app e riprova.</string>
+  <string name="startup_failed_service_error">Freiheitsmessenger non ha potuto avviare un componente necessario.\n\nAggiorna all\'ultima versione dell\'app e riprova.</string>
   <plurals name="expiry_warning">
-    <item quantity="one">Questa è una versione di prova di Briar. Il tuo account scadrà fra %d giorno e non può essere rinnovato.</item>
-    <item quantity="other">Questa è una versione di prova di Briar. Il tuo account scadrà fra %d giorni e non può essere rinnovato.</item>
+    <item quantity="one">Questa è una versione di prova di Freiheitsmessenger. Il tuo account scadrà fra %d giorno e non può essere rinnovato.</item>
+    <item quantity="other">Questa è una versione di prova di Freiheitsmessenger. Il tuo account scadrà fra %d giorni e non può essere rinnovato.</item>
   </plurals>
   <string name="expiry_date_reached">Questo software è scaduto.\nGrazie per il test!</string>
-  <string name="download_briar">Per continuare a utilizzare Briar, scarica l\'ultima versione.</string>
+  <string name="download_Freiheitsmessenger">Per continuare a utilizzare Freiheitsmessenger, scarica l\'ultima versione.</string>
   <string name="create_new_account">Avrai bisogno di creare un nuovo account, ma puoi usare lo stesso nickname.</string>
-  <string name="download_briar_button">Scarica l\'ultima versione</string>
+  <string name="download_Freiheitsmessenger_button">Scarica l\'ultima versione</string>
   <string name="startup_open_database">Decrittazione del database...</string>
   <string name="startup_migrate_database">Aggiornamento del database...</string>
   <string name="startup_compact_database">Compattazione del database…</string>
@@ -68,43 +68,43 @@
   <string name="lock_button">Blocca app</string>
   <string name="settings_button">Impostazioni</string>
   <string name="sign_out_button">Esci</string>
-  <string name="transports_onboarding_text">Tocca qui per controllare come Briar si connette ai tuoi contatti.</string>
+  <string name="transports_onboarding_text">Tocca qui per controllare come Freiheitsmessenger si connette ai tuoi contatti.</string>
   <!--Transports: Tor-->
   <string name="transport_tor">Internet</string>
   <string name="tor_device_status_online_wifi">Il tuo telefono ha accesso internet via Wi-Fi</string>
   <string name="tor_device_status_online_mobile">Il tuo telefono ha accesso internet via dati mobili</string>
   <string name="tor_device_status_offline">Il tuo telefono non ha accesso internet</string>
-  <string name="tor_plugin_status_enabling">Briar si sta connettendo a internet</string>
-  <string name="tor_plugin_status_active">Briar è connesso a internet</string>
-  <string name="tor_plugin_status_inactive">Briar non riesce a connettersi a internet</string>
-  <string name="tor_plugin_status_disabled">Briar è configurato per non usare internet</string>
-  <string name="tor_plugin_status_disabled_mobile_data">Briar è configurato per non usare i dati mobili</string>
-  <string name="tor_plugin_status_disabled_battery">Briar è configurato per non usare internet quando funziona a batteria</string>
-  <string name="tor_plugin_status_disabled_country_blocked">Briar è configurato per non usare internet in questa nazione</string>
+  <string name="tor_plugin_status_enabling">Freiheitsmessenger si sta connettendo a internet</string>
+  <string name="tor_plugin_status_active">Freiheitsmessenger è connesso a internet</string>
+  <string name="tor_plugin_status_inactive">Freiheitsmessenger non riesce a connettersi a internet</string>
+  <string name="tor_plugin_status_disabled">Freiheitsmessenger è configurato per non usare internet</string>
+  <string name="tor_plugin_status_disabled_mobile_data">Freiheitsmessenger è configurato per non usare i dati mobili</string>
+  <string name="tor_plugin_status_disabled_battery">Freiheitsmessenger è configurato per non usare internet quando funziona a batteria</string>
+  <string name="tor_plugin_status_disabled_country_blocked">Freiheitsmessenger è configurato per non usare internet in questa nazione</string>
   <!--Transports: Wi-Fi-->
   <string name="transport_lan">Wi-Fi</string>
   <string name="transport_lan_long">Stessa rete Wi-Fi</string>
   <string name="lan_device_status_on">Il tuo telefono è connesso al Wi-Fi</string>
   <string name="lan_device_status_off">Il tuo telefono non è connesso al Wi-Fi</string>
-  <string name="lan_plugin_status_enabling">Briar si sta connettendo alla rete Wi-Fi</string>
-  <string name="lan_plugin_status_active">Briar è connesso alla rete Wi-Fi</string>
-  <string name="lan_plugin_status_inactive">Briar non riesce a connettersi alla rete Wi-Fi</string>
-  <string name="lan_plugin_status_disabled">Briar è configurato per non usare la rete Wi-Fi</string>
+  <string name="lan_plugin_status_enabling">Freiheitsmessenger si sta connettendo alla rete Wi-Fi</string>
+  <string name="lan_plugin_status_active">Freiheitsmessenger è connesso alla rete Wi-Fi</string>
+  <string name="lan_plugin_status_inactive">Freiheitsmessenger non riesce a connettersi alla rete Wi-Fi</string>
+  <string name="lan_plugin_status_disabled">Freiheitsmessenger è configurato per non usare la rete Wi-Fi</string>
   <!--Transports: Bluetooth-->
   <string name="transport_bt">Bluetooth</string>
   <string name="bt_device_status_on">Il Bluetooth del tuo telefono è acceso</string>
   <string name="bt_device_status_off">Il Bluetooth del tuo telefono è spento</string>
-  <string name="bt_plugin_status_enabling">Briar si sta connettendo al Bluetooth</string>
-  <string name="bt_plugin_status_active">Briar è connesso al Bluetooth</string>
-  <string name="bt_plugin_status_inactive">Briar non riesce a connettersi al Bluetooth</string>
-  <string name="bt_plugin_status_disabled">Briar è configurato per non usare il Bluetooth</string>
+  <string name="bt_plugin_status_enabling">Freiheitsmessenger si sta connettendo al Bluetooth</string>
+  <string name="bt_plugin_status_active">Freiheitsmessenger è connesso al Bluetooth</string>
+  <string name="bt_plugin_status_inactive">Freiheitsmessenger non riesce a connettersi al Bluetooth</string>
+  <string name="bt_plugin_status_disabled">Freiheitsmessenger è configurato per non usare il Bluetooth</string>
   <!--Notifications-->
-  <string name="reminder_notification_title">Uscito da Briar</string>
+  <string name="reminder_notification_title">Uscito da Freiheitsmessenger</string>
   <string name="reminder_notification_text">Tocca per riaccedere.</string>
-  <string name="reminder_notification_channel_title">Promemoria di accesso a Briar</string>
+  <string name="reminder_notification_channel_title">Promemoria di accesso a Freiheitsmessenger</string>
   <string name="reminder_notification_dismiss">Ignora</string>
-  <string name="ongoing_notification_title">Entrato in Briar</string>
-  <string name="ongoing_notification_text">Tocca per aprire Briar.</string>
+  <string name="ongoing_notification_title">Entrato in Freiheitsmessenger</string>
+  <string name="ongoing_notification_text">Tocca per aprire Freiheitsmessenger.</string>
   <plurals name="private_message_notification_text">
     <item quantity="one">Nuovo messaggio privato.</item>
     <item quantity="other">%d nuovi messaggi privati.</item>
@@ -212,7 +212,7 @@
   <string name="save_image_success">L\'immagine è stata salvata</string>
   <string name="save_image_error">Non è stato possibile salvare l\'immagine</string>
   <string name="dialog_title_no_image_support">Immagini non disponibili</string>
-  <string name="dialog_message_no_image_support">Il Briar del tuo contatto non supporta ancora le immagini in allegato. Quando avrà aggiornato vedrai un\'icona diversa.</string>
+  <string name="dialog_message_no_image_support">Il Freiheitsmessenger del tuo contatto non supporta ancora le immagini in allegato. Quando avrà aggiornato vedrai un\'icona diversa.</string>
   <string name="dialog_title_image_support">Ora puoi inviare immagini a questo contatto</string>
   <string name="dialog_message_image_support">Tocca questa icona per allegare immagini.</string>
   <string name="messaging_too_many_attachments_toast">Verranno inviate solo le prime %d immagini</string>
@@ -249,7 +249,7 @@
   <string name="add_contact_choose_a_nickname">Inserisci un nickname</string>
   <string name="nickname_intro">Dai un nickname al tuo contatto. Solo tu puoi vederlo.</string>
   <string name="your_link">Dai questo link al contatto che vuoi aggiungere</string>
-  <string name="link_clip_label">Link di Briar</string>
+  <string name="link_clip_label">Link di Freiheitsmessenger</string>
   <string name="link_copied_toast">Link copiato</string>
   <string name="adding_contact_error">Si è verificato un errore nell\'aggiunta del contatto.</string>
   <string name="pending_contact_requests_snackbar">Ci sono richieste di contatto in attesa</string>
@@ -264,7 +264,7 @@
   <string name="own_link_error">Inserisci il link del contatto, non il tuo</string>
   <string name="nickname_missing">Inserisci un nickname</string>
   <string name="invalid_link">Link non valido</string>
-  <string name="unsupported_link">Questo collegamento viene da una versione più recente di Briar. Aggiorna all\'ultima versione e riprova.</string>
+  <string name="unsupported_link">Questo collegamento viene da una versione più recente di Freiheitsmessenger. Aggiorna all\'ultima versione e riprova.</string>
   <string name="intent_own_link">Hai aperto il tuo stesso link. Usa quello del contatto che vuoi aggiungere!</string>
   <string name="missing_link">Inserisci un link</string>
   <!--This is a numeral indicating the first step in a series of screens-->
@@ -293,7 +293,7 @@
   <string name="pending_contact_updated_toast">Contatto in attesa aggiornato</string>
   <!--Introductions-->
   <string name="introduction_onboarding_title">Introduzione tuoi contatti</string>
-  <string name="introduction_onboarding_text">Puoi presentare i tuoi contatti fra di loro, così non hanno bisogno di incontrarsi di persona per connettersi a Briar.</string>
+  <string name="introduction_onboarding_text">Puoi presentare i tuoi contatti fra di loro, così non hanno bisogno di incontrarsi di persona per connettersi a Freiheitsmessenger.</string>
   <string name="introduction_menu_item">Crea l\'introduzione</string>
   <string name="introduction_activity_title">Seleziona Contatto</string>
   <string name="introduction_not_possible">Hai già un introduzione in corso con questi contatti. Si prega di consentire che prima questo finisca. Se tu o i tuoi contatti sono raramente online, questo potrebbe richiedere un po\' di tempo.</string>
@@ -483,7 +483,7 @@
   <string name="change_profile_picture_failed_message">Spiacenti, qualcosa è andato storto aggiornando la tua foto del profilo.</string>
   <!--Settings Display-->
   <string name="pref_language_title">Lingua &amp; regione</string>
-  <string name="pref_language_changed">Questa impostazione avrà effetto quando riavvierai Briar. Per favore, esci e riavvia Briar.</string>
+  <string name="pref_language_changed">Questa impostazione avrà effetto quando riavvierai Freiheitsmessenger. Per favore, esci e riavvia Freiheitsmessenger.</string>
   <string name="pref_language_default">Default del sistema</string>
   <string name="display_settings_title">Visualizza</string>
   <string name="pref_theme_title">Tema</string>
@@ -502,7 +502,7 @@
   <string name="tor_network_setting_without_bridges">Usa la rete Tor senza bridge</string>
   <string name="tor_network_setting_with_bridges">Usa la rete Tor con bridge</string>
   <string name="tor_network_setting_never">Non connettere a internet</string>
-  <!--How and when Briar will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)"-->
+  <!--How and when Freiheitsmessenger will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)"-->
   <string name="tor_network_setting_summary">Automatico: %1$s (in %2$s)</string>
   <string name="tor_mobile_data_title">Usa dati mobili</string>
   <string name="tor_only_when_charging_title">Connetti a internet solo durante la ricarica</string>
@@ -510,11 +510,11 @@
   <!--Settings Security and Panic-->
   <string name="security_settings_title">Sicurezza</string>
   <string name="pref_lock_title">Blocco dell\'app</string>
-  <string name="pref_lock_summary">Usa il blocco schermo del dispositivo per proteggere Briar mentre sei connesso</string>
+  <string name="pref_lock_summary">Usa il blocco schermo del dispositivo per proteggere Freiheitsmessenger mentre sei connesso</string>
   <string name="pref_lock_disabled_summary">Per usare questa funzione, imposta un blocco schermo per il dispositivo</string>
   <string name="pref_lock_timeout_title">Tempo di inattività prima di bloccare l\'app</string>
   <!--The %s placeholder is replaced with the following time spans, e.g. 5 Minutes, 1 Hour-->
-  <string name="pref_lock_timeout_summary">Quando non usi Briar, verrà bloccato automaticamente dopo %s</string>
+  <string name="pref_lock_timeout_summary">Quando non usi Freiheitsmessenger, verrà bloccato automaticamente dopo %s</string>
   <!--Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s"-->
   <string name="pref_lock_timeout_1">1 minuto</string>
   <!--Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s"-->
@@ -534,7 +534,7 @@
   <string name="password_changed">La password è stata cambiata.</string>
   <string name="panic_setting">Impostazione pulsante panico</string>
   <string name="panic_setting_title">Pulsante panico</string>
-  <string name="panic_setting_hint">Configura come Briar reagirà quando userai un\'app pulsante panico</string>
+  <string name="panic_setting_hint">Configura come Freiheitsmessenger reagirà quando userai un\'app pulsante panico</string>
   <string name="panic_app_setting_title">App Pulsante Panico</string>
   <string name="unknown_app">un\'app sconosciuta</string>
   <string name="panic_app_setting_summary">Nessun app è stata impostata</string>
@@ -543,9 +543,9 @@
   <string name="dialog_message_connect_panic_app">Sei sicuro di voler consentire %1$s di attivare le azioni distruttive del pulsante panico?</string>
   <string name="panic_setting_destructive_action">Azioni distruttive</string>
   <string name="panic_setting_signout_title">Esci</string>
-  <string name="panic_setting_signout_summary">Uscire da Briar se viene premuto un pulsante di panico</string>
+  <string name="panic_setting_signout_summary">Uscire da Freiheitsmessenger se viene premuto un pulsante di panico</string>
   <string name="purge_setting_title">Elimina Account</string>
-  <string name="purge_setting_summary">Cancella il tuo account Briar se un panic button è premuto. Attenzione: ciò cancellerà permanentemente le tue identità, contatti e messaggi</string>
+  <string name="purge_setting_summary">Cancella il tuo account Freiheitsmessenger se un panic button è premuto. Attenzione: ciò cancellerà permanentemente le tue identità, contatti e messaggi</string>
   <!--Settings Notifications-->
   <string name="notification_settings_title">Notifiche</string>
   <string name="notify_sign_in_title">Ricordami di accedere</string>
@@ -590,10 +590,10 @@
   <string name="link_warning_text">Ciò può essere usato per identificarti. Pensa se ti fidi della persona che ti ha inviato questo link e considera se aprirlo con Tor Browser.</string>
   <string name="link_warning_open_link">Apri Link</string>
   <!--Crash Reporter-->
-  <string name="crash_report_title">Rapporto Crash Briar</string>
-  <string name="briar_crashed">Spiacenti, Briar è crashato</string>
+  <string name="crash_report_title">Rapporto Crash Freiheitsmessenger</string>
+  <string name="Freiheitsmessenger_crashed">Spiacenti, Freiheitsmessenger è crashato</string>
   <string name="not_your_fault">Questo non è colpa tua.</string>
-  <string name="please_send_report">Per favore aiutaci a migliorare Briar mandandoci un report del crash.</string>
+  <string name="please_send_report">Per favore aiutaci a migliorare Freiheitsmessenger mandandoci un report del crash.</string>
   <string name="report_is_encrypted">Vi promettiamo che il rapporto è cifrato e inviato in modo sicuro.</string>
   <string name="feedback_title">Feedback</string>
   <string name="describe_crash">Descrivi cosa è successo (facoltativo)</string>
@@ -616,61 +616,61 @@
   <string name="close">Chiudi</string>
   <string name="dev_report_sending">Trasmissione feedback...</string>
   <string name="dev_report_sent">Commenti inviati</string>
-  <string name="dev_report_saved">Report salvato. Verrà spedito la prossima volta che loggherai in Briar.</string>
+  <string name="dev_report_saved">Report salvato. Verrà spedito la prossima volta che loggherai in Freiheitsmessenger.</string>
   <string name="dev_report_error">Errore: invio segnalazione fallita</string>
   <!--Sign Out-->
-  <string name="progress_title_logout">Uscire da Briar ...</string>
+  <string name="progress_title_logout">Uscire da Freiheitsmessenger ...</string>
   <!--Screen Filters & Tapjacking-->
   <string name="screen_filter_title">È stata rilevata un\'overlay sullo schermo</string>
-  <string name="screen_filter_body">Un\'altra app si sta sovrapponendo a Briar. Per proteggere la tua sicurezza, Briar non risponderà ai tocchi quando un\'app si sovrappone.\n\nLe seguenti app potrebbero sovrapporsi:\n\n%1$s</string>
-  <string name="screen_filter_body_api_30">Un\'altra app si sta sovrapponendo a Briar. Per proteggere la tua sicurezza, Briar non risponderà ai tocchi quando un\'app si sovrappone.\n\nTrova l\'app responsabile tra le seguenti.</string>
+  <string name="screen_filter_body">Un\'altra app si sta sovrapponendo a Freiheitsmessenger. Per proteggere la tua sicurezza, Freiheitsmessenger non risponderà ai tocchi quando un\'app si sovrappone.\n\nLe seguenti app potrebbero sovrapporsi:\n\n%1$s</string>
+  <string name="screen_filter_body_api_30">Un\'altra app si sta sovrapponendo a Freiheitsmessenger. Per proteggere la tua sicurezza, Freiheitsmessenger non risponderà ai tocchi quando un\'app si sovrappone.\n\nTrova l\'app responsabile tra le seguenti.</string>
   <string name="screen_filter_allow">Permetti a queste app di sovrapporsi</string>
   <string name="screen_filter_review_apps">Controlla le app</string>
   <!--Permission Requests-->
   <string name="permission_camera_title">Autorizzazione fotocamera</string>
-  <string name="permission_camera_request_body">Per scansionare il codice QR, Briar deve accedere alla fotocamera.</string>
+  <string name="permission_camera_request_body">Per scansionare il codice QR, Freiheitsmessenger deve accedere alla fotocamera.</string>
   <string name="permission_location_title">Autorizzazione geolocalizzazione</string>
-  <string name="permission_location_request_body">Per trovare dispositivi Bluetooth, Briar ha bisogno di accedere alla tua posizione.\n\nBriar non memorizza la tua posizione, nè la condivide con terzi.</string>
+  <string name="permission_location_request_body">Per trovare dispositivi Bluetooth, Freiheitsmessenger ha bisogno di accedere alla tua posizione.\n\nFreiheitsmessenger non memorizza la tua posizione, nè la condivide con terzi.</string>
   <string name="permission_camera_location_title">Fotocamera e geolocalizzazione</string>
-  <string name="permission_camera_location_request_body">Per scansionare il codice QR, Briar ha bisogno di accedere alla fotocamera.\n\nPer trovare dispositivi Bluetooth, Briar ha bisogno di accedere alla tua posizione.\n\nBriar non memorizza la tua posizione, nè la condivide con terzi.</string>
+  <string name="permission_camera_location_request_body">Per scansionare il codice QR, Freiheitsmessenger ha bisogno di accedere alla fotocamera.\n\nPer trovare dispositivi Bluetooth, Freiheitsmessenger ha bisogno di accedere alla tua posizione.\n\nFreiheitsmessenger non memorizza la tua posizione, nè la condivide con terzi.</string>
   <string name="permission_camera_denied_body">Hai negato l\'accesso alla fotocamera, ma questa serve per aggiungere i contatti.\n\nConsidera la possibilità di concedere l\'accesso.</string>
-  <string name="permission_location_denied_body">Hai negato l\'accesso alla tua posizione, ma Briar ha bisogno di questa autorizzazione per trovare i dispositivi Bluetooth.\n\nConsidera la possibilità di concedere l\'accesso.</string>
+  <string name="permission_location_denied_body">Hai negato l\'accesso alla tua posizione, ma Freiheitsmessenger ha bisogno di questa autorizzazione per trovare i dispositivi Bluetooth.\n\nConsidera la possibilità di concedere l\'accesso.</string>
   <string name="permission_location_setting_title">Impostazioni di posizione</string>
   <string name="permission_location_setting_body">La geolocalizzazione del tuo dispositivo deve essere attiva per trovare altri dispositivi via Bluetooth. Attivala per continuare. Puoi disattivarla di nuovo in seguito.</string>
   <string name="permission_location_setting_button">Attiva geolocalizzazione</string>
   <string name="qr_code">Codice QR</string>
   <string name="show_qr_code_fullscreen">Mostra codice QR a tutto schermo</string>
   <!--App Locking-->
-  <string name="lock_unlock">Sblocca Briar</string>
-  <string name="lock_unlock_verbose">Inserisci il PIN, sequenza o password del dispositivo per sbloccare Briar</string>
+  <string name="lock_unlock">Sblocca Freiheitsmessenger</string>
+  <string name="lock_unlock_verbose">Inserisci il PIN, sequenza o password del dispositivo per sbloccare Freiheitsmessenger</string>
   <string name="lock_unlock_fingerprint_description">Tocca il sensore di impronte con il dito registrato per continuare</string>
   <string name="lock_unlock_password">Usa password</string>
-  <string name="lock_is_locked">Briar è bloccato</string>
+  <string name="lock_is_locked">Freiheitsmessenger è bloccato</string>
   <string name="lock_tap_to_unlock">Tocca per sbloccare</string>
   <!--Connections Screen-->
-  <string name="transports_help_text">Briar può connettersi ai tuoi contatti tramite internet, Wi-Fi o Bluetooth.\n\nTutte le connessioni internet passano attraverso la rete Tor per privacy.\n\nSe un contatto può essere raggiunto con più metodi, Briar li usa in parallelo.</string>
+  <string name="transports_help_text">Freiheitsmessenger può connettersi ai tuoi contatti tramite internet, Wi-Fi o Bluetooth.\n\nTutte le connessioni internet passano attraverso la rete Tor per privacy.\n\nSe un contatto può essere raggiunto con più metodi, Freiheitsmessenger li usa in parallelo.</string>
   <!--Share app offline-->
   <string name="hotspot_title">Condividi questa app offline</string>
   <string name="hotspot_intro">Condividi questa app con qualcuno accanto senza connessione internet usando il Wi-Fi del tuo telefono.
-		\n\nIl tuo telefono avvierà un hotspot Wi-Fi. Le persone vicine possono connettersi all\'hotspot e scaricare l\'app Briar dal tuo telefono.</string>
+		\n\nIl tuo telefono avvierà un hotspot Wi-Fi. Le persone vicine possono connettersi all\'hotspot e scaricare l\'app Freiheitsmessenger dal tuo telefono.</string>
   <string name="hotspot_button_start_sharing">Avvia hotspot</string>
   <string name="hotspot_button_stop_sharing">Ferma hotspot</string>
   <string name="hotspot_progress_text_start">Impostazione hotspot…</string>
   <string name="hotspot_notification_channel_title">Hotspot Wi-Fi</string>
-  <string name="hotspot_notification_title">Condivisione di Briar offline</string>
+  <string name="hotspot_notification_title">Condivisione di Freiheitsmessenger offline</string>
   <string name="hotspot_button_connected">Avanti</string>
-  <string name="permission_hotspot_location_request_body">Per creare un hotspot Wi-Fi, Briar ha bisogno dell\'autorizzazione per accedere alla tua posizione.\n\nBriar non memorizza la tua posizione e non la condivide con nessuno.</string>
-  <string name="permission_hotspot_location_denied_body">Hai negato l\'accesso alla tua posizione, ma Briar ha bisogno di questa autorizzazione per creare un hotspot Wi-Fi.\n\nPrendi in considerazione di consentirla.</string>
+  <string name="permission_hotspot_location_request_body">Per creare un hotspot Wi-Fi, Freiheitsmessenger ha bisogno dell\'autorizzazione per accedere alla tua posizione.\n\nFreiheitsmessenger non memorizza la tua posizione e non la condivide con nessuno.</string>
+  <string name="permission_hotspot_location_denied_body">Hai negato l\'accesso alla tua posizione, ma Freiheitsmessenger ha bisogno di questa autorizzazione per creare un hotspot Wi-Fi.\n\nPrendi in considerazione di consentirla.</string>
   <string name="wifi_settings_title">Impostazione Wi-Fi</string>
-  <string name="wifi_settings_request_enable_body">Per creare un hotspot Wi-Fi, Briar deve usare il Wi-Fi. Prima attivalo.</string>
+  <string name="wifi_settings_request_enable_body">Per creare un hotspot Wi-Fi, Freiheitsmessenger deve usare il Wi-Fi. Prima attivalo.</string>
   <string name="hotspot_tab_manual">Manuale</string>
   <!--The placeholder to be inserted into the string 'hotspot_manual_wifi': People can connect by %s-->
   <string name="hotspot_scanning_a_qr_code">scansionando un codice QR</string>
   <!--Wi-Fi setup-->
   <!--The %s placeholder will be replaced with the translation of 'hotspot_scanning_a_qr_code'-->
-  <string name="hotspot_manual_wifi">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone che vogliono scaricare Briar possono connettersi all\'hotspot aggiungendolo nelle impostazioni Wi-Fi del loro dispositivo con i dettagli sottostanti o %s. Quando sono connessi all\'hotspot, premi \'Avanti\'.</string>
+  <string name="hotspot_manual_wifi">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone che vogliono scaricare Freiheitsmessenger possono connettersi all\'hotspot aggiungendolo nelle impostazioni Wi-Fi del loro dispositivo con i dettagli sottostanti o %s. Quando sono connessi all\'hotspot, premi \'Avanti\'.</string>
   <string name="hotspot_manual_wifi_ssid">Nome della rete</string>
-  <string name="hotspot_qr_wifi">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone che vogliono scaricare Briar possono connettersi all\'hotspot scaricando questo codice QR. Quando sono connessi all\'hotspot, premi \'Avanti\'.</string>
+  <string name="hotspot_qr_wifi">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone che vogliono scaricare Freiheitsmessenger possono connettersi all\'hotspot scaricando questo codice QR. Quando sono connessi all\'hotspot, premi \'Avanti\'.</string>
   <string name="hotspot_no_peers_connected">Nessun dispositivo connesso</string>
   <plurals name="hotspot_peers_connected">
     <item quantity="one">%s dispositivo connesso</item>
@@ -678,10 +678,10 @@
   </plurals>
   <!--Download link-->
   <!--The %s placeholder will be replaced with the translation of 'hotspot_scanning_a_qr_code'-->
-  <string name="hotspot_manual_site">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone connesse all\'hotspot possono scaricare Briar digitando il seguente collegamento in un browser web o %s.</string>
+  <string name="hotspot_manual_site">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone connesse all\'hotspot possono scaricare Freiheitsmessenger digitando il seguente collegamento in un browser web o %s.</string>
   <string name="hotspot_manual_site_address">Indirizzo (URL)</string>
-  <string name="hotspot_qr_site">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone connesse all\'hotspot possono scaricare Briar scansionando questo codice QR.</string>
-  <!--e.g. Download Briar 1.2.20-->
+  <string name="hotspot_qr_site">Il tuo telefono sta fornendo un hotspot Wi-Fi. Le persone connesse all\'hotspot possono scaricare Freiheitsmessenger scansionando questo codice QR.</string>
+  <!--e.g. Download Freiheitsmessenger 1.2.20-->
   <string name="website_download_title">Scarica %s</string>
   <string name="website_download_intro">Qualcuno nelle vicinanze ha condiviso %s con te.</string>
   <string name="website_download_outro">Dopo il completamento del download, apri il file scaricato e installalo.</string>
@@ -692,14 +692,14 @@
   <string name="hotspot_help_wifi_title">Problemi di connessione al Wi-Fi:</string>
   <string name="hotspot_help_wifi_1">Prova a disattivare e riattivare il Wi-Fi su entrambi i telefoni e riprova.</string>
   <string name="hotspot_help_wifi_2">Se il telefono ti segnala che il Wi-Fi non ha internet, digli che vuoi restare comunque connesso.</string>
-  <string name="hotspot_help_wifi_3">Riavvia il telefono su cui è in esecuzione l\'hotspot Wi-Fi, poi avvia Briar e riprova a condividere.</string>
+  <string name="hotspot_help_wifi_3">Riavvia il telefono su cui è in esecuzione l\'hotspot Wi-Fi, poi avvia Freiheitsmessenger e riprova a condividere.</string>
   <string name="hotspot_help_site_title">Problemi visitando il sito web locale:</string>
   <string name="hotspot_help_site_1">Controlla di avere inserito l\'indirizzo esattamente come mostrato. Un piccolo errore può impedire il funzionamento.</string>
   <string name="hotspot_help_site_2">Assicurati che il telefono sia ancora connesso al Wi-Fi giusto (vedi sopra) quando provi ad accedere al sito.</string>
   <string name="hotspot_help_site_3">Se hai un\'app firewall, controlla che non stia bloccando l\'accesso.</string>
-  <string name="hotspot_help_site_4">Se puoi visitare il sito, ma non scaricare l\'app Briar, riprova con un browser web diverso.</string>
+  <string name="hotspot_help_site_4">Se puoi visitare il sito, ma non scaricare l\'app Freiheitsmessenger, riprova con un browser web diverso.</string>
   <string name="hotspot_help_fallback_title">Non funziona niente?</string>
-  <string name="hotspot_help_fallback_intro">Puoi provare a salvare l\'app come file .apk per condividerla in altri modi. Una volta trasferito il file sull\'altro dispositivo, può essere usato per installare Briar.
+  <string name="hotspot_help_fallback_intro">Puoi provare a salvare l\'app come file .apk per condividerla in altri modi. Una volta trasferito il file sull\'altro dispositivo, può essere usato per installare Freiheitsmessenger.
 		\n\nNota: per condividere via Bluetooth, potresti dover prima rinominare l\'estensione del file in .zip.</string>
   <string name="hotspot_help_fallback_button">Salva app</string>
   <!--error handling-->
@@ -709,18 +709,18 @@
   <string name="hotspot_error_start_callback_failed_unknown">Avvio dell\'hotspot fallito con un errore sconosciuto, motivo %d</string>
   <string name="hotspot_error_start_callback_no_group_info">Avvio dell\'hotspot fallito: nessuna info di gruppo</string>
   <string name="hotspot_error_web_server_start">Errore di avvio del server web</string>
-  <string name="hotspot_error_web_server_serve">Errore di presentazione del sito.\n\nInvia una segnalazione (con dati anonimi) attraverso Briar se il problema persiste.</string>
+  <string name="hotspot_error_web_server_serve">Errore di presentazione del sito.\n\nInvia una segnalazione (con dati anonimi) attraverso Freiheitsmessenger se il problema persiste.</string>
   <string name="hotspot_flag_test">Attenzione: questa app è stata installata con Android Studio e NON può essere installata su un altro dispositivo.</string>
   <string name="hotspot_error_framework_busy">Impossibile avviare l\'hotspot.\n\nSe ne hai un altro in esecuzione o se stai condividendo la connessione internet via Wi-Fi, fermalo e poi riprova.</string>
   <!--Transfer Data via Removable Drives-->
   <string name="removable_drive_menu_title">Connessione tramite unità rimovibile</string>
-  <string name="removable_drive_intro">Se non riesci a connetterti al tuo contatto tramite Internet, Wi-Fi o Bluetooth, Briar può anche trasferire i messaggi su un\'unità rimovibile come una chiavetta USB o una scheda SD.</string>
-  <string name="removable_drive_explanation">Se non riesci a connetterti al tuo contatto tramite Internet, Wi-Fi o Bluetooth, Briar può anche trasferire i messaggi su un\'unità rimovibile come una chiavetta USB o una scheda SD.\n\nQuando usi il pulsante \"Invia dati\" , tutti i dati in attesa di essere inviati al contatto verranno scritti sull\'unità rimovibile. Ciò include messaggi privati, allegati, blog, forum e gruppi privati.\n\nTutto sarà crittografato prima di essere scritto sull\'unità rimovibile.\n\nQuando il tuo contatto riceve l\'unità rimovibile, può utilizzare il pulsante \"Ricevi dati\" per importare i messaggi in Briar.</string>
+  <string name="removable_drive_intro">Se non riesci a connetterti al tuo contatto tramite Internet, Wi-Fi o Bluetooth, Freiheitsmessenger può anche trasferire i messaggi su un\'unità rimovibile come una chiavetta USB o una scheda SD.</string>
+  <string name="removable_drive_explanation">Se non riesci a connetterti al tuo contatto tramite Internet, Wi-Fi o Bluetooth, Freiheitsmessenger può anche trasferire i messaggi su un\'unità rimovibile come una chiavetta USB o una scheda SD.\n\nQuando usi il pulsante \"Invia dati\" , tutti i dati in attesa di essere inviati al contatto verranno scritti sull\'unità rimovibile. Ciò include messaggi privati, allegati, blog, forum e gruppi privati.\n\nTutto sarà crittografato prima di essere scritto sull\'unità rimovibile.\n\nQuando il tuo contatto riceve l\'unità rimovibile, può utilizzare il pulsante \"Ricevi dati\" per importare i messaggi in Freiheitsmessenger.</string>
   <string name="removable_drive_title_send">Invia dati</string>
   <string name="removable_drive_title_receive">Ricevi dati</string>
   <string name="removable_drive_send_intro">Tocca il pulsante sottostante per creare un nuovo file contenente i messaggi cifrati. Puoi scegliere dove verrà salvato il file.\n\nSe vuoi salvarlo in un supporto rimovibile, inseriscilo ora.</string>
   <string name="removable_drive_send_no_data">Attualmente non ci sono messaggi in attesa di essere inviati a questo contatto.</string>
-  <string name="removable_drive_send_not_supported">Questo contatto sta usando una vecchia versione di Briar o un dispositivo obsoleto che non supporta questa funzionalità.</string>
+  <string name="removable_drive_send_not_supported">Questo contatto sta usando una vecchia versione di Freiheitsmessenger o un dispositivo obsoleto che non supporta questa funzionalità.</string>
   <string name="removable_drive_send_button">Scegli file per esportare</string>
   <string name="removable_drive_ongoing">Attendi il completamento del processo in corso</string>
   <string name="removable_drive_receive_intro">Tocca il pulsante sottostante per scegliere il file che ti ha inviato il tuo contatto.\n\nSe si trova in un supporto rimovibile, inseriscilo ora.</string>
@@ -730,9 +730,9 @@
   <string name="removable_drive_success_receive_title">Importazione riuscita</string>
   <string name="removable_drive_success_receive_text">Tutti i messaggi cifrati contenuti in questo file sono stati ricevuti.</string>
   <string name="removable_drive_error_send_title">Errore di esportazione dati</string>
-  <string name="removable_drive_error_send_text">Si è verificato un errore scrivendo i dati nel file.\n\nSe stai usando un supporto rimovibile, assicurati che sia inserito correttamente e riprova.\n\nSe l\'errore persiste, invia una segnalazione del problema al team di Briar.</string>
+  <string name="removable_drive_error_send_text">Si è verificato un errore scrivendo i dati nel file.\n\nSe stai usando un supporto rimovibile, assicurati che sia inserito correttamente e riprova.\n\nSe l\'errore persiste, invia una segnalazione del problema al team di Freiheitsmessenger.</string>
   <string name="removable_drive_error_receive_title">Errore di importazione dati</string>
-  <string name="removable_drive_error_receive_text">Il file selezionato non contiene nulla che Briar possa riconoscere.\n\nControlla di avere scelto il file giusto.\n\nSe il tuo contatto aveva creato il file più di 28 giorni fa, Briar non sarà in grado di riconoscerlo.</string>
+  <string name="removable_drive_error_receive_text">Il file selezionato non contiene nulla che Freiheitsmessenger possa riconoscere.\n\nControlla di avere scelto il file giusto.\n\nSe il tuo contatto aveva creato il file più di 28 giorni fa, Freiheitsmessenger non sarà in grado di riconoscerlo.</string>
   <!--Screenshots-->
   <!--This is a name to be used in screenshots. Feel free to change it to a local name.-->
   <string name="screenshot_alice">Alice</string>
@@ -743,7 +743,7 @@
   <!--This is a message to be used in screenshots. Please use the same translation for Bob!-->
   <string name="screenshot_message_1">Ciao Paolo!</string>
   <!--This is a message to be used in screenshots. Please use the same translation for Alice!-->
-  <string name="screenshot_message_2">Ciao Alice! Grazie per avermi parlato di Briar!</string>
+  <string name="screenshot_message_2">Ciao Alice! Grazie per avermi parlato di Freiheitsmessenger!</string>
   <!--This is a message to be used in screenshots.-->
   <string name="screenshot_message_3">Figurati, spero che ti piaccia 😀</string>
 </resources>

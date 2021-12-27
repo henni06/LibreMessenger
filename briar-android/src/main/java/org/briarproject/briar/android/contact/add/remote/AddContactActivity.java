@@ -81,6 +81,9 @@ public class AddContactActivity extends BriarActivity implements
 	}
 
 	private void handleIncomingLink(String link) {
+		if(link.startsWith("briar:")){
+			link=link.replaceAll("briar:","fm:");
+		}
 		if (link.equals(viewModel.getHandshakeLink().getValue())) {
 			Toast.makeText(this, R.string.intent_own_link, LENGTH_LONG)
 					.show();

@@ -156,7 +156,9 @@ class MessageTrackerImpl implements MessageTracker {
 				// update unread counter in group metadata
 				GroupCount c = getGroupCount(txn, g);
 				int unreadCount = c.getUnreadCount() + (read ? -1 : 1);
-				if (unreadCount < 0) throw new DbException();
+				if (unreadCount < 0){
+					unreadCount=0;
+				}
 				storeGroupCount(txn, g, new GroupCount(c.getMsgCount(),
 						unreadCount, c.getLatestMsgTime()));
 			}

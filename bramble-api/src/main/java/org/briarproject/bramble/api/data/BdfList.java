@@ -119,7 +119,9 @@ public class BdfList extends ArrayList<Object> {
 	}
 
 	public String getString(int index) throws FormatException {
-		if (!isInRange(index)) throw new FormatException();
+		if (!isInRange(index)){
+			throw new FormatException();
+		}
 		Object o = get(index);
 		if (o instanceof String) return (String) o;
 		throw new FormatException();

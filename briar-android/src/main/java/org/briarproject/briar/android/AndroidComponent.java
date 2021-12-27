@@ -98,7 +98,7 @@ import dagger.Component;
 })
 public interface AndroidComponent
 		extends BrambleCoreEagerSingletons, BrambleAndroidEagerSingletons,
-		BriarCoreEagerSingletons, AndroidEagerSingletons, BrambleAppComponent {
+		BriarCoreEagerSingletons, AndroidEagerSingletons, BrambleAppComponent{
 
 	// Exposed objects
 	@CryptoExecutor
@@ -203,6 +203,7 @@ public interface AndroidComponent
 	Thread.UncaughtExceptionHandler exceptionHandler();
 
 	AutoDeleteManager autoDeleteManager();
+
 
 	void inject(SignInReminderReceiver briarService);
 

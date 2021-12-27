@@ -18,6 +18,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
 
 import static org.briarproject.briar.api.privategroup.MessageType.JOIN;
+import static org.briarproject.briar.api.privategroup.MessageType.LOCATION;
 import static org.briarproject.briar.api.privategroup.MessageType.POST;
 
 @Immutable
@@ -105,6 +106,48 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 			);
 			Message m = clientHelper.createMessage(groupId, timestamp, body);
 			return new GroupMessage(m, parentId, member);
+		} catch (GeneralSecurityException e) {
+			throw new IllegalArgumentException(e);
+		} catch (FormatException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+
+	private String getLocationString(double lng,double lat){
+		return "{'lat':'"+lat+"','lng':'"+lng+"'}";
+	}
+
+	@Override
+	public GroupMessage createLocationMessage(GroupId groupId, long timestamp,
+			LocalAuthor author, double lng, double lat,MessageId previousMsgId) {
+		try {
+
+			// Generate the signature
+			BdfList memberList = clientHelper.toList(author);
+
+
+			BdfList toSign = BdfList.of(
+					groupId,
+					timestamp,
+					memberList,
+					getLocationString(lng,lat)
+			);
+
+			byte[] signature = clientHelper.sign(SIGNING_LABEL_POST, toSign,
+					author.getPrivateKey());
+
+			// Compose the message
+
+
+			BdfList body = BdfList.of(
+					JOIN.getInt(),
+					memberList,
+					getLocationString(lng,lat),
+					signature
+			);
+			Message m = clientHelper.createMessage(groupId, timestamp, body);
+			return new GroupMessage(m, null, author);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalArgumentException(e);
 		} catch (FormatException e) {

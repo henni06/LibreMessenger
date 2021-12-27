@@ -25,7 +25,7 @@ public interface HandshakeLinkConstants {
 	 * the 'briar://' prefix.
 	 */
 	Pattern LINK_REGEX =
-			Pattern.compile("(briar://)?([a-z2-7]{" + BASE32_LINK_BYTES + "})");
+			Pattern.compile("(fm://)?([a-z2-7]{" + BASE32_LINK_BYTES + "})");
 
 	/**
 	 * Label for hashing handshake public keys to calculate their identifiers.

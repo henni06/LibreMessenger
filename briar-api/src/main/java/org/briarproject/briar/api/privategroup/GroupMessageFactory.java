@@ -60,4 +60,7 @@ public interface GroupMessageFactory {
 			@Nullable MessageId parentId, LocalAuthor author, String text,
 			MessageId previousMsgId);
 
+	GroupMessage createLocationMessage(GroupId groupId,long timestamp,
+			LocalAuthor author,double lng,double lat,MessageId previousMsgId);
+
 }

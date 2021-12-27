@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
   <!--Setup-->
-  <string name="setup_title">مرحبًا بك في Briar (براير)</string>
+  <string name="setup_title">مرحبًا بك في Freiheitsmessenger (براير)</string>
   <string name="setup_name_explanation">سيتم إظهار اسمك المستعار بجانب كل ما تنشره من محتوى. لا يمكنك تغيير الاسم بعد إنشاء حسابك.</string>
   <string name="setup_next">التالي</string>
   <string name="setup_password_intro">اختيار كلمة السر</string>
-  <string name="setup_password_explanation">سيتم تخزين حسابك على Briar (براير) مشفرا على جهازك، وليس على الإنترنت. لذا في حالة نسيان كلمة السر الخاصة بك أو إلغاء تثبيت Briar (براير) لا توجد طريقه لاسترجاع حسابك.\n\nالرجاء اختيار كلمة سر طويلة يصعب تخمينها مثل أربع كلمات عشوائية أو عشرة حروف عشوائية مع أرقام ورموز.</string>
+  <string name="setup_password_explanation">سيتم تخزين حسابك على Freiheitsmessenger (براير) مشفرا على جهازك، وليس على الإنترنت. لذا في حالة نسيان كلمة السر الخاصة بك أو إلغاء تثبيت Freiheitsmessenger (براير) لا توجد طريقه لاسترجاع حسابك.\n\nالرجاء اختيار كلمة سر طويلة يصعب تخمينها مثل أربع كلمات عشوائية أو عشرة حروف عشوائية مع أرقام ورموز.</string>
   <string name="setup_doze_title">الاتصالات الخلفية</string>
-  <string name="setup_doze_intro">لاستقبال الرسائل، يحتاج Briar (براير) أن يبقى متصلا في الخلفية.</string>
-  <string name="setup_doze_explanation">لاستقبال الرسائل، يحتاج Briar (براير) أن يبقى متصلا في الخلفية. الرجاء تعطيل تحسين البطارية حتى يتمكن Briar (براير) من البقاء متصلا.</string>
+  <string name="setup_doze_intro">لاستقبال الرسائل، يحتاج Freiheitsmessenger (براير) أن يبقى متصلا في الخلفية.</string>
+  <string name="setup_doze_explanation">لاستقبال الرسائل، يحتاج Freiheitsmessenger (براير) أن يبقى متصلا في الخلفية. الرجاء تعطيل تحسين البطارية حتى يتمكن Freiheitsmessenger (براير) من البقاء متصلا.</string>
   <string name="setup_doze_button">السماح بالاتصالات</string>
   <string name="choose_nickname">اختيار اسمك المستعار</string>
   <string name="choose_password">اختيار كلمة السر</string>
@@ -19,37 +19,37 @@
   <string name="create_account_button">إنشاء الحساب</string>
   <string name="more_info">معلومات أكثر</string>
   <string name="don_t_ask_again">عدم الطلب مرة أخرى</string>
-  <string name="setup_huawei_text">الرجاء الضغط على الزر في الأسفل والتأكد من أن Briar (براير) محمى في شاشة \"التطبيقات المحمية\".</string>
-  <string name="setup_huawei_button">حماية Briar (براير)</string>
-  <string name="setup_huawei_help">إذا لم يتم إضافة Briar (براير) في قائمة التطبيقات المحمية، فلن يتمكن من العمل في الخلفية.</string>
-  <string name="setup_xiaomi_button">حماية Briar (براير)</string>
+  <string name="setup_huawei_text">الرجاء الضغط على الزر في الأسفل والتأكد من أن Freiheitsmessenger (براير) محمى في شاشة \"التطبيقات المحمية\".</string>
+  <string name="setup_huawei_button">حماية Freiheitsmessenger (براير)</string>
+  <string name="setup_huawei_help">إذا لم يتم إضافة Freiheitsmessenger (براير) في قائمة التطبيقات المحمية، فلن يتمكن من العمل في الخلفية.</string>
+  <string name="setup_xiaomi_button">حماية Freiheitsmessenger (براير)</string>
   <string name="warning_dozed">%s لم يتمكن من الاشتغال في الخلفية</string>
   <!--Login-->
   <string name="enter_password">‮كلمة السّر</string>
   <string name="try_again">كلمة السرّ خاطئة, الرجاء المحاولة مجدّدا</string>
   <string name="dialog_title_cannot_check_password">لا يمكن التحقق من كلمة السر</string>
-  <string name="dialog_message_cannot_check_password">Briar لم يتمكن من التحقق من كلمة المرور. الرجاء إعادة تشغيل جهازك من أجل جل المشكلة</string>
+  <string name="dialog_message_cannot_check_password">Freiheitsmessenger لم يتمكن من التحقق من كلمة المرور. الرجاء إعادة تشغيل جهازك من أجل جل المشكلة</string>
   <string name="sign_in_button">تسجيل الدخول</string>
   <string name="forgotten_password">نسيتُ كلمة السر</string>
   <string name="dialog_title_lost_password">فقدت كلمة السر</string>
-  <string name="dialog_message_lost_password">حسابك على Briar (براير) سيتم تخزينه مشفرا على جهازك، وليس على الإنترنت. لذا فلا يمكننا إعادة تعيين كلمة السر الخاصة بك. فهل تودّ/ين حذف حسابك والبدء من جديد؟\n\nتحذير: سيتمّ حذف هويّاتك وجهات اتصالك ورسائلك الى الأبد.</string>
-  <string name="startup_failed_notification_title">Briar (براير) لم يمكنه البدء</string>
+  <string name="dialog_message_lost_password">حسابك على Freiheitsmessenger (براير) سيتم تخزينه مشفرا على جهازك، وليس على الإنترنت. لذا فلا يمكننا إعادة تعيين كلمة السر الخاصة بك. فهل تودّ/ين حذف حسابك والبدء من جديد؟\n\nتحذير: سيتمّ حذف هويّاتك وجهات اتصالك ورسائلك الى الأبد.</string>
+  <string name="startup_failed_notification_title">Freiheitsmessenger (براير) لم يمكنه البدء</string>
   <string name="startup_failed_notification_text">المس/ي لمزيد من المعلومات</string>
-  <string name="startup_failed_activity_title">فشل تشغيل Briar (براير)</string>
-  <string name="startup_failed_db_error">لسبب ما، فإن قاعدة بيانات Briar (براير) قد تلفت ولم يعد من الممكن إصلاحها. حسابك وبياناتك وكل جهات اتصالك قد فقدت. للأسف، يلزم إعادة تثبيت Briar (براير) أو إنشاء حساب جديد عن طريق خيار \"نسيت كلمة السر\" عند سؤالك عنها.</string>
+  <string name="startup_failed_activity_title">فشل تشغيل Freiheitsmessenger (براير)</string>
+  <string name="startup_failed_db_error">لسبب ما، فإن قاعدة بيانات Freiheitsmessenger (براير) قد تلفت ولم يعد من الممكن إصلاحها. حسابك وبياناتك وكل جهات اتصالك قد فقدت. للأسف، يلزم إعادة تثبيت Freiheitsmessenger (براير) أو إنشاء حساب جديد عن طريق خيار \"نسيت كلمة السر\" عند سؤالك عنها.</string>
   <string name="startup_failed_data_too_old_error">حسابك تم إنشاؤه بواسطة إصدار قديم من هذا التطبيق ولا يمكن فتحه بهذا الإصدار. يتوجب إعادة تثبيت الإصدار القديم أو أن تنشئ حسابا جديدًا باختيار \"نسيت كلمة السر\" عند سؤالك عنها.</string>
   <string name="startup_failed_data_too_new_error">هذا الإصدار من التطبيق قديم جدًا. الرجاء التحديث لآخر إصدار ثم المحاولة مجددًا.</string>
-  <string name="startup_failed_service_error">Briar (براير) لم يستطع تشغيل إضافة لازمة. إعادة تشغيل Briar (براير) يحل مثل هذه المشكلة عادة. لكن ذلك يعني أنك فقدان حسابك وكل بياناتك عليه حيث أن Briar (براير) لا يستعمل خوادم مركزية لتخزين بياناتك.</string>
+  <string name="startup_failed_service_error">Freiheitsmessenger (براير) لم يستطع تشغيل إضافة لازمة. إعادة تشغيل Freiheitsmessenger (براير) يحل مثل هذه المشكلة عادة. لكن ذلك يعني أنك فقدان حسابك وكل بياناتك عليه حيث أن Freiheitsmessenger (براير) لا يستعمل خوادم مركزية لتخزين بياناتك.</string>
   <plurals name="expiry_warning">
-    <item quantity="zero">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي اليوم ولن يمكن تجديده.</item>
-    <item quantity="one">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي خلال يوم ولن يمكن تجديده.</item>
-    <item quantity="two">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي خلال يومين ولن يمكن تجديده.</item>
-    <item quantity="few">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي خلال %d أيام ولن يمكن تجديده.</item>
-    <item quantity="many">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي خلال %d يوم ولن يمكن تجديده.</item>
-    <item quantity="other">هذا إصدار تجريبي من Briar (براير). حسابك سينتهي خلال %d يوم ولن يمكن تجديده.</item>
+    <item quantity="zero">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي اليوم ولن يمكن تجديده.</item>
+    <item quantity="one">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي خلال يوم ولن يمكن تجديده.</item>
+    <item quantity="two">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي خلال يومين ولن يمكن تجديده.</item>
+    <item quantity="few">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي خلال %d أيام ولن يمكن تجديده.</item>
+    <item quantity="many">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي خلال %d يوم ولن يمكن تجديده.</item>
+    <item quantity="other">هذا إصدار تجريبي من Freiheitsmessenger (براير). حسابك سينتهي خلال %d يوم ولن يمكن تجديده.</item>
   </plurals>
   <string name="expiry_date_reached">هذا البرنامج قد انتهت مدته.\nشكرا لك للتجربة!</string>
-  <string name="download_briar">لمتابعة استخدام Briar (براير)، يرجى تنزيل آخر إصدار. </string>
+  <string name="download_briar">لمتابعة استخدام Freiheitsmessenger (براير)، يرجى تنزيل آخر إصدار. </string>
   <string name="create_new_account">انت في حاجة لانشاء حساب جديد، لكن يمكنك استعمال نفس الاسم المستعار.</string>
   <string name="download_briar_button">تنزيل آخر أصدار</string>
   <string name="startup_open_database">جارِ فك تشفير قاعدة البيانات...</string>
@@ -72,37 +72,37 @@
   <string name="tor_device_status_online_wifi">جهازك لديه ولوج لشبكة الانترنت عبر ال Wi-Fi </string>
   <string name="tor_device_status_online_mobile">جهازك لديه ولوج لشبكة الانترنت عبر بيانات الهاتف</string>
   <string name="tor_device_status_offline">جهازك ليس متصل بالانترنت</string>
-  <string name="tor_plugin_status_enabling">جاري اتصال Briar  بالانترنت</string>
-  <string name="tor_plugin_status_active">Briar متصل بالانترنت</string>
-  <string name="tor_plugin_status_inactive">Briar لم يتمكن من  الاتصال بالانترنت </string>
-  <string name="tor_plugin_status_disabled">إعدادات Briar لاتسمح بالاتصال بالانترنت</string>
-  <string name="tor_plugin_status_disabled_mobile_data">إعدادات Briar لاتسمح بالاتصال عن طريق بيانات الهاتف</string>
-  <string name="tor_plugin_status_disabled_battery">إعدادات Briar لاتسمح بالاتصال بالانترنت عند استخدام بطارية الهاتف</string>
-  <string name="tor_plugin_status_disabled_country_blocked">لايمكن استخدام Briar في هذا البلد</string>
+  <string name="tor_plugin_status_enabling">جاري اتصال Freiheitsmessenger  بالانترنت</string>
+  <string name="tor_plugin_status_active">Freiheitsmessenger متصل بالانترنت</string>
+  <string name="tor_plugin_status_inactive">Freiheitsmessenger لم يتمكن من  الاتصال بالانترنت </string>
+  <string name="tor_plugin_status_disabled">إعدادات Freiheitsmessenger لاتسمح بالاتصال بالانترنت</string>
+  <string name="tor_plugin_status_disabled_mobile_data">إعدادات Freiheitsmessenger لاتسمح بالاتصال عن طريق بيانات الهاتف</string>
+  <string name="tor_plugin_status_disabled_battery">إعدادات Freiheitsmessenger لاتسمح بالاتصال بالانترنت عند استخدام بطارية الهاتف</string>
+  <string name="tor_plugin_status_disabled_country_blocked">لايمكن استخدام Freiheitsmessenger في هذا البلد</string>
   <!--Transports: Wi-Fi-->
   <string name="transport_lan">واي-فاي</string>
   <string name="transport_lan_long">نفس شبكة الWi-Fi </string>
   <string name="lan_device_status_on">جهازك متصل بشبكة الWi-Fi</string>
   <string name="lan_device_status_off">جهازك ليس متصل بشبكة الWi-Fi</string>
-  <string name="lan_plugin_status_enabling">جاري ايصال Briar بشبكة الWi-Fi</string>
-  <string name="lan_plugin_status_active"> Briar متصل بشبكة الWi-Fi</string>
-  <string name="lan_plugin_status_inactive">لم يتمكن Briar من الاتصال بشبكة ال Wi-Fi</string>
-  <string name="lan_plugin_status_disabled">إعدادات Briar لاتسمح بالاتصال بشبكة ال Wi-Fi</string>
+  <string name="lan_plugin_status_enabling">جاري ايصال Freiheitsmessenger بشبكة الWi-Fi</string>
+  <string name="lan_plugin_status_active"> Freiheitsmessenger متصل بشبكة الWi-Fi</string>
+  <string name="lan_plugin_status_inactive">لم يتمكن Freiheitsmessenger من الاتصال بشبكة ال Wi-Fi</string>
+  <string name="lan_plugin_status_disabled">إعدادات Freiheitsmessenger لاتسمح بالاتصال بشبكة ال Wi-Fi</string>
   <!--Transports: Bluetooth-->
   <string name="transport_bt">بلوتوث</string>
   <string name="bt_device_status_on"> البلوتوث مفعّل  </string>
   <string name="bt_device_status_off">البلوتوث مفعّل</string>
-  <string name="bt_plugin_status_enabling">جاري اتصال Briar بالبلوتوث</string>
-  <string name="bt_plugin_status_active">Briar متصل بالبلوتوث</string>
-  <string name="bt_plugin_status_inactive">لم يتمكن Briar من الاتصال بالانترنت</string>
-  <string name="bt_plugin_status_disabled">إعدادات Briar لاتسمح بالاتصال بالبلوتوث</string>
+  <string name="bt_plugin_status_enabling">جاري اتصال Freiheitsmessenger بالبلوتوث</string>
+  <string name="bt_plugin_status_active">Freiheitsmessenger متصل بالبلوتوث</string>
+  <string name="bt_plugin_status_inactive">لم يتمكن Freiheitsmessenger من الاتصال بالانترنت</string>
+  <string name="bt_plugin_status_disabled">إعدادات Freiheitsmessenger لاتسمح بالاتصال بالبلوتوث</string>
   <!--Notifications-->
-  <string name="reminder_notification_title">تم تسجيل الخروج من Briar (براير)</string>
+  <string name="reminder_notification_title">تم تسجيل الخروج من Freiheitsmessenger (براير)</string>
   <string name="reminder_notification_text">الرجاء اللمس لإعادة الدخول</string>
-  <string name="reminder_notification_channel_title">التذكير بتسجيل الدخول إلى Briar (براير)</string>
+  <string name="reminder_notification_channel_title">التذكير بتسجيل الدخول إلى Freiheitsmessenger (براير)</string>
   <string name="reminder_notification_dismiss">رفض</string>
-  <string name="ongoing_notification_title">تم تسجيل الدخول إلى Briar (براير)</string>
-  <string name="ongoing_notification_text">الرجاء اللمس لفتح Briar (براير).</string>
+  <string name="ongoing_notification_title">تم تسجيل الدخول إلى Freiheitsmessenger (براير)</string>
+  <string name="ongoing_notification_text">الرجاء اللمس لفتح Freiheitsmessenger (براير).</string>
   <plurals name="private_message_notification_text">
     <item quantity="zero">لا رسائل خاصة جديدة.</item>
     <item quantity="one"> رسالة خاصة جديدة.</item>
@@ -202,7 +202,7 @@
   <string name="save_image_success">تم حفظ الصورة</string>
   <string name="save_image_error">لم نتمكن من حفظ الصورة </string>
   <string name="dialog_title_no_image_support">الصور غير متوفرة</string>
-  <string name="dialog_message_no_image_support">Briar (براير) لدى جهة الاتصال لا يدعم إرفاق الصور. فور تحديثهم للبرنامج ستظهر لكم أيفونة مختلفة. </string>
+  <string name="dialog_message_no_image_support">Freiheitsmessenger (براير) لدى جهة الاتصال لا يدعم إرفاق الصور. فور تحديثهم للبرنامج ستظهر لكم أيفونة مختلفة. </string>
   <string name="dialog_title_image_support">يمكنم الآن إرسال الصور لجهة الاتصال هذه</string>
   <string name="dialog_message_image_support">الضغط على هذه الأيقونة لإرفاق الصور.</string>
   <string name="messaging_too_many_attachments_toast">تمكّنا من إرسال %d من الصورة فقط</string>
@@ -238,7 +238,7 @@
   <string name="add_contact_choose_a_nickname">إدخال اسم مستعار</string>
   <string name="nickname_intro">إعطاء اسم مستعار لجهة الاتصال بإمكانكم رؤيته فقط. </string>
   <string name="your_link">أرسلوا هذا الرّابط لجهة الاتصال التي تودّون إضافتها </string>
-  <string name="link_clip_label">رابط Briar (براير)</string>
+  <string name="link_clip_label">رابط Freiheitsmessenger (براير)</string>
   <string name="link_copied_toast">تمّ نسخ الرّابط</string>
   <string name="adding_contact_error">حصل خطأ عند إضافة جهة الاتصال.</string>
   <string name="pending_contact_requests_snackbar">هناك طلبات للاتصال بكم في الانتظار  </string>
@@ -253,7 +253,7 @@
   <string name="own_link_error">يرجى إخال رابط جهة الاتصال، وليس رابطكم</string>
   <string name="nickname_missing">يرجى إدخال اسم مستعار</string>
   <string name="invalid_link">الرّابط غير صالح</string>
-  <string name="unsupported_link">هذا الرّابط قادم من إصدار أحدث من Briar (براير). يرجى التحديث لآخر إصدار والمحاولة من جديد. </string>
+  <string name="unsupported_link">هذا الرّابط قادم من إصدار أحدث من Freiheitsmessenger (براير). يرجى التحديث لآخر إصدار والمحاولة من جديد. </string>
   <string name="intent_own_link">لقد فتحتم الرابط الخاص بكم. يرجى استخدام رابط جهة الاتصال التي تودّون إضافتها! </string>
   <string name="missing_link">يرجى إدخال رابط</string>
   <!--This is a numeral indicating the first step in a series of screens-->
@@ -286,7 +286,7 @@
   <string name="pending_contact_updated_toast">تمّ تحديث طلب جهة الاتصال العالق</string>
   <!--Introductions-->
   <string name="introduction_onboarding_title">قم بتقديم جهات إتصالك</string>
-  <string name="introduction_onboarding_text">يمكنك أن تقدم جهات إتصالك لبعضها البعض، فلا يحتاجون للمقابلة الشخصية ليتواصلوا عبر Briar (براير).</string>
+  <string name="introduction_onboarding_text">يمكنك أن تقدم جهات إتصالك لبعضها البعض، فلا يحتاجون للمقابلة الشخصية ليتواصلوا عبر Freiheitsmessenger (براير).</string>
   <string name="introduction_menu_item">إعمل تقديم</string>
   <string name="introduction_activity_title">إختر جهة إتصال</string>
   <string name="introduction_not_possible">بالفعل لديك تقديم مع جهات الإتصال هذه. من فضلك إسمح لذلك بالإنتهاء أولاً. إذا كنت أنت أو جهات اتصالك نادرًا ما تكونوا متصلين فإن ذلك يمكن أن يستغرق بعض الوقت.</string>
@@ -473,7 +473,7 @@
   <!--Settings Profile Picture-->
   <!--Settings Display-->
   <string name="pref_language_title">اللغة &amp; المنطقة</string>
-  <string name="pref_language_changed">هذا الإعداد سيتفعل بعد إعادة تشغيل Briar (براير). الرجاء تسجيل الخروج ثم اعادة تشغيل Briar (براير).</string>
+  <string name="pref_language_changed">هذا الإعداد سيتفعل بعد إعادة تشغيل Freiheitsmessenger (براير). الرجاء تسجيل الخروج ثم اعادة تشغيل Freiheitsmessenger (براير).</string>
   <string name="pref_language_default">النظام الإفتراضي</string>
   <string name="display_settings_title">العرض</string>
   <string name="pref_theme_title">السمة</string>
@@ -492,7 +492,7 @@
   <string name="tor_network_setting_without_bridges">استخدام شبكة تور من دون جسور</string>
   <string name="tor_network_setting_with_bridges">استخدام شبكة تور مع جسور</string>
   <string name="tor_network_setting_never">لا يمكن الاتصال بالإنترنت</string>
-  <!--How and when Briar will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)"-->
+  <!--How and when Freiheitsmessenger will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)"-->
   <string name="tor_network_setting_summary">تلقائيا: %1$s (في %2$s)</string>
   <string name="tor_mobile_data_title">إستخدام بيانات الجوال</string>
   <string name="tor_only_when_charging_title">الاتصال بالإنترنت فقط عن الشحن</string>
@@ -500,11 +500,11 @@
   <!--Settings Security and Panic-->
   <string name="security_settings_title">الأمان</string>
   <string name="pref_lock_title">قفل التطبيق</string>
-  <string name="pref_lock_summary">الرجاء استخدام قفل شاشة الجهاز لحماية Briar (براير) في حال تسجيل الدخول</string>
+  <string name="pref_lock_summary">الرجاء استخدام قفل شاشة الجهاز لحماية Freiheitsmessenger (براير) في حال تسجيل الدخول</string>
   <string name="pref_lock_disabled_summary">لاستخدام هذه الميزة، الرجاء إعداد قفل شاشة لجهازك</string>
   <string name="pref_lock_timeout_title">قفل التطبيق لعدم النّشاط </string>
   <!--The %s placeholder is replaced with the following time spans, e.g. 5 Minutes, 1 Hour-->
-  <string name="pref_lock_timeout_summary">في حالة عدم استعمال Briar (براير)، يقفل تلقائيا بعد %s</string>
+  <string name="pref_lock_timeout_summary">في حالة عدم استعمال Freiheitsmessenger (براير)، يقفل تلقائيا بعد %s</string>
   <!--Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s"-->
   <string name="pref_lock_timeout_1">1 دقيقة</string>
   <!--Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s"-->
@@ -516,7 +516,7 @@
   <!--Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s"-->
   <string name="pref_lock_timeout_60">ساعة</string>
   <string name="pref_lock_timeout_never">أبدًا</string>
-  <string name="pref_lock_timeout_never_summary">لا تقم أبدًا بقفل Briar (براير) تلقائيًا</string>
+  <string name="pref_lock_timeout_never_summary">لا تقم أبدًا بقفل Freiheitsmessenger (براير) تلقائيًا</string>
   <string name="change_password">تغيير كلمة السرّ</string>
   <string name="current_password">كلمة السر الحالية</string>
   <string name="choose_new_password">كلمة السر الجديدة</string>
@@ -524,7 +524,7 @@
   <string name="password_changed">تم تغيير كلمة السر</string>
   <string name="panic_setting">إعداد زر الذعر</string>
   <string name="panic_setting_title">زر الذعر</string>
-  <string name="panic_setting_hint">اضبط كيف يتصرف Briar (براير) عندما تضغط زر الذعر</string>
+  <string name="panic_setting_hint">اضبط كيف يتصرف Freiheitsmessenger (براير) عندما تضغط زر الذعر</string>
   <string name="panic_app_setting_title">تطبيق زر الذعر</string>
   <string name="unknown_app">تطبيق غير معروف</string>
   <string name="panic_app_setting_summary">لا تطبيق قد تم إعداده</string>
@@ -533,9 +533,9 @@
   <string name="dialog_message_connect_panic_app">هل متأكد أنك تريد السماح ل %1$s أن يقوم بتفعيل إجراءات زر الذعر؟</string>
   <string name="panic_setting_destructive_action">إجراءات الخطر </string>
   <string name="panic_setting_signout_title">تسجيل الخروج</string>
-  <string name="panic_setting_signout_summary">تسجيل الخروج من Briar (براير) عند ضغط زر الذعر</string>
+  <string name="panic_setting_signout_summary">تسجيل الخروج من Freiheitsmessenger (براير) عند ضغط زر الذعر</string>
   <string name="purge_setting_title">حذف الحساب</string>
-  <string name="purge_setting_summary">احذف حساب Briar (براير) إذا تم ضغط زر الذعر. انتبه: هذا سيسبب حذف دائم لكل معرفات وحساباتك ورسائلك.</string>
+  <string name="purge_setting_summary">احذف حساب Freiheitsmessenger (براير) إذا تم ضغط زر الذعر. انتبه: هذا سيسبب حذف دائم لكل معرفات وحساباتك ورسائلك.</string>
   <!--Settings Notifications-->
   <string name="notification_settings_title">الإشعارات</string>
   <string name="notify_sign_in_title">ذكرني لتسجيل الدخول</string>
@@ -568,10 +568,10 @@
   <string name="link_warning_text">يمكن لهذا كشف هويّتك. تأكّدوا من ثقتكم بالشخص الذي أرسل لكم هذا الرّابط خذوا بعين الاعتبار فتح الرّابط في متصفّح تور (Tor).</string>
   <string name="link_warning_open_link">افتح الرابط</string>
   <!--Crash Reporter-->
-  <string name="crash_report_title">تقرير إنهيار Briar (براير)</string>
-  <string name="briar_crashed">معذرة، لقد انهار Briar (براير).</string>
+  <string name="crash_report_title">تقرير إنهيار Freiheitsmessenger (براير)</string>
+  <string name="briar_crashed">معذرة، لقد انهار Freiheitsmessenger (براير).</string>
   <string name="not_your_fault">هذا ليس خطؤك.</string>
-  <string name="please_send_report">الرجاء مساعدتنا في تحسين Briar (براير) عبر إرسال تقرير الإنهيار.</string>
+  <string name="please_send_report">الرجاء مساعدتنا في تحسين Freiheitsmessenger (براير) عبر إرسال تقرير الإنهيار.</string>
   <string name="report_is_encrypted">نعدك بأن التقرير سيرسل مشفرًا وبشكل آمن.</string>
   <string name="feedback_title">الإفادة حول التطبيق</string>
   <string name="describe_crash">وصف ما حدث (إختياري)</string>
@@ -585,32 +585,32 @@
   <string name="send_report">ارسال التقرير</string>
   <string name="close">إغلاق</string>
   <string name="dev_report_sending">ارسال التعليقات</string>
-  <string name="dev_report_saved">تم حفظ التقرير. سيتم إرساله عند تسجيل الدخول إلى Briar (براير) في المرة القادمة.</string>
+  <string name="dev_report_saved">تم حفظ التقرير. سيتم إرساله عند تسجيل الدخول إلى Freiheitsmessenger (براير) في المرة القادمة.</string>
   <!--Sign Out-->
-  <string name="progress_title_logout">تسجيل الخروج من Briar (براير)...</string>
+  <string name="progress_title_logout">تسجيل الخروج من Freiheitsmessenger (براير)...</string>
   <!--Screen Filters & Tapjacking-->
   <string name="screen_filter_title">تم إكتشاف غلاف شاشة</string>
-  <string name="screen_filter_body">تطبيق آخر يعمل كغلاف فوق Briar (براير). لحماية أمنك فإن Briar (براير) لن يستجيب للمس طالما كان تطبيق آخر فوقه.\n\nيحتمل أن تكون أحد هذه التطبيقات التي تعمل بالفوق:\n\n %1$s</string>
+  <string name="screen_filter_body">تطبيق آخر يعمل كغلاف فوق Freiheitsmessenger (براير). لحماية أمنك فإن Freiheitsmessenger (براير) لن يستجيب للمس طالما كان تطبيق آخر فوقه.\n\nيحتمل أن تكون أحد هذه التطبيقات التي تعمل بالفوق:\n\n %1$s</string>
   <string name="screen_filter_allow">السماح لهذه التطبيقات بالعمل فوق غيرها</string>
   <!--Permission Requests-->
   <string name="permission_camera_title">إذن الكاميرا</string>
-  <string name="permission_camera_request_body">للتمكن من مسح رمز QR، يحتاج Briar (براير) إلى إستعمال الكاميرا.</string>
+  <string name="permission_camera_request_body">للتمكن من مسح رمز QR، يحتاج Freiheitsmessenger (براير) إلى إستعمال الكاميرا.</string>
   <string name="permission_location_title">إذن معرفة الموقع </string>
-  <string name="permission_location_request_body">لاكتشاف أجهزة بلوتوث، يحتاج Briar (براير) لإذن بالوصول إلى موقعكم.\n\n لا يخزّن Briar (براير) موقعكم ولا يشاركه مع أي شخص. </string>
+  <string name="permission_location_request_body">لاكتشاف أجهزة بلوتوث، يحتاج Freiheitsmessenger (براير) لإذن بالوصول إلى موقعكم.\n\n لا يخزّن Freiheitsmessenger (براير) موقعكم ولا يشاركه مع أي شخص. </string>
   <string name="permission_camera_location_title">الكاميرا والموقع</string>
-  <string name="permission_camera_location_request_body">لمسح رمز الاستجابة السّريعة أو QR، يحتاج Briar (براير) للوصول إلى الكاميرا. \n\n لاكتشاف أجهزة بلوتوث، يحتاج Briar (براير) لإذن بالوصول إلى موقعكم. \n\n لا يخزّن Briar (براير) موقعكم ولا يشاركه مع أي شخص. </string>
+  <string name="permission_camera_location_request_body">لمسح رمز الاستجابة السّريعة أو QR، يحتاج Freiheitsmessenger (براير) للوصول إلى الكاميرا. \n\n لاكتشاف أجهزة بلوتوث، يحتاج Freiheitsmessenger (براير) لإذن بالوصول إلى موقعكم. \n\n لا يخزّن Freiheitsmessenger (براير) موقعكم ولا يشاركه مع أي شخص. </string>
   <string name="permission_camera_denied_body">قد رفضت إعطاء إذن الكاميرا، لكن إضافة جهات إتصال يتطلب إستعمال الكاميرا.\n\nالرجاء منح الإذن.</string>
   <string name="qr_code">رمز QR</string>
   <string name="show_qr_code_fullscreen">اظهار رمز QR بوضع ملء الشاشة</string>
   <!--App Locking-->
-  <string name="lock_unlock">فك قفل Briar (براير)</string>
-  <string name="lock_unlock_verbose">ادخال رمز، نمط أو كلمة سر جهازك لإلغاء قفل Briar (براير)</string>
+  <string name="lock_unlock">فك قفل Freiheitsmessenger (براير)</string>
+  <string name="lock_unlock_verbose">ادخال رمز، نمط أو كلمة سر جهازك لإلغاء قفل Freiheitsmessenger (براير)</string>
   <string name="lock_unlock_fingerprint_description">لمس حساس البصمة ببصمتك المسجلة للإستمرار</string>
   <string name="lock_unlock_password">استخدام كلمة السر</string>
-  <string name="lock_is_locked">Briar (براير) مقفل</string>
+  <string name="lock_is_locked">Freiheitsmessenger (براير) مقفل</string>
   <string name="lock_tap_to_unlock">الرجاء اللمس لفك القفل</string>
   <!--Connections Screen-->
-  <string name="transports_help_text">يمكن ل Briar التواصل مع جهات الاتصال عن طريق الانترنت, شكبة ال Wi-Fi أو البلوتوث.n\n\كل وسائل الاتصال عن طريق الانترنت تمر عبر شبكة تور من أجل الخصوصية.n\n\إذا كان من الممكن الوصول إلى شبكة إتصال بعدة طرق فإن Briar سوف يستعملهم جميعاً بالتوازي.</string>
+  <string name="transports_help_text">يمكن ل Freiheitsmessenger التواصل مع جهات الاتصال عن طريق الانترنت, شكبة ال Wi-Fi أو البلوتوث.n\n\كل وسائل الاتصال عن طريق الانترنت تمر عبر شبكة تور من أجل الخصوصية.n\n\إذا كان من الممكن الوصول إلى شبكة إتصال بعدة طرق فإن Freiheitsmessenger سوف يستعملهم جميعاً بالتوازي.</string>
   <!--Screenshots-->
   <!--This is a name to be used in screenshots. Feel free to change it to a local name.-->
   <string name="screenshot_alice">آليس</string>
@@ -621,7 +621,7 @@
   <!--This is a message to be used in screenshots. Please use the same translation for Bob!-->
   <string name="screenshot_message_1">مرحبا بوب! </string>
   <!--This is a message to be used in screenshots. Please use the same translation for Alice!-->
-  <string name="screenshot_message_2">مرحبا أليس! شكراً لأنّك أخبرتني عن Briar (براير) !</string>
+  <string name="screenshot_message_2">مرحبا أليس! شكراً لأنّك أخبرتني عن Freiheitsmessenger (براير) !</string>
   <!--This is a message to be used in screenshots.-->
   <string name="screenshot_message_3">أهلاً وسهلاً، أتمنى أن يعجبك 😀</string>
 </resources>
