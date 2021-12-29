@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.timepicker.TimeFormat;
 
 import org.briarproject.bramble.api.identity.Author;
@@ -111,7 +112,8 @@ public class ThreadMap extends Fragment{
 	}
 
 
-	private void refreshMap(){
+	private void refreshMap() throws Exception{
+
 		map.getOverlays().clear();
 		for(AuthorInfo author: locations.keySet()) {
 
@@ -166,6 +168,7 @@ public class ThreadMap extends Fragment{
 		map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
 
 		IMapController mapController = map.getController();
+
 		mapController.setZoom(9.5);
 
 		requestPermissionsIfNecessary(this.getActivity(),new String[] {
@@ -189,28 +192,63 @@ public class ThreadMap extends Fragment{
 					try {
 						//Mimimum change is yellow wait time
 						Thread.sleep(WT_YELLOW);
-					} catch (Exception e) {
 
-					}
 					if(ThreadMap.this.getView()!=null) {
 						ThreadMap.this.getActivity()
 								.runOnUiThread(new Runnable() {
+
 									public void run() {
-										refreshMap();
+										try {
+											refreshMap();
+										}
+										catch (Exception e){
+											
+										}
 									}
 								});
 					}
-					refreshMap();
+					} catch (Exception e) {
+
+					}
 				}
 			}
 
 		};
+
+
+		FloatingActionButton fabCenter=view.findViewById(R.id.fabCenter);
+		fabCenter.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				centerMap();
+			}
+		});
+
 		Thread thread=new Thread(runnable);
 		thread.start();
 		return view;
 	}
 
 
+	private void centerMap(){
+
+		if(locations.size()==0){
+			return;
+		}
+		MapController mMapController = (MapController) map.getController();
+
+
+			double avgLng=0;
+			double avgLat=0;
+			for(LocationInfo iLocationInfo:locations.values()){
+				avgLng=avgLng+iLocationInfo.lng;
+				avgLat=avgLat+iLocationInfo.lat;
+			}
+			avgLat=avgLat/locations.size();
+			avgLng=avgLng/locations.size();
+			mMapController.setCenter(new GeoPoint(avgLat,avgLng));
+
+	}
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

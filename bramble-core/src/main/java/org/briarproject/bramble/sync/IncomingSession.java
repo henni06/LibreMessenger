@@ -155,6 +155,7 @@ class IncomingSession implements SyncSession, EventListener {
 			try {
 				db.transaction(false, txn ->
 						db.receiveMessage(txn, contactId, message));
+
 			} catch (DbException e) {
 				logException(LOG, WARNING, e);
 				interrupt();

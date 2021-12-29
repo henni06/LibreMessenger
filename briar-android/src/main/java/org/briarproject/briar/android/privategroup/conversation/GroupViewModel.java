@@ -238,27 +238,7 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		});
 	}
 
-	@Override
-	public void createAndStoreLocationMessage(double lng, double lat) {
-		cryptoExecutor.execute(() -> {
-			try{
-				LOG.info("Creating location message...");
-				LocalAuthor author = identityManager.getLocalAuthor();
-				GroupCount count = privateGroupManager.getGroupCount(groupId);
 
-				long timestamp = count.getLatestMsgTime();
-				timestamp = max(clock.currentTimeMillis(), timestamp + 1);
-				MessageId previousMsgId =
-						privateGroupManager.getPreviousMsgId(groupId);
-				GroupMessage msg = groupMessageFactory.createLocationMessage(groupId,
-					timestamp,author, lng,lat,previousMsgId);
-				storeLocation(msg, Double.toString(lng)+"/"+Double.toString(lat));
-			} catch (DbException e) {
-				handleException(e);
-			}
-		});
-
-	}
 
 	private void createMessage(String text, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author,

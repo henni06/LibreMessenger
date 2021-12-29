@@ -183,8 +183,6 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	public abstract void createAndStoreMessage(String text,
 			@Nullable MessageId parentMessageId);
 
-	public abstract void createAndStoreLocationMessage(double lng,double lat);
-
 	/**
 	 * Loads the ContactIds of all contacts the group is shared with
 	 * and adds them to {@link SharingController}.
