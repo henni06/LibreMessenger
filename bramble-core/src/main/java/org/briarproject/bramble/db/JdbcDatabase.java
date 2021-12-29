@@ -102,6 +102,8 @@ import static org.briarproject.bramble.util.LogUtils.now;
 abstract class JdbcDatabase implements Database<Connection> {
 
 	// Package access for testing
+
+	private static final String LOCATION_IDENTIFIER = "{\"type\":\"location\"";
 	static final int CODE_SCHEMA_VERSION = 49;
 
 	// Time period offsets for incoming transport keys
@@ -835,6 +837,11 @@ abstract class JdbcDatabase implements Database<Connection> {
 			throws DbException {
 		PreparedStatement ps = null;
 		try {
+			String deleteSQL="delete messages where groupId=? and raw like '%"+LOCATION_IDENTIFIER+"%'";
+			PreparedStatement deletePS=txn.prepareStatement(deleteSQL);
+			deletePS.setBytes(1,m.getGroupId().getBytes());
+			deletePS.execute();
+			deletePS.close();
 			String sql = "INSERT INTO messages (messageId, groupId, timestamp,"
 					+ " state, shared, temporary, length, raw)"
 					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
