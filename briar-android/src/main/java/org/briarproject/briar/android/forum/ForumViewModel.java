@@ -171,11 +171,6 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 		});
 	}
 
-	@Override
-	public void createAndStoreLocationMessage(double lng, double lat) {
-
-	}
-
 	private void createMessage(String text, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author) {
 		cryptoExecutor.execute(() -> {

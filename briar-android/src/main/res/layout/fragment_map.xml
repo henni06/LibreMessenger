@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
@@ -12,5 +12,14 @@ android:layout_height="fill_parent">
 	android:layout_height="fill_parent" >
 
 
+
 </org.osmdroid.views.MapView>
-</LinearLayout>
+	<com.google.android.material.floatingactionbutton.FloatingActionButton
+		android:id="@+id/fabCenter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end|bottom"
+		android:layout_margin="16dp"
+		android:clickable="true"
+		app:srcCompat="@android:drawable/ic_menu_compass" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.briarproject.bramble.api.nullsafety.MethodsNotNullByDefault;
@@ -115,6 +116,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		downButton.setOnClickListener(v -> {
 			threadListFragment.scrollDown();
 		});
+
 
 		viewModel.getItems().observe(this, result -> result
 				.onError(this::handleException)
