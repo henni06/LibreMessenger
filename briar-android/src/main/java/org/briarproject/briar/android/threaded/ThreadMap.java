@@ -61,7 +61,7 @@ public class ThreadMap extends Fragment{
 	private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 	private MapView map = null;
 
-	private HashMap<AuthorInfo,LocationInfo> locations=new HashMap<AuthorInfo, LocationInfo>();
+	private ArrayList<LocationInfo> locations=new ArrayList< LocationInfo>();
 	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	public void handleLocationMessage(GroupMessageItem message) throws Exception{
 		if(getContext()==null) return;
@@ -73,7 +73,7 @@ public class ThreadMap extends Fragment{
 			double lat=0;
 			double heading=0;
 			double speed=0;
-
+			int subType=0;
 			try {
 				reader.beginObject();
 				while (reader.hasNext()) {
@@ -86,7 +86,10 @@ public class ThreadMap extends Fragment{
 						heading = reader.nextDouble();
 					}else if (name.equals("speed")) {
 						speed = reader.nextDouble();
-					}else{
+					}else if (name.equals("subType")) {
+						subType = reader.nextInt();
+					}
+					else{
 						reader.skipValue();
 					}
 				}
@@ -95,9 +98,7 @@ public class ThreadMap extends Fragment{
 			catch(Exception e){
 				e.printStackTrace();
 			}
-			if(locations.containsKey(message.getAuthor())){
-				locations.remove(message.getAuthor());
-			}
+
 			LocationInfo locationInfo=new LocationInfo();
 			locationInfo.lng=lng;
 			locationInfo.lat=lat;
@@ -105,7 +106,21 @@ public class ThreadMap extends Fragment{
 			locationInfo.heading=heading;
 			locationInfo.speed=speed;
 			locationInfo.author=message.getAuthor();
-			locations.put(message.getAuthorInfo(),locationInfo);
+			locationInfo.alias=message.getAuthorInfo().getAlias();
+			locationInfo.type=subType;
+			boolean found=false;
+			for(int i=0;i<locations.size();i++){
+
+				if(locations.get(i).author.equals(message.getAuthor()) &&
+						locations.get(i).type==ThreadListActivity.TP_USERPOSITION){
+					locations.set(i,locationInfo);
+					found=true;
+				}
+			}
+			if(!found){
+				locations.add(locationInfo);
+			}
+			//locations.put(message.getAuthorInfo(),locationInfo);
 			refreshMap();
 
 		}
@@ -115,38 +130,77 @@ public class ThreadMap extends Fragment{
 	private void refreshMap() throws Exception{
 
 		map.getOverlays().clear();
-		for(AuthorInfo author: locations.keySet()) {
+		for(int i=0;i<locations.size();i++) {
 
-			LocationInfo iLocationInfo = locations.get(author);
-			Marker locationMarker = new Marker(map);
-			//locationMarker.setDefaultIcon();
-			Date messageDate = new Date(iLocationInfo.timestamp);
-			String titleMessage = iLocationInfo.author.getName();
-			if (author.getAlias()!=null){
-				titleMessage = titleMessage + "(" + author.getAlias() + ")";
+			LocationInfo iLocationInfo = locations.get(i);
+			if(iLocationInfo.timestamp<System.currentTimeMillis()-(2*WT_RED)) {
+				locations.remove(i);
+			}else {
+				Marker locationMarker = new Marker(map);
+				//locationMarker.setDefaultIcon();
+				Date messageDate = new Date(iLocationInfo.timestamp);
+				String titleMessage = iLocationInfo.author.getName();
+				if (iLocationInfo.alias != null) {
+					titleMessage =
+							titleMessage + "(" + iLocationInfo.alias + ")";
+				}
+				titleMessage = titleMessage + "\r\n" +
+						DateFormat.getTimeInstance().format(messageDate);
+				locationMarker.setTitle(titleMessage);
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					if (iLocationInfo.type ==
+							ThreadListActivity.TP_USERPOSITION) {
+						Drawable pin =
+								getResources()
+										.getDrawable(R.drawable.pinlocation);
+
+
+						if (iLocationInfo.timestamp <
+								System.currentTimeMillis() - WT_RED) {
+							pin.setAlpha(64);
+							pin.setTint(Color.GREEN);
+
+						} else if (iLocationInfo.timestamp <
+								System.currentTimeMillis() - WT_YELLOW) {
+							pin.setAlpha(128);
+							pin.setTint(Color.GREEN);
+						} else
+							pin.setTint(Color.GREEN);
+
+						locationMarker.setIcon(pin);
+					} else if (iLocationInfo.type ==
+							ThreadListActivity.TP_USERALERT) {
+						Drawable pin =
+								getResources().getDrawable(
+										R.drawable.warning);
+						pin.setTint(Color.RED);
+
+						locationMarker.setIcon(pin);
+					} else if (iLocationInfo.type ==
+							ThreadListActivity.TP_USERWARNING) {
+						Drawable pin =
+								getResources().getDrawable(
+										R.drawable.warning);
+						pin.setTint(Color.YELLOW);
+						locationMarker.setIcon(pin);
+					} else if (iLocationInfo.type ==
+							ThreadListActivity.TP_USERINFO) {
+						Drawable pin =
+								getResources().getDrawable(
+										android.R.drawable.ic_dialog_info);
+						pin.setTint(Color.BLUE);
+						locationMarker.setIcon(pin);
+					}
+				}
+
+				locationMarker.setPosition(
+						new GeoPoint(iLocationInfo.lat, iLocationInfo.lng));
+				locationMarker.setTextLabelFontSize(15);
+				locationMarker
+						.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+				map.getOverlays().add(locationMarker);
 			}
-			titleMessage=titleMessage+"\r\n"+
-					DateFormat.getTimeInstance().format(messageDate);
-			locationMarker.setTitle(titleMessage);
-			Drawable pin=getResources().getDrawable(R.drawable.pinlocation);
-
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				if(iLocationInfo.timestamp<System.currentTimeMillis()-WT_RED){
-					pin.setTint(Color.RED);
-				}else
-				if(iLocationInfo.timestamp<System.currentTimeMillis()-WT_YELLOW){
-					pin.setTint(Color.YELLOW);
-				}else
-
-					pin.setTint(Color.GREEN);
-			}
-			locationMarker.setIcon(pin);
-
-			locationMarker.setPosition(new GeoPoint(iLocationInfo.lat,iLocationInfo.lng));
-			locationMarker.setTextLabelFontSize(15);
-			locationMarker.setAnchor(Marker.ANCHOR_CENTER,Marker.ANCHOR_BOTTOM);
-
-			map.getOverlays().add(locationMarker);
 
 		}
 		map.invalidate();
@@ -240,7 +294,7 @@ public class ThreadMap extends Fragment{
 
 			double avgLng=0;
 			double avgLat=0;
-			for(LocationInfo iLocationInfo:locations.values()){
+			for(LocationInfo iLocationInfo:locations){
 				avgLng=avgLng+iLocationInfo.lng;
 				avgLat=avgLat+iLocationInfo.lat;
 			}
@@ -288,6 +342,8 @@ public class ThreadMap extends Fragment{
 		double heading;
 		long timestamp;
 		double speed;
+		int type;
+		String alias;
 		Author author;
 	}
 

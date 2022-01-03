@@ -193,7 +193,7 @@ class HotspotViewModel extends DbViewModel
 	}
 
 	static String getApkFileName() {
-		return "briar" + (DEBUG ? "-debug-" : "-") + VERSION_NAME + ".apk";
+		return "freiheitsmessenger" + (DEBUG ? "-debug-" : "-") + VERSION_NAME + ".apk";
 	}
 
 	private void writeApk(OutputStream out, Uri uriToShare) {

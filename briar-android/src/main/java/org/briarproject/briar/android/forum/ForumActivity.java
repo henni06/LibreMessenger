@@ -57,6 +57,11 @@ public class ForumActivity extends
 	}
 
 	@Override
+	protected Menu getMenu() {
+		return menu;
+	}
+
+	@Override
 	public void onCreate(@Nullable Bundle state) {
 		super.onCreate(state);
 
@@ -118,18 +123,6 @@ public class ForumActivity extends
 			return true;
 		} else if (itemId == R.id.action_forum_delete) {
 			showUnsubscribeDialog();
-			return true;
-		}else if(itemId==R.id.action_location_share){
-			menu.findItem(R.id.action_location_share).setChecked
-					(!menu.findItem(R.id.action_location_share).isChecked());
-			//getViewModel().createAndStoreLocationMessage(0.5,0.6);
-			if(publishLocation()){
-				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
-			}else{
-				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
-
-			}
-
 			return true;
 		}else if(itemId==R.id.action_map){
 			if(getView()==V_LIST){

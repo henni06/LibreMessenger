@@ -35,13 +35,59 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="bottom|right|end"
 			app:direction="down" />
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabMapFunctions"
+			android:visibility="gone"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:clickable="true"
+			android:layout_margin="10dp"
+			android:tint="@color/emoji_white"
+			android:layout_gravity="bottom|left|end"
+			app:srcCompat="@drawable/pinlocation" />
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabAlert"
+			android:visibility="gone"
+			android:layout_width="@dimen/standard_45"
+			android:layout_height="@dimen/standard_45"
+			android:layout_weight="0.8"
+			android:clickable="true"
+			android:layout_margin="10dp"
+			android:tint="@color/briar_red_500"
+			android:layout_gravity="bottom|left|end"
+			app:srcCompat="@android:drawable/ic_dialog_alert" />
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabWarning"
+			android:visibility="gone"
+			android:layout_width="@dimen/standard_45"
+			android:layout_height="@dimen/standard_45"
 
+			android:clickable="true"
+			android:layout_margin="10dp"
+			android:tint="@color/briar_orange_500"
+			android:layout_gravity="bottom|left|end"
+			app:srcCompat="@android:drawable/ic_dialog_alert" />
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabInformation"
+			android:visibility="gone"
+			android:layout_margin="10dp"
+			android:layout_width="@dimen/standard_45"
+			android:layout_height="@dimen/standard_45"
+			android:layout_weight="0.8"
+			android:clickable="true"
+			android:tint="@color/briar_blue_600"
+			android:layout_gravity="bottom|left|end"
+			app:srcCompat="@android:drawable/ic_dialog_info" />
 	</FrameLayout>
 
 	<org.briarproject.briar.android.view.TextInputView
 		android:id="@+id/text_input_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:hint="@string/forum_new_message_hint" />
+		app:hint="@string/forum_new_message_hint" >
+
+
+	</org.briarproject.briar.android.view.TextInputView>
 
 </LinearLayout>
