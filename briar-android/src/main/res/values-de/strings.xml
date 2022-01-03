@@ -750,5 +750,6 @@
   <string name="menu_send_location">Position übertragen</string>
   <string name="menu_hide_location">Position verbergen</string>
   <string name="sharing_warning">Deine Position wird geteilt</string>
-
+  <string name="menu_show_map_functions">Zeige Kartenfunktionen</string>
+  <string name="menu_hide_map_functions">Verberge Kartenfunktionen</string>
 </resources>

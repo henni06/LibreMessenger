@@ -77,6 +77,11 @@ public class GroupActivity extends
 	}
 
 	@Override
+	protected Menu getMenu() {
+		return menu;
+	}
+
+	@Override
 	public void onCreate(@Nullable Bundle state) {
 		super.onCreate(state);
 
@@ -124,7 +129,9 @@ public class GroupActivity extends
 			menu.findItem(R.id.action_group_leave).setVisible(!isCreator);
 			menu.findItem(R.id.action_group_dissolve).setVisible(isCreator);
 			menu.findItem(R.id.action_location_share).setVisible(!isCreator);
+
 			menu.findItem(R.id.action_map).setVisible(isCreator);
+
 
 		});
 		super.onCreateOptionsMenu(menu);
@@ -171,22 +178,7 @@ public class GroupActivity extends
 				throw new IllegalStateException();
 			showDissolveGroupDialog();
 			return true;
-		} else if(itemId==R.id.action_location_share){
-			menu.findItem(R.id.action_location_share).setChecked
-			(!menu.findItem(R.id.action_location_share).isChecked());
-			boolean sharing=publishLocation();
-			if(sharing){
-				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
-
-			}else{
-
-				menu.findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
-
-			}
-			getViewModel().getSharingInfo().observe(this, this::setToolbarSubTitle);
-
-			return true;
-		}else if(itemId==R.id.action_map){
+		} else if(itemId==R.id.action_map){
 			if(getView()==V_LIST){
 				showView(V_MAP);
 				menu.findItem(R.id.action_map).setTitle(R.string.menu_list);

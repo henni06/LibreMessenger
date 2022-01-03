@@ -47,6 +47,14 @@
 		app:showAsAction="never"
 		tools:visible="true" />
 	<item
+		android:id="@+id/action_show_map_functions"
+		android:title="@string/menu_show_map_functions"
+		android:visible="true"
+		android:enabled="false"
+		app:showAsAction="never"
+		tools:visible="true" />
+
+	<item
 		android:id="@+id/action_map"
 		android:title="@string/menu_map"
 		android:visible="true"
