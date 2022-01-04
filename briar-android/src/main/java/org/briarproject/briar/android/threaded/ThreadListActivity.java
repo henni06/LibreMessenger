@@ -216,7 +216,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				findViewById(R.id.fabWarning).setVisibility(GONE);
 				findViewById(R.id.fabAlert).setVisibility(GONE);
 			}
-
+			setToolbarSubTitle(null);
 			return true;
 		}
 		else if(item.getItemId()==R.id.action_show_map_functions){
