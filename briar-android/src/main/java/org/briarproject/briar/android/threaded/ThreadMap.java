@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -154,7 +155,7 @@ public class ThreadMap extends Fragment{
 								getResources()
 										.getDrawable(R.drawable.pinlocation);
 
-
+						locationMarker.setAnchor(48,48);
 						if (iLocationInfo.timestamp <
 								System.currentTimeMillis() - WT_RED) {
 							pin.setAlpha(64);
@@ -172,7 +173,7 @@ public class ThreadMap extends Fragment{
 							ThreadListActivity.TP_USERALERT) {
 						Drawable pin =
 								getResources().getDrawable(
-										R.drawable.warning);
+										R.drawable.alert_icon);
 						pin.setTint(Color.RED);
 
 						locationMarker.setIcon(pin);
@@ -180,14 +181,14 @@ public class ThreadMap extends Fragment{
 							ThreadListActivity.TP_USERWARNING) {
 						Drawable pin =
 								getResources().getDrawable(
-										R.drawable.warning);
+										R.drawable.warning_icon);
 						pin.setTint(Color.YELLOW);
 						locationMarker.setIcon(pin);
 					} else if (iLocationInfo.type ==
 							ThreadListActivity.TP_USERINFO) {
 						Drawable pin =
 								getResources().getDrawable(
-										android.R.drawable.ic_dialog_info);
+										R.drawable.information_icon);
 						pin.setTint(Color.BLUE);
 						locationMarker.setIcon(pin);
 					}
@@ -220,7 +221,7 @@ public class ThreadMap extends Fragment{
 				.inflate(R.layout.fragment_map, container, false);
 		map = (MapView) view.findViewById(R.id.map);
 		map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
-
+		map.setMultiTouchControls(true);
 		IMapController mapController = map.getController();
 
 		mapController.setZoom(9.5);
