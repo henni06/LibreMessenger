@@ -58,6 +58,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
 import static org.briarproject.bramble.util.StringUtils.isNullOrEmpty;
+import static org.briarproject.briar.android.util.UiUtils.observeOnce;
 import static org.briarproject.briar.android.view.TextSendController.SendState.SENT;
 
 @MethodsNotNullByDefault
@@ -81,12 +82,13 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 	protected final A adapter = createAdapter();
 	protected abstract ThreadListViewModel<I> getViewModel();
 	protected abstract A createAdapter();
+	private String cachedSubtitle=null;
 
 	protected TextInputView textInput;
 	protected TextSendController sendController;
 	protected GroupId groupId;
 
-
+	private boolean creator=false;
 	private static LocationManager locationManager;
 	//private ThreadScrollListener<I> scrollListener;
 
@@ -101,6 +103,9 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 		threadMap=new ThreadMap();
 
+		observeOnce(getViewModel().isCreator(), this, isCreator -> {
+			creator=isCreator;
+		});
 
 		Intent i = getIntent();
 		byte[] b = i.getByteArrayExtra(GROUP_ID);
@@ -120,6 +125,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		UnreadMessageButton downButton = findViewById(R.id.downButton);
 		threadListFragment=new ThreadListFragment(adapter,viewModel,upButton,downButton);
 		FloatingActionButton fabMapFunctions=(FloatingActionButton)findViewById(R.id.fabMapFunctions);
+
 		fabMapFunctions.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -142,27 +148,40 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		fabAlert.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getViewModel().createAndStoreMessage(
-						buildLocationMessage(lng,lat,0,TP_USERALERT),
-						null);
+				if(creator) {
+					threadMap.setActionMode(ThreadMap.AM_ADDALERT);
+				}else {
+					getViewModel().createAndStoreLocationMessage(
+							buildLocationMessage(lng, lat, 0, TP_USERALERT),
+							null);
+				}
 			}
 		});
 
 		fabWarning.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getViewModel().createAndStoreMessage(
-						buildLocationMessage(lng,lat,0,TP_USERWARNING),
-						null);
+				if(creator) {
+					threadMap.setActionMode(ThreadMap.AM_ADDWARNING);
+				}else {
+					getViewModel().createAndStoreLocationMessage(
+							buildLocationMessage(lng, lat, 0, TP_USERWARNING),
+							null);
+				}
+
 			}
 		});
 
 		fabInfo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getViewModel().createAndStoreMessage(
-						buildLocationMessage(lng,lat,0,TP_USERINFO),
-						null);
+				if(creator) {
+					threadMap.setActionMode(ThreadMap.AM_ADDINFORMATION);
+				}else {
+					getViewModel().createAndStoreLocationMessage(
+							buildLocationMessage(lng, lat, 0, TP_USERINFO),
+							null);
+				}
 			}
 		});
 
@@ -208,6 +227,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			if(publishLocation()){
 				getMenu().findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
 				getMenu().findItem(R.id.action_show_map_functions).setEnabled(true);
+				setToolbarSubTitle(null);
 			}else{
 				getMenu().findItem(R.id.action_location_share).setTitle(R.string.menu_send_location);
 				getMenu().findItem(R.id.action_show_map_functions).setEnabled(false);
@@ -216,13 +236,16 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				findViewById(R.id.fabWarning).setVisibility(GONE);
 				findViewById(R.id.fabAlert).setVisibility(GONE);
 			}
-			setToolbarSubTitle(null);
+
 			return true;
 		}
 		else if(item.getItemId()==R.id.action_show_map_functions){
 			if(findViewById(R.id.fabMapFunctions).getVisibility()==GONE){
+				item.setTitle(R.string.menu_hide_map_functions);
 				findViewById(R.id.fabMapFunctions).setVisibility(VISIBLE);
 			}else{
+				item.setTitle(R.string.menu_show_map_functions);
+
 				findViewById(R.id.fabMapFunctions).setVisibility(GONE);
 				findViewById(R.id.fabInformation).setVisibility(GONE);
 				findViewById(R.id.fabWarning).setVisibility(GONE);
@@ -392,12 +415,19 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 	protected void setToolbarSubTitle(SharingInfo sharingInfo) {
 		ActionBar actionBar = getSupportActionBar();
-		if(locationObserver.isLocationActivated(groupId)){
+		if (locationObserver.isLocationActivated(groupId)) {
 			actionBar.setSubtitle(R.string.sharing_warning);
-		}else
-		if (actionBar != null) {
-			actionBar.setSubtitle(getString(R.string.shared_with,
-					sharingInfo.total, sharingInfo.online));
+		} else if (actionBar != null) {
+			if (sharingInfo != null) {
+				cachedSubtitle = getString(R.string.shared_with,
+						sharingInfo.total, sharingInfo.online);
+				actionBar.setSubtitle(cachedSubtitle);
+			} else if (cachedSubtitle != null) {
+				actionBar.setSubtitle(cachedSubtitle);
+			} else {
+				actionBar.setSubtitle("");
+			}
+
 		}
 	}
 
@@ -474,7 +504,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 						double bearing=location.getBearing();
 						//double speed=location.getSpeed();
 						//double alt=location.getAltitude();
-						getViewModel().createAndStoreMessage(
+						getViewModel().createAndStoreLocationMessage(
 								buildLocationMessage(location.getLongitude(),location.getLatitude(),bearing,TP_USERPOSITION),
 								null);
 					} catch (Exception e) {

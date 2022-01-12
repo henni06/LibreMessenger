@@ -79,6 +79,8 @@
 			android:tint="@color/briar_blue_600"
 			android:layout_gravity="bottom|left|end"
 			app:srcCompat="@android:drawable/ic_dialog_info" />
+
+
 	</FrameLayout>
 
 	<org.briarproject.briar.android.view.TextInputView

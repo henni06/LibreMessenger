@@ -812,5 +812,7 @@
 	<string name="sharing_warning">You are sharing your position</string>
 	<string name="menu_show_map_functions">Show map functions</string>
 	<string name="menu_hide_map_functions">Hide map functions</string>
+	<string name="marker_description">Description</string>
+	<string name="marker_size">Size</string>
 
 </resources>

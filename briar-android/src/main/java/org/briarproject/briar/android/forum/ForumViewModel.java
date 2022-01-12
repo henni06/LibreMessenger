@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import org.briarproject.bramble.api.contact.Contact;
 import org.briarproject.bramble.api.contact.ContactId;
+import org.briarproject.bramble.api.contact.ContactManager;
 import org.briarproject.bramble.api.crypto.CryptoExecutor;
 import org.briarproject.bramble.api.db.DatabaseExecutor;
 import org.briarproject.bramble.api.db.DbException;
@@ -34,6 +35,7 @@ import org.briarproject.briar.api.forum.ForumPostHeader;
 import org.briarproject.briar.api.forum.ForumSharingManager;
 import org.briarproject.briar.api.forum.event.ForumInvitationResponseReceivedEvent;
 import org.briarproject.briar.api.forum.event.ForumPostReceivedEvent;
+import org.briarproject.briar.api.identity.AuthorManager;
 import org.briarproject.briar.api.sharing.event.ContactLeftShareableEvent;
 
 import java.util.ArrayList;
@@ -77,10 +79,11 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 			MessageTracker messageTracker,
 			EventBus eventBus,
 			ForumManager forumManager,
-			ForumSharingManager forumSharingManager) {
+			ForumSharingManager forumSharingManager, AuthorManager authorManager,
+			ContactManager contactManager) {
 		super(application, dbExecutor, lifecycleManager, db, androidExecutor,
 				identityManager, notificationManager, sharingController,
-				cryptoExecutor, clock, messageTracker, eventBus);
+				cryptoExecutor, clock, messageTracker, eventBus,authorManager,contactManager);
 		this.forumManager = forumManager;
 		this.forumSharingManager = forumSharingManager;
 	}
@@ -171,6 +174,22 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 		});
 	}
 
+	@Override
+	public void createAndStoreLocationMessage(String text,
+			@androidx.annotation.Nullable MessageId parentMessageId) {
+		runOnDbThread(() -> {
+			try {
+				LocalAuthor author = identityManager.getLocalAuthor();
+				GroupCount count = forumManager.getGroupCount(groupId);
+				long timestamp = max(count.getLatestMsgTime() + 1,
+						clock.currentTimeMillis());
+				createLocationMessage(text, timestamp, parentMessageId, author);
+			} catch (DbException e) {
+				handleException(e);
+			}
+		});
+	}
+
 	private void createMessage(String text, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author) {
 		cryptoExecutor.execute(() -> {
@@ -178,6 +197,16 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 			ForumPost msg = forumManager.createLocalPost(groupId, text,
 					timestamp, parentId, author);
 			storePost(msg, text);
+		});
+	}
+
+	private void createLocationMessage(String text, long timestamp,
+			@Nullable MessageId parentId, LocalAuthor author) {
+		cryptoExecutor.execute(() -> {
+			LOG.info("Creating location post...");
+			ForumPost msg = forumManager.createLocalPost(groupId, text,
+					timestamp, parentId, author);
+			storeLocationPost(msg, text);
 		});
 	}
 
@@ -193,6 +222,17 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 		}, this::handleException);
 	}
 
+	private void storeLocationPost(ForumPost msg, String text) {
+		runOnDbThread(false, txn -> {
+			long start = now();
+			ForumPostHeader header = forumManager.addLocalPost(txn, msg);
+			logDuration(LOG, "Storing location post", start);
+			txn.attach(() -> {
+
+			});
+		}, this::handleException);
+	}
+
 	@Override
 	protected void markItemRead(ForumPostItem item) {
 		runOnDbThread(() -> {
@@ -202,6 +242,11 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 				handleException(e);
 			}
 		});
+	}
+
+	@Override
+	protected LiveData<Boolean> isCreator() {
+		return new MutableLiveData<>();
 	}
 
 	@Override

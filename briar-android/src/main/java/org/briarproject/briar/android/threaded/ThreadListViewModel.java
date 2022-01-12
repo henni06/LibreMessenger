@@ -2,7 +2,10 @@ package org.briarproject.briar.android.threaded;
 
 import android.app.Application;
 
+import org.briarproject.bramble.api.contact.Contact;
+import org.briarproject.bramble.api.contact.ContactManager;
 import org.briarproject.bramble.api.crypto.CryptoExecutor;
+import org.briarproject.bramble.api.data.BdfList;
 import org.briarproject.bramble.api.db.DatabaseExecutor;
 import org.briarproject.bramble.api.db.DbException;
 import org.briarproject.bramble.api.db.NoSuchGroupException;
@@ -17,8 +20,11 @@ import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.MessageId;
 import org.briarproject.bramble.api.sync.event.GroupRemovedEvent;
+import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
+import org.briarproject.bramble.api.sync.event.MessageAddedEvent;
 import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.bramble.api.system.Clock;
+import org.briarproject.briar.android.privategroup.conversation.GroupMessageItem;
 import org.briarproject.briar.android.sharing.SharingController;
 import org.briarproject.briar.android.sharing.SharingController.SharingInfo;
 import org.briarproject.briar.android.viewmodel.DbViewModel;
@@ -26,6 +32,10 @@ import org.briarproject.briar.android.viewmodel.LiveResult;
 import org.briarproject.briar.api.android.AndroidNotificationManager;
 import org.briarproject.briar.api.client.MessageTracker;
 import org.briarproject.briar.api.client.MessageTree;
+import org.briarproject.briar.api.identity.AuthorInfo;
+import org.briarproject.briar.api.identity.AuthorManager;
+import org.briarproject.briar.api.privategroup.GroupMessage;
+import org.briarproject.briar.api.privategroup.event.GroupMessageAddedEvent;
 import org.briarproject.briar.client.MessageTreeImpl;
 import org.osmdroid.util.GeoPoint;
 
@@ -60,7 +70,8 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	protected final Clock clock;
 	private final MessageTracker messageTracker;
 	private final EventBus eventBus;
-
+	private final AuthorManager authorManager;
+	private final ContactManager contactManager;
 	// UIThread
 	private final MessageTree<I> messageTree = new MessageTreeImpl<>();
 	private final MutableLiveData<LiveResult<List<I>>> items =
@@ -103,9 +114,10 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 			@CryptoExecutor Executor cryptoExecutor,
 			Clock clock,
 			MessageTracker messageTracker,
-			EventBus eventBus) {
+			EventBus eventBus,AuthorManager authorManager,ContactManager contactManager) {
 		super(application, dbExecutor, lifecycleManager, db, androidExecutor);
 		this.identityManager = identityManager;
+		this.contactManager=contactManager;
 		this.notificationManager = notificationManager;
 		this.cryptoExecutor = cryptoExecutor;
 		this.clock = clock;
@@ -113,6 +125,7 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 		this.messageTracker = messageTracker;
 		this.eventBus = eventBus;
 		this.eventBus.addListener(this);
+		this.authorManager=authorManager;
 	}
 
 	@Override
@@ -160,6 +173,17 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 				LOG.info("Group removed");
 				groupRemoved.setValue(true);
 			}
+		}else if(e instanceof LocationMessageEvent){
+
+			LocationMessageEvent g = (LocationMessageEvent) e;
+			try{
+				Contact contact=contactManager.getContact(g.getContactId());
+
+				getThreadMap().handleLocationMessage(g,contact.getAuthor(),contact.getAlias());
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+
 		}
 	}
 
@@ -183,6 +207,8 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	public abstract void createAndStoreMessage(String text,
 			@Nullable MessageId parentMessageId);
 
+	public abstract void createAndStoreLocationMessage(String text,
+			@Nullable MessageId parentMessageId);
 	/**
 	 * Loads the ContactIds of all contacts the group is shared with
 	 * and adds them to {@link SharingController}.
@@ -284,5 +310,7 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	MessageId getAndResetScrollToItem() {
 		return scrollToItem.getAndSet(null);
 	}
+
+	protected abstract LiveData<Boolean> isCreator();
 
 }
