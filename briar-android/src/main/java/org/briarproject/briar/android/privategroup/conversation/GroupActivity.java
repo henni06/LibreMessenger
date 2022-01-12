@@ -118,6 +118,7 @@ public class GroupActivity extends
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
+		super.onCreateOptionsMenu(menu);
 		this.menu=menu;
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.group_actions, menu);
@@ -129,10 +130,6 @@ public class GroupActivity extends
 			menu.findItem(R.id.action_group_leave).setVisible(!isCreator);
 			menu.findItem(R.id.action_group_dissolve).setVisible(isCreator);
 			menu.findItem(R.id.action_location_share).setVisible(!isCreator);
-
-			menu.findItem(R.id.action_map).setVisible(isCreator);
-
-
 		});
 		super.onCreateOptionsMenu(menu);
 		if(locationObserver.isLocationActivated(groupId)){

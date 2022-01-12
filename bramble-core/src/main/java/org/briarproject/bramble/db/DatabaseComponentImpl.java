@@ -1,6 +1,8 @@
 package org.briarproject.bramble.db;
 
+import org.briarproject.bramble.api.FormatException;
 import org.briarproject.bramble.api.cleanup.event.CleanupTimerStartedEvent;
+import org.briarproject.bramble.api.client.ClientHelper;
 import org.briarproject.bramble.api.contact.Contact;
 import org.briarproject.bramble.api.contact.ContactId;
 import org.briarproject.bramble.api.contact.PendingContact;
@@ -14,6 +16,9 @@ import org.briarproject.bramble.api.contact.event.PendingContactRemovedEvent;
 import org.briarproject.bramble.api.crypto.PrivateKey;
 import org.briarproject.bramble.api.crypto.PublicKey;
 import org.briarproject.bramble.api.crypto.SecretKey;
+import org.briarproject.bramble.api.data.BdfList;
+import org.briarproject.bramble.api.data.BdfReader;
+import org.briarproject.bramble.api.data.BdfReaderFactory;
 import org.briarproject.bramble.api.db.CommitAction;
 import org.briarproject.bramble.api.db.CommitAction.Visitor;
 import org.briarproject.bramble.api.db.ContactExistsException;
@@ -59,6 +64,7 @@ import org.briarproject.bramble.api.sync.Request;
 import org.briarproject.bramble.api.sync.event.GroupAddedEvent;
 import org.briarproject.bramble.api.sync.event.GroupRemovedEvent;
 import org.briarproject.bramble.api.sync.event.GroupVisibilityUpdatedEvent;
+import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
 import org.briarproject.bramble.api.sync.event.MessageAddedEvent;
 import org.briarproject.bramble.api.sync.event.MessageRequestedEvent;
 import org.briarproject.bramble.api.sync.event.MessageSharedEvent;
@@ -73,6 +79,10 @@ import org.briarproject.bramble.api.transport.KeySetId;
 import org.briarproject.bramble.api.transport.TransportKeySet;
 import org.briarproject.bramble.api.transport.TransportKeys;
 
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -89,6 +99,8 @@ import javax.inject.Inject;
 
 import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
+import static org.briarproject.bramble.api.data.BdfReader.DEFAULT_MAX_BUFFER_SIZE;
+import static org.briarproject.bramble.api.data.BdfReader.DEFAULT_NESTED_LIMIT;
 import static org.briarproject.bramble.api.sync.Group.Visibility.INVISIBLE;
 import static org.briarproject.bramble.api.sync.Group.Visibility.SHARED;
 import static org.briarproject.bramble.api.sync.validation.MessageState.DELIVERED;
@@ -912,6 +924,7 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 		}
 	}
 
+
 	@Override
 	public void receiveMessage(Transaction transaction, ContactId c, Message m)
 			throws DbException {
@@ -924,8 +937,14 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 				db.raiseSeenFlag(txn, c, m.getId());
 				db.raiseAckFlag(txn, c, m.getId());
 			} else {
-				db.addMessage(txn, m, UNKNOWN, false, false, c);
-				transaction.attach(new MessageAddedEvent(m, c));
+				if(!(new String(m.getBody()).contains(Message.LOCATION_IDENTIFIER))) {
+					db.addMessage(txn, m, UNKNOWN, false, false, c);
+					transaction.attach(new MessageAddedEvent(m, c));
+				}else{
+					transaction.attach((new LocationMessageEvent(m, c)));
+
+				}
+
 			}
 			transaction.attach(new MessageToAckEvent(c));
 		}

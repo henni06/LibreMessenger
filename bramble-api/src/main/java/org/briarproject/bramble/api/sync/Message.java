@@ -11,6 +11,7 @@ import static org.briarproject.bramble.api.sync.SyncConstants.MESSAGE_HEADER_LEN
 @NotNullByDefault
 public class Message {
 
+	public static final String LOCATION_IDENTIFIER = "{\"type\":\"location\"";
 	/**
 	 * The current version of the message format.
 	 */

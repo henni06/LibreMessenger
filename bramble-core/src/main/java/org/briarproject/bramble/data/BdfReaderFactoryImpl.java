@@ -13,6 +13,7 @@ import static org.briarproject.bramble.api.data.BdfReader.DEFAULT_NESTED_LIMIT;
 
 @Immutable
 @NotNullByDefault
+public
 class BdfReaderFactoryImpl implements BdfReaderFactory {
 
 	@Override

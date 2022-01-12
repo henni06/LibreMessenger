@@ -3,6 +3,7 @@ package org.briarproject.briar.android.privategroup.conversation;
 import android.app.Application;
 
 import org.briarproject.bramble.api.contact.ContactId;
+import org.briarproject.bramble.api.contact.ContactManager;
 import org.briarproject.bramble.api.crypto.CryptoExecutor;
 import org.briarproject.bramble.api.db.DatabaseExecutor;
 import org.briarproject.bramble.api.db.DbException;
@@ -26,6 +27,7 @@ import org.briarproject.briar.android.threaded.ThreadMap;
 import org.briarproject.briar.api.android.AndroidNotificationManager;
 import org.briarproject.briar.api.client.MessageTracker;
 import org.briarproject.briar.api.client.MessageTracker.GroupCount;
+import org.briarproject.briar.api.identity.AuthorManager;
 import org.briarproject.briar.api.privategroup.GroupMember;
 import org.briarproject.briar.api.privategroup.GroupMessage;
 import org.briarproject.briar.api.privategroup.GroupMessageFactory;
@@ -89,10 +91,11 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			Clock clock,
 			MessageTracker messageTracker,
 			PrivateGroupManager privateGroupManager,
-			GroupMessageFactory groupMessageFactory) {
+			GroupMessageFactory groupMessageFactory, AuthorManager authorManager,
+			ContactManager contactManager) {
 		super(application, dbExecutor, lifecycleManager, db, androidExecutor,
 				identityManager, notificationManager, sharingController,
-				cryptoExecutor, clock, messageTracker, eventBus);
+				cryptoExecutor, clock, messageTracker, eventBus,authorManager,contactManager);
 		this.privateGroupManager = privateGroupManager;
 		this.groupMessageFactory = groupMessageFactory;
 	}
@@ -238,6 +241,23 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		});
 	}
 
+	@Override
+	public void createAndStoreLocationMessage(String text,
+			@Nullable MessageId parentId) {
+		runOnDbThread(() -> {
+			try {
+				LocalAuthor author = identityManager.getLocalAuthor();
+				MessageId previousMsgId =
+						privateGroupManager.getPreviousMsgId(groupId);
+				GroupCount count = privateGroupManager.getGroupCount(groupId);
+				long timestamp = count.getLatestMsgTime();
+				timestamp = max(clock.currentTimeMillis(), timestamp + 1);
+				createLocationMessage(text, timestamp, parentId, author, previousMsgId);
+			} catch (DbException e) {
+				handleException(e);
+			}
+		});
+	}
 
 
 	private void createMessage(String text, long timestamp,
@@ -251,14 +271,18 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		});
 	}
 
-	private void storeLocation(GroupMessage msg, String text) {
-		runOnDbThread(false, txn -> {
-			long start = now();
-			privateGroupManager.sendMessage(txn, msg);
-			logDuration(LOG, "Storing group message", start);
-
-		}, this::handleException);
+	private void createLocationMessage(String text, long timestamp,
+			@Nullable MessageId parentId, LocalAuthor author,
+			MessageId previousMsgId) {
+		cryptoExecutor.execute(() -> {
+			LOG.info("Creating location message...");
+			GroupMessage msg = groupMessageFactory.createGroupMessage(groupId,
+					timestamp, parentId, author, text, previousMsgId);
+			storeLocation(msg, text);
+		});
 	}
+
+
 
 	private void storePost(GroupMessage msg, String text) {
 		runOnDbThread(false, txn -> {
@@ -269,6 +293,21 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			txn.attach(() ->
 					addItem(buildItem(header, text), true)
 			);
+		}, this::handleException);
+	}
+
+	private void storeLocation(GroupMessage msg, String text) {
+		runOnDbThread(false, txn -> {
+			long start = now();
+			GroupMessageHeader header =
+					privateGroupManager.addLocalMessage(txn, msg);
+			logDuration(LOG, "Storing location message", start);
+			txn.attach(new Runnable() {
+				@Override
+				public void run() {
+
+				}
+			});
 		}, this::handleException);
 	}
 
@@ -311,7 +350,7 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		return privateGroup;
 	}
 
-	LiveData<Boolean> isCreator() {
+	protected LiveData<Boolean> isCreator() {
 		return isCreator;
 	}
 

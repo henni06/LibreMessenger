@@ -17,6 +17,7 @@ import org.briarproject.bramble.api.sync.ClientId;
 import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.event.GroupAddedEvent;
 import org.briarproject.bramble.api.sync.event.GroupRemovedEvent;
+import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
 import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.briar.api.privategroup.location.LocationMessageHeader;
 import org.briarproject.briar.android.viewmodel.DbViewModel;

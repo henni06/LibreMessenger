@@ -33,6 +33,7 @@ import static org.briarproject.bramble.util.StringUtils.fromUtf8;
 
 @NotThreadSafe
 @NotNullByDefault
+public
 class BdfReaderImpl implements BdfReader {
 
 	private static final byte[] EMPTY_BUFFER = new byte[0];
@@ -44,7 +45,7 @@ class BdfReaderImpl implements BdfReader {
 	private byte next;
 	private byte[] buf = new byte[8];
 
-	BdfReaderImpl(InputStream in, int nestedLimit, int maxBufferSize) {
+	public BdfReaderImpl(InputStream in, int nestedLimit, int maxBufferSize) {
 		this.in = in;
 		this.nestedLimit = nestedLimit;
 		this.maxBufferSize = maxBufferSize;
