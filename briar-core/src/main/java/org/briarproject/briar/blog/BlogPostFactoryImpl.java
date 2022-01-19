@@ -59,7 +59,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 
 		// Serialise the signed message
 		BdfList message = BdfList.of(POST.getInt(), text, sig);
-		Message m = clientHelper.createMessage(groupId, timestamp, message);
+		Message m = clientHelper.createMessage(groupId, timestamp, message,
+				Message.MessageType.DEFAULT);
 		return new BlogPost(m, parent, author);
 	}
 
@@ -87,7 +88,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 		// Serialise the signed message
 		BdfList message = BdfList.of(COMMENT.getInt(), comment,
 				parentOriginalId, parentCurrentId, sig);
-		return clientHelper.createMessage(groupId, timestamp, message);
+		return clientHelper.createMessage(groupId, timestamp, message,
+				Message.MessageType.DEFAULT);
 	}
 
 	@Override
@@ -103,7 +105,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 		BdfList message = BdfList.of(WRAPPED_POST.getInt(), descriptor,
 				timestamp, text, signature);
 		return clientHelper
-				.createMessage(groupId, clock.currentTimeMillis(), message);
+				.createMessage(groupId, clock.currentTimeMillis(), message,
+						Message.MessageType.DEFAULT);
 	}
 
 	@Override
@@ -121,7 +124,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 		BdfList message = BdfList.of(WRAPPED_POST.getInt(), descriptor,
 				timestamp, text, signature);
 		return clientHelper
-				.createMessage(groupId, clock.currentTimeMillis(), message);
+				.createMessage(groupId, clock.currentTimeMillis(), message,
+						Message.MessageType.DEFAULT);
 	}
 
 	@Override
@@ -141,7 +145,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 				timestamp, comment, pOriginalId, oldParentId, signature,
 				parentCurrentId);
 		return clientHelper
-				.createMessage(groupId, clock.currentTimeMillis(), message);
+				.createMessage(groupId, clock.currentTimeMillis(), message,
+						Message.MessageType.DEFAULT);
 	}
 
 	@Override
@@ -163,7 +168,8 @@ class BlogPostFactoryImpl implements BlogPostFactory {
 				timestamp, comment, pOriginalId, oldParentId, signature,
 				parentCurrentId);
 		return clientHelper
-				.createMessage(groupId, clock.currentTimeMillis(), message);
+				.createMessage(groupId, clock.currentTimeMillis(), message,
+						Message.MessageType.DEFAULT);
 	}
 
 	private MessageType getType(BdfList body) throws FormatException {

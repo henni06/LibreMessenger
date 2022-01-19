@@ -262,7 +262,7 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 
 		db.transaction(false, transaction ->
 				db.addLocalMessage(transaction, message, metadata, shared,
-						temporary));
+						temporary, Message.MessageType.DEFAULT));
 	}
 
 	@Test
@@ -275,7 +275,8 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 			oneOf(database).containsMessage(txn, messageId);
 			will(returnValue(false));
 			oneOf(database).addMessage(txn, message, DELIVERED, shared,
-					temporary, null);
+					temporary, null,
+					Message.MessageType.DEFAULT);
 			oneOf(database).mergeMessageMetadata(txn, messageId, metadata);
 			oneOf(database).commitTransaction(txn);
 			// The message was added, so the listeners should be called
@@ -290,7 +291,7 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 
 		db.transaction(false, transaction ->
 				db.addLocalMessage(transaction, message, metadata, shared,
-						temporary));
+						temporary, Message.MessageType.DEFAULT));
 	}
 
 	@Test
@@ -1111,7 +1112,7 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 			oneOf(database).containsMessage(txn, messageId);
 			will(returnValue(false));
 			oneOf(database).addMessage(txn, message, UNKNOWN, false, false,
-					contactId);
+					contactId, Message.MessageType.DEFAULT);
 			// Second time
 			oneOf(database).containsContact(txn, contactId);
 			will(returnValue(true));
@@ -1662,7 +1663,7 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 			oneOf(database).containsMessage(txn, messageId);
 			will(returnValue(false));
 			oneOf(database).addMessage(txn, message, DELIVERED, shared,
-					temporary, null);
+					temporary, null, Message.MessageType.DEFAULT);
 			oneOf(database).mergeMessageMetadata(txn, messageId, metadata);
 			// addMessageDependencies()
 			oneOf(database).containsMessage(txn, messageId);
@@ -1698,7 +1699,7 @@ public class DatabaseComponentImplTest extends BrambleMockTestCase {
 		assertFalse(db.open(key, null));
 		db.transaction(false, transaction -> {
 			db.addLocalMessage(transaction, message, metadata, shared,
-					temporary);
+					temporary, Message.MessageType.DEFAULT);
 			Collection<MessageId> dependencies = new ArrayList<>(2);
 			dependencies.add(messageId1);
 			dependencies.add(messageId2);

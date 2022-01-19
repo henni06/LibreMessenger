@@ -68,7 +68,8 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 					invite,
 					memberSignature
 			);
-			Message m = clientHelper.createMessage(groupId, timestamp, body);
+			Message m = clientHelper.createMessage(groupId, timestamp, body,
+					Message.MessageType.DEFAULT);
 			return new GroupMessage(m, null, member);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalArgumentException(e);
@@ -104,7 +105,8 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 					text,
 					signature
 			);
-			Message m = clientHelper.createMessage(groupId, timestamp, body);
+			Message m = clientHelper.createMessage(groupId, timestamp, body,
+					Message.MessageType.DEFAULT);
 			return new GroupMessage(m, parentId, member);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalArgumentException(e);
@@ -146,7 +148,8 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 					getLocationString(lng,lat),
 					signature
 			);
-			Message m = clientHelper.createMessage(groupId, timestamp, body);
+			Message m = clientHelper.createMessage(groupId, timestamp, body,
+					Message.MessageType.DEFAULT);
 			return new GroupMessage(m, null, author);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalArgumentException(e);

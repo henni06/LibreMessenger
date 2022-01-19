@@ -98,25 +98,36 @@ class ClientHelperImpl implements ClientHelper {
 			BdfDictionary metadata, boolean shared, boolean temporary)
 			throws DbException, FormatException {
 		db.addLocalMessage(txn, m, metadataEncoder.encode(metadata), shared,
-				temporary);
+				temporary, Message.MessageType.DEFAULT);
+	}
+
+	@Override
+	public void addLocalLocationMessage(Transaction txn, Message m,
+			BdfDictionary metadata, boolean shared, boolean temporary)
+			throws DbException, FormatException {
+		db.addLocalMessage(txn, m, metadataEncoder.encode(metadata), shared,
+				temporary, Message.MessageType.LOCATION);
 	}
 
 	@Override
 	public Message createMessage(GroupId g, long timestamp, byte[] body) {
-		return messageFactory.createMessage(g, timestamp, body);
+		return messageFactory.createMessage(g, timestamp, body,
+				Message.MessageType.DEFAULT);
 	}
 
 	@Override
-	public Message createMessage(GroupId g, long timestamp, BdfList body)
+	public Message createMessage(GroupId g, long timestamp, BdfList body,
+			Message.MessageType messageType)
 			throws FormatException {
-		return messageFactory.createMessage(g, timestamp, toByteArray(body));
+		return messageFactory.createMessage(g, timestamp, toByteArray(body),
+				messageType);
 	}
 
 	@Override
 	public Message createMessageForStoringMetadata(GroupId g) {
 		byte[] salt = new byte[SALT_LENGTH];
 		crypto.getSecureRandom().nextBytes(salt);
-		return messageFactory.createMessage(g, 0, salt);
+		return messageFactory.createMessage(g, 0, salt, Message.MessageType.DEFAULT);
 	}
 
 	@Override

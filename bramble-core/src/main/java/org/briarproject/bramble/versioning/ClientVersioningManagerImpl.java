@@ -251,8 +251,9 @@ class ClientVersioningManagerImpl implements ClientVersioningManager,
 		BdfList body = encodeClientVersions(versions);
 		try {
 			Message m = clientHelper.createMessage(localGroup.getId(), now,
-					body);
-			db.addLocalMessage(txn, m, new Metadata(), false, false);
+					body, Message.MessageType.DEFAULT);
+			db.addLocalMessage(txn, m, new Metadata(), false, false,
+					Message.MessageType.DEFAULT);
 		} catch (FormatException e) {
 			throw new AssertionError(e);
 		}
@@ -444,7 +445,8 @@ class ClientVersioningManagerImpl implements ClientVersioningManager,
 		try {
 			BdfList body = encodeUpdate(states, updateVersion);
 			long now = clock.currentTimeMillis();
-			Message m = clientHelper.createMessage(g, now, body);
+			Message m = clientHelper.createMessage(g, now, body,
+					Message.MessageType.DEFAULT);
 			BdfDictionary meta = new BdfDictionary();
 			meta.put(MSG_KEY_UPDATE_VERSION, updateVersion);
 			meta.put(MSG_KEY_LOCAL, true);

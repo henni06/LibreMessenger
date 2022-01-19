@@ -207,7 +207,7 @@ public class BlogPostValidatorTest extends BrambleMockTestCase {
 			will(returnValue(originalBody));
 			oneOf(messageFactory)
 					.createMessage(group.getId(), message.getTimestamp(),
-							originalBody);
+							originalBody, Message.MessageType.DEFAULT);
 			will(returnValue(message));
 		}});
 
@@ -249,7 +249,7 @@ public class BlogPostValidatorTest extends BrambleMockTestCase {
 			will(returnValue(originalBody));
 			oneOf(messageFactory)
 					.createMessage(group.getId(), message.getTimestamp(),
-							originalBody);
+							originalBody, Message.MessageType.DEFAULT);
 			will(returnValue(message));
 		}});
 

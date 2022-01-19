@@ -11,14 +11,17 @@ import static org.briarproject.bramble.api.sync.SyncConstants.MESSAGE_HEADER_LEN
 public class TestMessageFactory implements MessageFactory {
 
 	@Override
-	public Message createMessage(GroupId g, long timestamp, byte[] body) {
+	public Message createMessage(GroupId g, long timestamp, byte[] body,Message.MessageType messageType) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Message createMessage(byte[] raw) {
+	public Message createMessage(byte[] raw, Message.MessageType messageType) {
 		throw new UnsupportedOperationException();
 	}
+
+
+
 
 	@Override
 	public byte[] getRawMessage(Message m) {

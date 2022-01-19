@@ -123,7 +123,7 @@ interface Database<T> {
 	 * if the message was created locally.
 	 */
 	void addMessage(T txn, Message m, MessageState state, boolean shared,
-			boolean temporary, @Nullable ContactId sender) throws DbException;
+			boolean temporary, @Nullable ContactId sender, Message.MessageType messageType) throws DbException;
 
 	/**
 	 * Adds a dependency between two messages, where the dependent message is

@@ -53,7 +53,8 @@ public class MessageEncoderTest extends BrambleMockTestCase {
 		context.checking(new Expectations() {{
 			oneOf(clientHelper).toByteArray(bodyList);
 			will(returnValue(body));
-			oneOf(messageFactory).createMessage(groupId, timestamp, body);
+			oneOf(messageFactory).createMessage(groupId, timestamp, body,
+					Message.MessageType.DEFAULT);
 			will(returnValue(message));
 		}});
 	}

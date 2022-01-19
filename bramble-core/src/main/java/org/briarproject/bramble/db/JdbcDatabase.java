@@ -104,7 +104,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 	// Package access for testing
 
 
-	static final int CODE_SCHEMA_VERSION = 49;
+	static final int CODE_SCHEMA_VERSION = 50;
 
 	// Time period offsets for incoming transport keys
 	private static final int OFFSET_PREV = -1;
@@ -193,6 +193,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 					+ " cleanupDeadline BIGINT,"
 					+ " length INT NOT NULL,"
 					+ " raw BLOB," // Null if message has been deleted
+					+ " messageType INT,"
 					+ " PRIMARY KEY (messageId),"
 					+ " FOREIGN KEY (groupId)"
 					+ " REFERENCES groups (groupId)"
@@ -501,7 +502,8 @@ abstract class JdbcDatabase implements Database<Connection> {
 				new Migration45_46(),
 				new Migration46_47(dbTypes),
 				new Migration47_48(),
-				new Migration48_49()
+				new Migration48_49(),
+				new Migration49_50()
 		);
 	}
 
@@ -833,18 +835,30 @@ abstract class JdbcDatabase implements Database<Connection> {
 
 	@Override
 	public void addMessage(Connection txn, Message m, MessageState state,
-			boolean shared, boolean temporary, @Nullable ContactId sender)
+			boolean shared, boolean temporary, @Nullable ContactId sender,
+			Message.MessageType messageType)
 			throws DbException {
 		PreparedStatement ps = null;
 		try {
-			String deleteSQL="delete messages where groupId=? and raw like '%"+Message.LOCATION_IDENTIFIER+"%'";
+			String masterdataSQL="select messageID from messages where groupId=? and messageType="+Message.MessageType.LOCATION.ordinal();
+			PreparedStatement masterDataPS=txn.prepareStatement(masterdataSQL);
+			masterDataPS.setBytes(1,m.getGroupId().getBytes());
+			ResultSet masterDataRS=masterDataPS.executeQuery();
+			int count=0;
+			while(masterDataRS.next()){
+				count++;
+			}
+			masterDataPS.close();
+			masterDataPS.close();
+
+			String deleteSQL="delete messages where groupId=? and messageType="+Message.MessageType.LOCATION.ordinal();
 			PreparedStatement deletePS=txn.prepareStatement(deleteSQL);
 			deletePS.setBytes(1,m.getGroupId().getBytes());
 			deletePS.execute();
 			deletePS.close();
 			String sql = "INSERT INTO messages (messageId, groupId, timestamp,"
-					+ " state, shared, temporary, length, raw)"
-					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					+ " state, shared, temporary, length, raw,messageType)"
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 			ps = txn.prepareStatement(sql);
 			ps.setBytes(1, m.getId().getBytes());
 			ps.setBytes(2, m.getGroupId().getBytes());
@@ -852,9 +866,11 @@ abstract class JdbcDatabase implements Database<Connection> {
 			ps.setInt(4, state.getValue());
 			ps.setBoolean(5, shared);
 			ps.setBoolean(6, temporary);
+
 			byte[] raw = messageFactory.getRawMessage(m);
 			ps.setInt(7, raw.length);
 			ps.setBytes(8, raw);
+			ps.setInt(9,messageType.ordinal());
 			int affected = ps.executeUpdate();
 			if (affected != 1) throw new DbStateException();
 			ps.close();
@@ -1821,7 +1837,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT groupId, timestamp, raw FROM messages"
+			String sql = "SELECT groupId, timestamp, raw,messageType FROM messages"
 					+ " WHERE messageId = ?";
 			ps = txn.prepareStatement(sql);
 			ps.setBytes(1, m.getBytes());
@@ -1830,6 +1846,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 			GroupId g = new GroupId(rs.getBytes(1));
 			long timestamp = rs.getLong(2);
 			byte[] raw = rs.getBytes(3);
+			int messageType=rs.getInt(4);
 			if (rs.next()) throw new DbStateException();
 			rs.close();
 			ps.close();
@@ -1837,7 +1854,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 			if (raw.length <= MESSAGE_HEADER_LENGTH) throw new AssertionError();
 			byte[] body = new byte[raw.length - MESSAGE_HEADER_LENGTH];
 			System.arraycopy(raw, MESSAGE_HEADER_LENGTH, body, 0, body.length);
-			return new Message(m, g, timestamp, body);
+			return new Message(m, g, timestamp, body, Message.MessageType.values()[messageType]);
 		} catch (SQLException e) {
 			tryToClose(rs, LOG, WARNING);
 			tryToClose(ps, LOG, WARNING);

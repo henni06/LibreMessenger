@@ -94,7 +94,8 @@ public class ClientHelperImplTest extends BrambleMockTestCase {
 			oneOf(db).transaction(with(false), withDbRunnable(txn));
 			oneOf(metadataEncoder).encode(dictionary);
 			will(returnValue(metadata));
-			oneOf(db).addLocalMessage(txn, message, metadata, shared, false);
+			oneOf(db).addLocalMessage(txn, message, metadata, shared, false,
+					Message.MessageType.DEFAULT);
 		}});
 
 		clientHelper.addLocalMessage(message, dictionary, shared);
@@ -105,10 +106,12 @@ public class ClientHelperImplTest extends BrambleMockTestCase {
 		byte[] bytes = expectToByteArray(list);
 
 		context.checking(new Expectations() {{
-			oneOf(messageFactory).createMessage(groupId, timestamp, bytes);
+			oneOf(messageFactory).createMessage(groupId, timestamp, bytes,
+					Message.MessageType.DEFAULT);
 		}});
 
-		clientHelper.createMessage(groupId, timestamp, list);
+		clientHelper.createMessage(groupId, timestamp, list,
+				Message.MessageType.DEFAULT);
 	}
 
 	@Test

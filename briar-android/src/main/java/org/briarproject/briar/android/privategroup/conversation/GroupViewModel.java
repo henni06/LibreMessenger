@@ -110,6 +110,9 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			if (!g.isLocal() && g.getGroupId().equals(groupId)) {
 				LOG.info("Group message received, adding...");
 				GroupMessageItem item = buildItem(g.getHeader(), g.getText());
+				if(item.getText().startsWith(ThreadMap.MARKER_IDENTIFIER)){
+					getThreadMap().handleMarkerMessage(item);
+				}else
 				if(item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
 					try {
 
@@ -192,7 +195,11 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			List<GroupMessageItem> items = new ArrayList<>();
 			for (GroupMessageHeader header : headers) {
 				GroupMessageItem item=loadItem(txn, header);
-				if(item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
+				if(item.getText().startsWith(ThreadMap.MARKER_IDENTIFIER)){
+					getThreadMap().handleMarkerMessage(item);
+				}else
+				if(
+						item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
 
 				}else{
 					items.add(item);
@@ -257,6 +264,12 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 				handleException(e);
 			}
 		});
+	}
+
+	@Override
+	public void createAndStoreMarkerMessage(String text,
+			@Nullable MessageId parentMessageId) {
+
 	}
 
 

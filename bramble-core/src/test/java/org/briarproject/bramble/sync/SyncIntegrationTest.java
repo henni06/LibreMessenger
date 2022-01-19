@@ -92,8 +92,10 @@ public class SyncIntegrationTest extends BrambleTestCase {
 		// Add two messages to the group
 		long timestamp = System.currentTimeMillis();
 		byte[] body = "Hello world".getBytes("UTF-8");
-		message = messageFactory.createMessage(group.getId(), timestamp, body);
-		message1 = messageFactory.createMessage(group.getId(), timestamp, body);
+		message = messageFactory.createMessage(group.getId(), timestamp, body,
+				Message.MessageType.DEFAULT);
+		message1 = messageFactory.createMessage(group.getId(), timestamp, body,
+				Message.MessageType.DEFAULT);
 		messageIds = Arrays.asList(message.getId(), message1.getId());
 	}
 

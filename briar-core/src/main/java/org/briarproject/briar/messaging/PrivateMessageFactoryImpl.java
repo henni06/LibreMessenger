@@ -40,7 +40,8 @@ class PrivateMessageFactoryImpl implements PrivateMessageFactory {
 			throw new IllegalArgumentException();
 		// Serialise the message
 		BdfList body = BdfList.of(text);
-		Message m = clientHelper.createMessage(groupId, timestamp, body);
+		Message m = clientHelper.createMessage(groupId, timestamp, body,
+				Message.MessageType.DEFAULT);
 		return new PrivateMessage(m);
 	}
 
@@ -52,7 +53,8 @@ class PrivateMessageFactoryImpl implements PrivateMessageFactory {
 		BdfList attachmentList = serialiseAttachmentHeaders(headers);
 		// Serialise the message
 		BdfList body = BdfList.of(PRIVATE_MESSAGE, text, attachmentList);
-		Message m = clientHelper.createMessage(groupId, timestamp, body);
+		Message m = clientHelper.createMessage(groupId, timestamp, body,
+				Message.MessageType.DEFAULT);
 		return new PrivateMessage(m, text != null, headers);
 	}
 
@@ -66,7 +68,8 @@ class PrivateMessageFactoryImpl implements PrivateMessageFactory {
 		Long timer = autoDeleteTimer == NO_AUTO_DELETE_TIMER ?
 				null : autoDeleteTimer;
 		BdfList body = BdfList.of(PRIVATE_MESSAGE, text, attachmentList, timer);
-		Message m = clientHelper.createMessage(groupId, timestamp, body);
+		Message m = clientHelper.createMessage(groupId, timestamp, body,
+				Message.MessageType.DEFAULT);
 		return new PrivateMessage(m, text != null, headers, autoDeleteTimer);
 	}
 
