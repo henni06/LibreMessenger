@@ -130,7 +130,7 @@ class SyncRecordReaderImpl implements SyncRecordReader {
 		long timestamp = ByteUtils.readUint64(payload, UniqueId.LENGTH);
 		if (timestamp < 0) throw new FormatException();
 		nextRecord = null;
-		return messageFactory.createMessage(payload);
+		return messageFactory.createMessage(payload, Message.MessageType.DEFAULT);
 	}
 
 	@Override

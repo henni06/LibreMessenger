@@ -78,5 +78,5 @@
 	<dimen name="standard_55">65dp</dimen>
 	<dimen name="standard_105">130dp</dimen>
 	<dimen name="standard_155">195dp</dimen>
-
+	<dimen name="standard_205">255dp</dimen>
 </resources>

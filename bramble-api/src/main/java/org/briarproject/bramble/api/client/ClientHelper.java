@@ -30,9 +30,14 @@ public interface ClientHelper {
 			boolean shared, boolean temporary)
 			throws DbException, FormatException;
 
+	void addLocalLocationMessage(Transaction txn, Message m,
+			BdfDictionary metadata, boolean shared, boolean temporary)
+			throws DbException, FormatException;
+
 	Message createMessage(GroupId g, long timestamp, byte[] body);
 
-	Message createMessage(GroupId g, long timestamp, BdfList body)
+	Message createMessage(GroupId g, long timestamp, BdfList body,
+			Message.MessageType messageType)
 			throws FormatException;
 
 	Message createMessageForStoringMetadata(GroupId g);

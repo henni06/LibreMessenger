@@ -58,6 +58,7 @@ public class GroupActivity extends
 
 	private GroupViewModel viewModel;
 	private Menu menu;
+	private boolean creator=false;
 
 	@Override
 	public void injectActivity(ActivityComponent component) {
@@ -103,6 +104,8 @@ public class GroupActivity extends
 
 
 		observeOnce(viewModel.isCreator(), this, adapter::setIsCreator);
+		observeOnce(viewModel.isCreator(), this, this::setCreator);
+
 		// start with group disabled and enable when not dissolved
 		//NH solve issue!!!
 		//setGroupEnabled(false);
@@ -114,6 +117,9 @@ public class GroupActivity extends
 
 	}
 
+	protected void setCreator(boolean creator){
+		this.creator=creator;
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,6 +136,7 @@ public class GroupActivity extends
 			menu.findItem(R.id.action_group_leave).setVisible(!isCreator);
 			menu.findItem(R.id.action_group_dissolve).setVisible(isCreator);
 			menu.findItem(R.id.action_location_share).setVisible(!isCreator);
+
 		});
 		super.onCreateOptionsMenu(menu);
 		if(locationObserver.isLocationActivated(groupId)){
@@ -179,8 +186,12 @@ public class GroupActivity extends
 			if(getView()==V_LIST){
 				showView(V_MAP);
 				menu.findItem(R.id.action_map).setTitle(R.string.menu_list);
+				menu.findItem(R.id.action_show_map_functions).setEnabled(creator);
 			}else{
 				showView(V_LIST);
+				if(creator){
+					menu.findItem(R.id.action_show_map_functions).setEnabled(false);
+				}
 				menu.findItem(R.id.action_map).setTitle(R.string.menu_map);
 			}
 			return true;

@@ -1,6 +1,7 @@
 package org.briarproject.briar.android.privategroup.list;
 
 import android.app.Application;
+import android.location.LocationManager;
 
 import org.briarproject.bramble.api.contact.Contact;
 import org.briarproject.bramble.api.db.DbException;
@@ -103,10 +104,10 @@ public class GroupListViewModelTest extends BrambleMockTestCase {
 		Executor dbExecutor = new ImmediateExecutor();
 		AndroidExecutor androidExecutor =
 				new AndroidExecutorTestImpl(dbExecutor);
-		LocationManager locationManager=new LocationManagerImpl();
+		LocationManager locationManager=null;
 		viewModel = new GroupListViewModel(app, dbExecutor, lifecycleManager,
 				db, androidExecutor, groupManager, groupInvitationManager,
-				authorManager, notificationManager, eventBus,locationManager);
+				authorManager, notificationManager, eventBus);
 	}
 
 	@Test

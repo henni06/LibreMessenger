@@ -225,7 +225,7 @@ public class GroupInvitationManagerImplTest extends BrambleMockTestCase {
 					.createMessageForStoringMetadata(contactGroup.getId());
 			will(returnValue(storageMessage));
 			oneOf(db).addLocalMessage(txn, storageMessage, new Metadata(),
-					false, false);
+					false, false, Message.MessageType.DEFAULT);
 		}});
 	}
 

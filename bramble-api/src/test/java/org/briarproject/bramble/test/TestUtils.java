@@ -174,7 +174,7 @@ public class TestUtils {
 			long timestamp) {
 		MessageId id = new MessageId(getRandomId());
 		byte[] body = getRandomBytes(bodyLength);
-		return new Message(id, groupId, timestamp, body);
+		return new Message(id, groupId, timestamp, body, Message.MessageType.DEFAULT);
 	}
 
 	public static PendingContact getPendingContact() {

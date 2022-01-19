@@ -384,7 +384,8 @@ class TransportPropertyManagerImpl implements TransportPropertyManager,
 		try {
 			BdfList body = encodeProperties(t, p, version);
 			long now = clock.currentTimeMillis();
-			Message m = clientHelper.createMessage(g, now, body);
+			Message m = clientHelper.createMessage(g, now, body,
+					Message.MessageType.DEFAULT);
 			BdfDictionary meta = new BdfDictionary();
 			meta.put(MSG_KEY_TRANSPORT_ID, t.getString());
 			meta.put(MSG_KEY_VERSION, version);

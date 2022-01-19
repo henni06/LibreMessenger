@@ -16,13 +16,15 @@ public class Message {
 	 * The current version of the message format.
 	 */
 	public static final int FORMAT_VERSION = 1;
+	public enum  MessageType{DEFAULT,LOCATION,MARKER};
 
 	private final MessageId id;
 	private final GroupId groupId;
 	private final long timestamp;
 	private final byte[] body;
+	private final MessageType messageType;
 
-	public Message(MessageId id, GroupId groupId, long timestamp, byte[] body) {
+	public Message(MessageId id, GroupId groupId, long timestamp, byte[] body,MessageType messageType) {
 		if (body.length == 0) throw new IllegalArgumentException();
 		if (body.length > MAX_MESSAGE_BODY_LENGTH)
 			throw new IllegalArgumentException();
@@ -30,6 +32,7 @@ public class Message {
 		this.groupId = groupId;
 		this.timestamp = timestamp;
 		this.body = body;
+		this.messageType=messageType;
 	}
 
 	/**
@@ -38,6 +41,8 @@ public class Message {
 	public MessageId getId() {
 		return id;
 	}
+
+	public MessageType getMessageType(){ return messageType;}
 
 	/**
 	 * Returns the ID of the {@link Group} to which the message belongs.

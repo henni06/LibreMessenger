@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<LinearLayout
+
 android:orientation="vertical"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:visibility="gone"
+		android:background="@color/briar_accent"
+		android:id="@+id/loMarkerAction"
+		android:orientation="horizontal">
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@android:drawable/ic_delete"/>
+		<it.beppi.tristatetogglebutton_library.TriStateToggleButton
+			android:layout_width="160dp"
+			android:layout_margin="5dp"
+			app:tbOffColor="@color/briar_red_500"
+			app:tbMidColor="@color/briar_blue_600"
+			app:tbOnColor="@color/briar_brand_green"
+			app:tbDefaultStatus="mid"
+			android:layout_height="40dp"
+			android:id="@+id/markerAction"
+			/>
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@android:drawable/ic_menu_share"
+			app:tint="@color/briar_brand_green" />
+	</LinearLayout>
 	<TableLayout
 		android:layout_width="match_parent"
 		android:stretchColumns="1"
-		android:id="@+id/loEditMarker"
 		android:visibility="gone"
+		android:id="@+id/loEditMarker"
+		android:background="@color/briar_accent"
 		android:layout_height="wrap_content">
 		<TableRow
 			android:id="@+id/row1"
@@ -22,12 +54,15 @@ android:layout_height="fill_parent">
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="18dip"
+				android:textColor="@color/emoji_white"
 				android:text="@string/marker_description"
 />
 
 			<EditText
 				android:id="@+id/edtMessage"
 				android:layout_gravity="center_vertical"
+				android:textColor="@color/emoji_white"
+				android:shadowColor="@color/emoji_white"
 				android:layout_width="match_parent">
 
 			</EditText>
@@ -41,6 +76,7 @@ android:layout_height="fill_parent">
 				android:id="@+id/lblSize"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:textColor="@color/emoji_white"
 				android:padding="18dip"
 				android:text="@string/marker_size" />
 
@@ -53,6 +89,8 @@ android:layout_height="fill_parent">
 				android:layout_height="wrap_content"
 				android:max="5"
 				android:min="1"
+				android:thumbTint="@color/emoji_white"
+				android:tickMarkTint="@color/emoji_white"
 				android:layout_gravity="center_vertical"
 				android:progress="1" />
 
@@ -84,6 +122,10 @@ android:layout_height="fill_parent">
 
 		</TableRow>
 	</TableLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
 <org.osmdroid.views.MapView android:id="@+id/map"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent" >
@@ -91,12 +133,17 @@ android:layout_height="fill_parent">
 
 
 </org.osmdroid.views.MapView>
+
+	</LinearLayout>
+</LinearLayout>
 	<com.google.android.material.floatingactionbutton.FloatingActionButton
 		android:id="@+id/fabCenter"
+		android:visibility="visible"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="end|bottom"
+		android:layout_gravity="right|bottom"
 		android:layout_margin="16dp"
 		android:clickable="true"
+		android:src="@drawable/ic_menu_compass"
 		app:srcCompat="@android:drawable/ic_menu_compass" />
-</LinearLayout>
+</FrameLayout>

@@ -1,6 +1,8 @@
 package org.briarproject.briar.android.threaded;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -8,87 +10,68 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.timepicker.TimeFormat;
 
-import org.briarproject.bramble.BrambleCoreModule;
 import org.briarproject.bramble.api.FormatException;
 import org.briarproject.bramble.api.data.BdfList;
 import org.briarproject.bramble.api.data.BdfReader;
-import org.briarproject.bramble.api.data.BdfReaderFactory;
 import org.briarproject.bramble.api.identity.Author;
 import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
 import org.briarproject.bramble.data.BdfReaderFactoryImpl;
-import org.briarproject.bramble.data.BdfReaderImpl;
 import org.briarproject.briar.R;
-import org.briarproject.briar.android.location.SingleShotLocationProvider;
+import org.briarproject.briar.android.location.LocationInfo;
+import org.briarproject.briar.android.location.LocationMessageProducer;
 import org.briarproject.briar.android.privategroup.conversation.GroupMessageItem;
-import org.briarproject.briar.api.identity.AuthorInfo;
-import org.mapsforge.map.android.layers.MyLocationOverlay;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
-import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.IMyLocationConsumer;
-import org.osmdroid.views.overlay.mylocation.IMyLocationProvider;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.DateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Random;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
-import im.delight.android.identicons.IdenticonDrawable;
+import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
 
 public class ThreadMap extends Fragment {
+	private Random rndID=new Random();
+
 	public static final String LOCATION_IDENTIFIER = "{\"type\":\"location\"";
+	public static final String MARKER_IDENTIFIER = "{\"type\":\"marker\"";
+
 	private static final int WT_RED = 60 * 1000 * 10; //Older than 10 minutes
 	private static final int WT_YELLOW = 60 * 1000; //Older than 1 minutes
 	public static final int AM_DELETE=-1;
@@ -96,12 +79,25 @@ public class ThreadMap extends Fragment {
 	public static final int AM_ADDINFORMATION=1;
 	public static final int AM_ADDWARNING=2;
 	public static final int AM_ADDALERT=3;
+	public static final int AM_ADDMEETING=4;
 	private LocationInfo selectedLocationInfo=null;
 	private TableLayout loEditMarker;
 	private int actionMode=AM_SELECT;
 	private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 	private MapView map = null;
 	private ArrayList<LocationInfo> locations = new ArrayList<LocationInfo>();
+	private ThreadListViewModel viewModel;
+	private boolean admin=false;
+
+	public void setAdmin(boolean admin){
+		this.admin=admin;
+	}
+
+	public ThreadMap(ThreadListViewModel viewModel){
+		super();
+		this.viewModel=viewModel;
+
+	}
 
 	public void setActionMode(int mode){
 		actionMode=mode;
@@ -136,58 +132,50 @@ public class ThreadMap extends Fragment {
 		return toList(m.getBody());
 	}
 
+	public void handleMarkerMessage(GroupMessageItem message){
+
+		if (message.getText().startsWith(MARKER_IDENTIFIER)) {
+			LocationInfo locationInfo=LocationInfo.parseLocationInfo(message.getText());
+			locationInfo.admin=true;
+			boolean found=false;
+			for (int i = 0; i < locations.size(); i++) {
+
+				if (locations.get(i).admin &&
+						locations.get(i).id!=null && locations.get(i).id.equals(locationInfo.id)) {
+					locations.set(i, locationInfo);
+					found = true;
+				}
+			}
+			if (!found) {
+				locations.add(locationInfo);
+			}
+		}
+		if(getContext()!=null){
+			try {
+				refreshMap();
+			}
+			catch(Exception e){}
+		}
+	}
+
+
 	public void handleLocationMessage(LocationMessageEvent event,Author author,String alias)
 			throws Exception {
 		if (getContext() == null) return;
 		String text=getMessageText(toList(event.getMessage()));
 		if (text.startsWith(LOCATION_IDENTIFIER)) {
-
-			JsonReader reader =
-					new JsonReader(new StringReader(text));
-			double lng = 0;
-			double lat = 0;
-			double bearing = 0;
-			double speed = 0;
-			int subType = 0;
-			try {
-				reader.beginObject();
-				while (reader.hasNext()) {
-					String name = reader.nextName();
-					if (name.equals("lng")) {
-						lng = reader.nextDouble();
-					} else if (name.equals("lat")) {
-						lat = reader.nextDouble();
-					} else if (name.equals("bearing")) {
-						bearing = reader.nextDouble();
-					} else if (name.equals("speed")) {
-						speed = reader.nextDouble();
-					} else if (name.equals("subType")) {
-						subType = reader.nextInt();
-					} else {
-						reader.skipValue();
-					}
-				}
-				reader.endObject();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			LocationInfo locationInfo = new LocationInfo();
-			locationInfo.lng = lng;
-			locationInfo.lat = lat;
-			locationInfo.timestamp = event.getMessage().getTimestamp();
-			locationInfo.bearing = bearing;
-			locationInfo.speed = speed;
+			LocationInfo locationInfo=LocationInfo.parseLocationInfo(text);
 			locationInfo.author = author;
 			locationInfo.alias = alias;
-			locationInfo.type = subType;
+			locationInfo.timestamp = event.getMessage().getTimestamp();
 			boolean found = false;
 
 			for (int i = 0; i < locations.size(); i++) {
 
-				if (locations.get(i).author.equals(author) &&
-						locations.get(i).type ==
-								ThreadListActivity.TP_USERPOSITION) {
+				if (!locations.get(i).admin &&
+						locations.get(i).author!=null && locations.get(i).author.equals(author) &&
+						locations.get(i).type.equals(
+								LocationInfo.LocationInfoType.USERPOSITION)) {
 					locations.set(i, locationInfo);
 					found = true;
 				}
@@ -205,52 +193,14 @@ public class ThreadMap extends Fragment {
 		if (getContext() == null) return;
 		if (message.getText().startsWith(LOCATION_IDENTIFIER)) {
 
-
-			JsonReader reader =
-					new JsonReader(new StringReader(message.getText()));
-			double lng = 0;
-			double lat = 0;
-			double bearing = 0;
-			double speed = 0;
-			int subType = 0;
-			try {
-				reader.beginObject();
-				while (reader.hasNext()) {
-					String name = reader.nextName();
-					if (name.equals("lng")) {
-						lng = reader.nextDouble();
-					} else if (name.equals("lat")) {
-						lat = reader.nextDouble();
-					} else if (name.equals("heading")) {
-						bearing = reader.nextDouble();
-					} else if (name.equals("speed")) {
-						speed = reader.nextDouble();
-					} else if (name.equals("subType")) {
-						subType = reader.nextInt();
-					} else {
-						reader.skipValue();
-					}
-				}
-				reader.endObject();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			LocationInfo locationInfo = new LocationInfo();
-			locationInfo.lng = lng;
-			locationInfo.lat = lat;
-			locationInfo.timestamp = message.getTimestamp();
-			locationInfo.bearing = bearing;
-			locationInfo.speed = speed;
-			locationInfo.author = message.getAuthor();
-			locationInfo.alias = message.getAuthorInfo().getAlias();
-			locationInfo.type = subType;
+			LocationInfo locationInfo=LocationInfo.parseLocationInfo(message.getText());
+			locationInfo.timestamp=message.getTimestamp();
 			boolean found = false;
 			for (int i = 0; i < locations.size(); i++) {
 
 				if (locations.get(i).author.equals(message.getAuthor()) &&
-						locations.get(i).type ==
-								ThreadListActivity.TP_USERPOSITION) {
+						locations.get(i).type.equals(
+								LocationInfo.LocationInfoType.USERPOSITION)) {
 					locations.set(i, locationInfo);
 					found = true;
 				}
@@ -334,134 +284,197 @@ public class ThreadMap extends Fragment {
 	}
 
 
-	private void refreshMap() throws Exception{
+	private void refreshMap(){
+		try {
+			map.getOverlays().clear();
+			map.getOverlays().add(new MapEventsOverlay(mReceive));
+			for (int i = 0; i < locations.size(); i++) {
 
-		map.getOverlays().clear();
-		map.getOverlays().add(new MapEventsOverlay(mReceive));
-		for(int i=0;i<locations.size();i++) {
-
-			LocationInfo iLocationInfo = locations.get(i);
-			if(iLocationInfo.timestamp>0 && iLocationInfo.timestamp<System.currentTimeMillis()-(2*WT_RED)) {
-				locations.remove(i);
-			}else {
-				Marker locationMarker = new Marker(map);
-				String titleMessage = "";
-
-				//locationMarker.setDefaultIcon();
-				if(iLocationInfo.message!=null){
-					titleMessage=iLocationInfo.message;
-				}else {
-					Date messageDate = new Date(iLocationInfo.timestamp);
-					if (iLocationInfo.author != null) {
-						iLocationInfo.author.getName();
+				LocationInfo iLocationInfo = locations.get(i);
+				if (iLocationInfo.timestamp > 0 &&
+						System.currentTimeMillis() - iLocationInfo.timestamp >
+								(2 * WT_RED)) {
+					if (locations.get(i).marker != null &&
+							locations.get(i).marker.getInfoWindow() != null) {
+						locations.get(i).marker.getInfoWindow().close();
 					}
-					if (iLocationInfo.alias != null) {
-						titleMessage =
-								titleMessage + "(" + iLocationInfo.alias + ")";
+					locations.remove(i);
+				} else {
+					Marker locationMarker = new Marker(map);
+					String titleMessage = "";
+
+					//locationMarker.setDefaultIcon();
+					if (iLocationInfo.message != null) {
+						titleMessage = iLocationInfo.message;
+					} else {
+						Date messageDate = new Date(iLocationInfo.timestamp);
+						if (iLocationInfo.author != null) {
+							titleMessage =
+									titleMessage +
+											iLocationInfo.author.getName();
+						}
+						if (iLocationInfo.alias != null) {
+							titleMessage =
+									titleMessage + "(" + iLocationInfo.alias +
+											")";
+						}
+						titleMessage = titleMessage + "\r\n" +
+								DateFormat.getTimeInstance()
+										.format(messageDate);
 					}
-					titleMessage = titleMessage + "\r\n" +
-							DateFormat.getTimeInstance().format(messageDate);
-				}
-				locationMarker.setTitle(titleMessage);
-				int size=32;
-				if(iLocationInfo.size>0 && iLocationInfo.size<=5){
-					size=32+(iLocationInfo.size-2)*5;
-				}
-				if (iLocationInfo.type ==
-						ThreadListActivity.TP_USERPOSITION) {
-					//Drawable pin =
-					//		getResources()
-					//				.getDrawable(R.drawable.pinlocation);
-					Bitmap source = BitmapFactory
-							.decodeResource(this.getResources(), R.drawable.pinlocation);
-
-					Bitmap target = RotateBitmap(source,(float)iLocationInfo.bearing);
-					//pin=getRotateDrawable(pin,(float)iLocationInfo.bearing);
-					Drawable pin = new BitmapDrawable(getResources(), target);
-					locationMarker.setAnchor(48,48);
-					if (iLocationInfo.timestamp <
-							System.currentTimeMillis() - WT_RED) {
-						pin.setAlpha(64);
+					locationMarker.setTitle(titleMessage);
 
 
-					} else if (iLocationInfo.timestamp <
-							System.currentTimeMillis() - WT_YELLOW) {
-						pin.setAlpha(128);
+					if (iLocationInfo.type
+							.equals(LocationInfo.LocationInfoType.USERPOSITION)) {
+						int size = 64;
 
+
+						Drawable pin = resize(getResources()
+								.getDrawable(R.drawable.pinlocation), size);
+						locationMarker
+								.setRotation((float) iLocationInfo.bearing);
+						if (System.currentTimeMillis() -
+								iLocationInfo.timestamp > WT_RED) {
+							pin.setAlpha(64);
+
+
+						} else if (System.currentTimeMillis() -
+								iLocationInfo.timestamp >
+								WT_YELLOW) {
+							pin.setAlpha(128);
+
+						}
+
+
+						locationMarker.setIcon(pin);
+					} else {
+						int size = 32;
+						if (iLocationInfo.size > 0 && iLocationInfo.size <= 5) {
+							size = 32 + (iLocationInfo.size - 2) * 5;
+						}
+						if (iLocationInfo.type.equals(
+								LocationInfo.LocationInfoType.USERALERT)) {
+							Drawable pin;
+							if(admin && iLocationInfo.admin) {
+								pin = resize(getResources().getDrawable(
+										R.drawable.alert_icon_admin), size);
+							}else{
+								pin = resize(getResources().getDrawable(
+										R.drawable.alert_icon), size);
+							}
+
+
+							locationMarker.setIcon(pin);
+						} else if (iLocationInfo.type.equals(
+								LocationInfo.LocationInfoType.USERWARNING)) {
+							Drawable pin;
+							if(admin && iLocationInfo.admin) {
+								pin = resize(getResources().getDrawable(
+										R.drawable.warning_icon_admin), size);
+							}else{
+								pin = resize(getResources().getDrawable(
+										R.drawable.warning_icon), size);
+							}
+							locationMarker.setIcon(pin);
+
+						} else if (iLocationInfo.type.equals(
+								LocationInfo.LocationInfoType.USERINFO)) {
+							Drawable pin;
+							if(admin && iLocationInfo.admin) {
+								pin = resize(getResources().getDrawable(
+										R.drawable.information_icon_admin), size);
+							}else{
+								pin = resize(getResources().getDrawable(
+										R.drawable.information_icon), size);
+							}
+							locationMarker.setIcon(pin);
+						}else if (iLocationInfo.type.equals(
+								LocationInfo.LocationInfoType.USERMEETING)) {
+							Drawable pin =
+									resize(getResources().getDrawable(
+											R.drawable.meeting_point), size);
+
+							locationMarker.setIcon(pin);
+						}
+						if (iLocationInfo.size == 0) {
+							iLocationInfo.size = 2;
+						}
+						if (iLocationInfo.admin) {
+							if(admin) {
+								locationMarker.setDraggable(true);
+								locationMarker.setOnMarkerClickListener(
+
+										new Marker.OnMarkerClickListener() {
+
+											@Override
+											public boolean onMarkerClick(
+													Marker marker,
+													MapView mapView) {
+
+												handleMarkerClick(marker);
+												return false;
+											}
+										});
+								locationMarker.setOnMarkerDragListener(
+										new Marker.OnMarkerDragListener() {
+											@Override
+											public void onMarkerDrag(
+													Marker marker) {
+
+											}
+
+											@Override
+											public void onMarkerDragEnd(
+													Marker marker) {
+												iLocationInfo.lat =
+														marker.getPosition()
+																.getLatitude();
+												iLocationInfo.lng =
+														marker.getPosition()
+																.getLongitude();
+											}
+
+											@Override
+											public void onMarkerDragStart(
+													Marker marker) {
+
+											}
+										});
+							}
+						} else {
+							if(admin) {
+								locationMarker.setOnMarkerClickListener(
+										new Marker.OnMarkerClickListener() {
+											@Override
+											public boolean onMarkerClick(
+													Marker marker,
+													MapView mapView) {
+												handleClientMarkerClick(marker);
+
+												return false;
+											}
+										});
+
+							}
+						}
 					}
-
-
-					locationMarker.setIcon(pin);
-				} else if (iLocationInfo.type ==
-						ThreadListActivity.TP_USERALERT) {
-					Drawable pin =
-							resize(getResources().getDrawable(
-									R.drawable.alert_icon),size);
-
-
-					locationMarker.setIcon(pin);
-				} else if (iLocationInfo.type ==
-						ThreadListActivity.TP_USERWARNING) {
-					Drawable pin =
-							resize(getResources().getDrawable(
-									R.drawable.warning_icon),size);
-
-					locationMarker.setIcon(pin);
-
-				} else if (iLocationInfo.type ==
-						ThreadListActivity.TP_USERINFO) {
-					Drawable pin =
-							resize(getResources().getDrawable(
-									R.drawable.information_icon),size);
-
-					locationMarker.setIcon(pin);
+					//locationMarker.setDefaultIcon();
+					locationMarker.setAnchor(Marker.ANCHOR_CENTER,
+							Marker.ANCHOR_CENTER);
+					locationMarker.setPosition(
+							new GeoPoint(iLocationInfo.lat, iLocationInfo.lng));
+					//locationMarker.setTextLabelFontSize(15);
+					iLocationInfo.marker = locationMarker;
+					map.getOverlays().add(locationMarker);
 				}
-				if(iLocationInfo.size==0) {
-					iLocationInfo.size = 2;
-				}
-				if(iLocationInfo.owner){
-					locationMarker.setDraggable(true);
-					locationMarker.setOnMarkerClickListener(
 
-							new Marker.OnMarkerClickListener() {
-
-								@Override
-								public boolean onMarkerClick(Marker marker,
-										MapView mapView) {
-										handleMarkerClick(marker);
-									return false;
-								}
-							});
-					locationMarker.setOnMarkerDragListener(
-							new Marker.OnMarkerDragListener() {
-								@Override
-								public void onMarkerDrag(Marker marker) {
-
-								}
-
-								@Override
-								public void onMarkerDragEnd(Marker marker) {
-									iLocationInfo.lat=marker.getPosition().getLatitude();
-									iLocationInfo.lng=marker.getPosition().getLongitude();
-								}
-
-								@Override
-								public void onMarkerDragStart(Marker marker) {
-
-								}
-							});
-				}
-				//locationMarker.setDefaultIcon();
-				locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
-				locationMarker.setPosition(
-						new GeoPoint(iLocationInfo.lat, iLocationInfo.lng));
-				//locationMarker.setTextLabelFontSize(15);
-				iLocationInfo.marker=locationMarker;
-				map.getOverlays().add(locationMarker);
 			}
-
+			map.invalidate();
 		}
-		map.invalidate();
+		catch (Exception e){
+			Log.d(ThreadMap.class.getName(),e.getMessage());
+		}
 	}
 
 
@@ -478,6 +491,54 @@ public class ThreadMap extends Fragment {
 		map.setMultiTouchControls(true);
 
 		loEditMarker=view.findViewById(R.id.loEditMarker);
+		Button bDelete=view.findViewById(R.id.btnDelete);
+		bDelete.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				loEditMarker.setVisibility(View.GONE);
+				if(selectedLocationInfo!=null){
+					viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(selectedLocationInfo,LocationMessageProducer.Actions.DELETE),null);
+					locations.remove(selectedLocationInfo);
+					refreshMap();
+				}
+			}
+		});
+		TriStateToggleButton btnMarkerAction=view.findViewById(R.id.markerAction);
+		btnMarkerAction.setOnToggleChanged(
+				new TriStateToggleButton.OnToggleChanged() {
+					@Override
+					public void onToggle(
+							TriStateToggleButton.ToggleStatus toggleStatus,
+							boolean booleanToggleStatus, int toggleIntValue) {
+						switch(toggleStatus){
+							case off:
+								if(selectedLocationInfo!=null){
+									LinearLayout loMarkerActions=view.findViewById(R.id.loMarkerAction);
+									loMarkerActions.animate()
+											.alpha(0f)
+											.setDuration(500)
+											.setListener(new AnimatorListenerAdapter() {
+												@Override
+												public void onAnimationEnd(
+														Animator animation) {
+													locations.remove(selectedLocationInfo);
+													loMarkerActions.setAlpha(1.0f);
+													loMarkerActions.setVisibility(View.GONE);
+													refreshMap();
+												}
+											});
+
+
+
+								}
+								break;
+							case on:
+								//share
+								break;
+						}
+					}
+				});
+
 		Button bOk=view.findViewById(R.id.btnOK);
 		bOk.setOnClickListener(new View.OnClickListener() {
 			                       @Override
@@ -499,7 +560,21 @@ public class ThreadMap extends Fragment {
 		IMapController mapController = map.getController();
 
 		mapController.setZoom(9.5);
+		/*map.getZoomController().setOnZoomListener(
+				new CustomZoomButtonsController.OnZoomListener() {
+					@Override
+					public void onVisibilityChanged(boolean b) {
 
+					}
+
+					@Override
+					public void onZoom(boolean b) {
+						try {
+							refreshMap();
+						}
+						catch(Exception e){}
+					}
+				});*/
 		requestPermissionsIfNecessary(this.getActivity(),new String[] {
 				Manifest.permission.ACCESS_FINE_LOCATION,
 				Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -604,20 +679,7 @@ public class ThreadMap extends Fragment {
 
 
 
-	private class LocationInfo{
-		double lng;
-		double lat;
-		double bearing;
-		long timestamp;
-		double speed;
-		int type;
-		String alias;
-		Author author;
-		Marker marker;
-		boolean owner;
-		String message;
-		int size;
-	}
+
 
 	private Drawable getRotateDrawable(final Drawable d, final float angle) {
 		final Drawable[] arD = { d };
@@ -659,19 +721,26 @@ public class ThreadMap extends Fragment {
 			locationInfo.lng = p.getLongitude();
 			locationInfo.lat = p.getLatitude();
 			locationInfo.timestamp = 0;
-			locationInfo.owner=true;
+			locationInfo.admin =true;
+			locationInfo.id="#"+rndID.nextInt()+
+					locationInfo.lng+
+					locationInfo.lat;
 			switch(actionMode){
 				case AM_ADDALERT:
-					locationInfo.type = ThreadListActivity.TP_USERALERT;
+					locationInfo.type = LocationInfo.LocationInfoType.USERALERT;
 					break;
 				case AM_ADDWARNING:
-					locationInfo.type = ThreadListActivity.TP_USERWARNING;
+					locationInfo.type = LocationInfo.LocationInfoType.USERWARNING;
 					break;
 				case AM_ADDINFORMATION:
-					locationInfo.type = ThreadListActivity.TP_USERINFO;
+					locationInfo.type = LocationInfo.LocationInfoType.USERINFO;
+					break;
+				case AM_ADDMEETING:
+					locationInfo.type = LocationInfo.LocationInfoType.USERMEETING;
 					break;
 			}
 			locations.add(locationInfo);
+			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(locationInfo,LocationMessageProducer.Actions.ADD),null);
 			try {
 				refreshMap();
 			}
@@ -690,6 +759,9 @@ public class ThreadMap extends Fragment {
 		LocationInfo locationInfo=findLocationInfo(marker);
 		if(locationInfo!=null){
 			selectedLocationInfo=locationInfo;
+
+			getView().findViewById(R.id.loMarkerAction).setVisibility(View.GONE);
+
 			loEditMarker.setVisibility(View.VISIBLE);
 			EditText edtMessage=getView().findViewById(R.id.edtMessage);
 			if(locationInfo.message!=null) {
@@ -709,5 +781,22 @@ public class ThreadMap extends Fragment {
 			}
 		}
 		return null;
+	}
+
+	private void handleClientMarkerClick(Marker marker){
+		LocationInfo locationInfo=findLocationInfo(marker);
+		if(locationInfo!=null) {
+			selectedLocationInfo=locationInfo;
+			TriStateToggleButton button=(TriStateToggleButton) getView().findViewById(R.id.markerAction);
+			button.setToggleStatus(TriStateToggleButton.ToggleStatus.mid);
+			getView().findViewById(
+					R.id.loEditMarker)
+					.setVisibility(View.GONE);
+			getView().findViewById(
+					R.id.loMarkerAction)
+					.setVisibility(
+							View.VISIBLE);
+
+		}
 	}
 }

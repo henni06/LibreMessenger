@@ -569,7 +569,8 @@ public abstract class DatabasePerformanceTest extends BrambleTestCase {
 					boolean shared = random.nextBoolean();
 					boolean temporary = random.nextBoolean();
 					ContactId sender = random.nextBoolean() ? c : null;
-					db.addMessage(txn, m, state, shared, temporary, sender);
+					db.addMessage(txn, m, state, shared, temporary, sender,
+							Message.MessageType.DEFAULT);
 					if (random.nextBoolean())
 						db.raiseRequestedFlag(txn, c, m.getId());
 					Metadata mm = getMetadata(METADATA_KEYS_PER_MESSAGE);
@@ -599,7 +600,8 @@ public abstract class DatabasePerformanceTest extends BrambleTestCase {
 				Message m = getMessage(g.getId());
 				messages.add(m);
 				boolean temporary = random.nextBoolean();
-				db.addMessage(txn, m, DELIVERED, false, temporary, null);
+				db.addMessage(txn, m, DELIVERED, false, temporary, null,
+						Message.MessageType.DEFAULT);
 				Metadata mm = getMetadata(METADATA_KEYS_PER_MESSAGE);
 				messageMeta.get(g.getId()).add(mm);
 				db.mergeMessageMetadata(txn, m.getId(), mm);

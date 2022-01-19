@@ -80,6 +80,18 @@
 			android:layout_gravity="bottom|left|end"
 			app:srcCompat="@android:drawable/ic_dialog_info" />
 
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fabMeeting"
+
+			android:layout_width="wrap_content"
+			android:layout_height="@dimen/standard_45"
+			android:layout_gravity="bottom|left|end"
+			android:layout_margin="10dp"
+			android:layout_weight="0.8"
+			android:clickable="true"
+			android:visibility="gone"
+			app:srcCompat="@drawable/meeting_point" />
+
 
 	</FrameLayout>
 

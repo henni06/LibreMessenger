@@ -35,12 +35,13 @@ class MessageFactoryImpl implements MessageFactory {
 	}
 
 	@Override
-	public Message createMessage(GroupId g, long timestamp, byte[] body) {
+	public Message createMessage(GroupId g, long timestamp, byte[] body,
+			Message.MessageType messageType) {
 		if (body.length == 0) throw new IllegalArgumentException();
 		if (body.length > MAX_MESSAGE_BODY_LENGTH)
 			throw new IllegalArgumentException();
 		MessageId id = getMessageId(g, timestamp, body);
-		return new Message(id, g, timestamp, body);
+		return new Message(id, g, timestamp, body,messageType);
 	}
 
 	private MessageId getMessageId(GroupId g, long timestamp, byte[] body) {
@@ -54,7 +55,7 @@ class MessageFactoryImpl implements MessageFactory {
 	}
 
 	@Override
-	public Message createMessage(byte[] raw) {
+	public Message createMessage(byte[] raw, Message.MessageType messageType) {
 		if (raw.length <= MESSAGE_HEADER_LENGTH)
 			throw new IllegalArgumentException();
 		if (raw.length > MAX_MESSAGE_LENGTH)
@@ -66,7 +67,7 @@ class MessageFactoryImpl implements MessageFactory {
 		byte[] body = new byte[raw.length - MESSAGE_HEADER_LENGTH];
 		System.arraycopy(raw, MESSAGE_HEADER_LENGTH, body, 0, body.length);
 		MessageId id = getMessageId(g, timestamp, body);
-		return new Message(id, g, timestamp, body);
+		return new Message(id, g, timestamp, body,messageType);
 	}
 
 	@Override

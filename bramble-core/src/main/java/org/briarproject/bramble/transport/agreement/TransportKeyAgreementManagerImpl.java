@@ -336,7 +336,8 @@ class TransportKeyAgreementManagerImpl extends BdfIncomingMessageHook
 			TransportId t, Session session) throws DbException {
 		Message m =
 				clientHelper.createMessageForStoringMetadata(contactGroupId);
-		db.addLocalMessage(txn, m, new Metadata(), false, false);
+		db.addLocalMessage(txn, m, new Metadata(), false, false,
+				Message.MessageType.DEFAULT);
 		MessageId storageId = m.getId();
 		saveSession(txn, t, storageId, session);
 	}

@@ -125,7 +125,7 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(contactGroup.getId(), now,
-					localUpdateBody);
+					localUpdateBody, Message.MessageType.DEFAULT);
 			will(returnValue(localUpdate));
 			oneOf(clientHelper).addLocalMessage(txn, localUpdate,
 					localUpdateMeta, true, false);
@@ -166,10 +166,10 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(localGroup.getId(), now,
-					localVersionsBody);
+					localVersionsBody, Message.MessageType.DEFAULT);
 			will(returnValue(localVersions));
 			oneOf(db).addLocalMessage(txn, localVersions, new Metadata(),
-					false, false);
+					false, false, Message.MessageType.DEFAULT);
 			// Inform contacts that client versions have changed
 			oneOf(db).getContacts(txn);
 			will(returnValue(singletonList(contact)));
@@ -253,10 +253,10 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(localGroup.getId(), now,
-					newLocalVersionsBody);
+					newLocalVersionsBody, Message.MessageType.DEFAULT);
 			will(returnValue(newLocalVersions));
 			oneOf(db).addLocalMessage(txn, newLocalVersions, new Metadata(),
-					false, false);
+					false, false, Message.MessageType.DEFAULT);
 			// Inform contacts that client versions have changed
 			oneOf(db).getContacts(txn);
 			will(returnValue(singletonList(contact)));
@@ -278,7 +278,8 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(contactGroup.getId(), now,
-					newLocalUpdateBody);
+					newLocalUpdateBody,
+					Message.MessageType.DEFAULT);
 			will(returnValue(newLocalUpdate));
 			oneOf(clientHelper).addLocalMessage(txn, newLocalUpdate,
 					newLocalUpdateMeta, true, false);
@@ -349,10 +350,10 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(localGroup.getId(), now,
-					newLocalVersionsBody);
+					newLocalVersionsBody, Message.MessageType.DEFAULT);
 			will(returnValue(newLocalVersions));
 			oneOf(db).addLocalMessage(txn, newLocalVersions, new Metadata(),
-					false, false);
+					false, false, Message.MessageType.DEFAULT);
 			// Inform contacts that client versions have changed
 			oneOf(db).getContacts(txn);
 			will(returnValue(singletonList(contact)));
@@ -376,7 +377,8 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(contactGroup.getId(), now,
-					newLocalUpdateBody);
+					newLocalUpdateBody,
+					Message.MessageType.DEFAULT);
 			will(returnValue(newLocalUpdate));
 			oneOf(clientHelper).addLocalMessage(txn, newLocalUpdate,
 					newLocalUpdateMeta, true, false);
@@ -568,7 +570,7 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(contactGroup.getId(), now,
-					newLocalUpdateBody);
+					newLocalUpdateBody, Message.MessageType.DEFAULT);
 			will(returnValue(newLocalUpdate));
 			oneOf(clientHelper).addLocalMessage(txn, newLocalUpdate,
 					newLocalUpdateMeta, true, false);
@@ -639,7 +641,7 @@ public class ClientVersioningManagerImplTest extends BrambleMockTestCase {
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(now));
 			oneOf(clientHelper).createMessage(contactGroup.getId(), now,
-					newLocalUpdateBody);
+					newLocalUpdateBody, Message.MessageType.DEFAULT);
 			will(returnValue(newLocalUpdate));
 			oneOf(clientHelper).addLocalMessage(txn, newLocalUpdate,
 					newLocalUpdateMeta, true, false);

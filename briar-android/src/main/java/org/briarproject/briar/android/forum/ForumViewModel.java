@@ -190,6 +190,12 @@ class ForumViewModel extends ThreadListViewModel<ForumPostItem> {
 		});
 	}
 
+	@Override
+	public void createAndStoreMarkerMessage(String text,
+			@androidx.annotation.Nullable MessageId parentMessageId) {
+
+	}
+
 	private void createMessage(String text, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author) {
 		cryptoExecutor.execute(() -> {

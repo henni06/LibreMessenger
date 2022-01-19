@@ -90,7 +90,7 @@ public interface DatabaseComponent extends TransactionManager {
 	 * Stores a local message.
 	 */
 	void addLocalMessage(Transaction txn, Message m, Metadata meta,
-			boolean shared, boolean temporary) throws DbException;
+			boolean shared, boolean temporary, Message.MessageType messageType) throws DbException;
 
 	/**
 	 * Stores a pending contact.

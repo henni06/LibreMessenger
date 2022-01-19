@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-	<string name="app_name" translatable="false">Freiheitsmessenger</string>
+	<string name="app_name" translatable="false">Libre</string>
 	<string name="app_package" translatable="false">org.briarproject.briar.android</string>
 
 	<!-- Setup -->
-	<string name="setup_title">Welcome to Freiheitsmessenger</string>
+	<string name="setup_title">Welcome to Libre</string>
 	<string name="setup_name_explanation">Your nickname will be shown next to any content you post. You can\'t change it after creating your account.</string>
 	<string name="setup_next">Next</string>
 	<string name="setup_password_intro">Choose a Password</string>
-	<string name="setup_password_explanation">Your Freiheitsmessenger account is stored encrypted on your device, not in the cloud. If you forget your password or uninstall Freiheitsmessenger, there\'s no way to recover your account.\n\nChoose a long password that\'s hard to guess, such as four random words, or ten random letters, numbers and symbols.</string>
+	<string name="setup_password_explanation">Your Libre account is stored encrypted on your device, not in the cloud. If you forget your password or uninstall Libre, there\'s no way to recover your account.\n\nChoose a long password that\'s hard to guess, such as four random words, or ten random letters, numbers and symbols.</string>
 	<string name="setup_doze_title">Background Connections</string>
-	<string name="setup_doze_intro">To receive messages, Freiheitsmessenger needs to stay connected in the background.</string>
-	<string name="setup_doze_explanation">To receive messages, Freiheitsmessenger needs to stay connected in the background. Please disable battery optimizations so Freiheitsmessenger can stay connected.</string>
+	<string name="setup_doze_intro">To receive messages, Libre needs to stay connected in the background.</string>
+	<string name="setup_doze_explanation">To receive messages, Libre needs to stay connected in the background. Please disable battery optimizations so Libre can stay connected.</string>
 	<string name="setup_doze_button">Allow Connections</string>
 	<string name="choose_nickname">Choose your nickname</string>
 	<string name="choose_password">Choose your password</string>
@@ -23,40 +23,40 @@
 	<string name="create_account_button">Create Account</string>
 	<string name="more_info">More Information</string>
 	<string name="don_t_ask_again">Don\'t ask again</string>
-	<string name="setup_huawei_text">Please tap the button below and make sure Freiheitsmessenger is protected in the \"Protected Apps\" screen.</string>
-	<string name="setup_huawei_button">Protect Freiheitsmessenger</string>
-	<string name="setup_huawei_help">If Freiheitsmessenger is not added to the protected apps list, it will be unable to run in the background.</string>
-	<string name="setup_huawei_app_launch_text">Please tap the button below, open the \"App launch\" screen and make sure Freiheitsmessenger is set to \"Manage manually\".</string>
+	<string name="setup_huawei_text">Please tap the button below and make sure Libre is protected in the \"Protected Apps\" screen.</string>
+	<string name="setup_huawei_button">Protect Libre</string>
+	<string name="setup_huawei_help">If Libre is not added to the protected apps list, it will be unable to run in the background.</string>
+	<string name="setup_huawei_app_launch_text">Please tap the button below, open the \"App launch\" screen and make sure Libre is set to \"Manage manually\".</string>
 	<string name="setup_huawei_app_launch_button">Open Battery Settings</string>
-	<string name="setup_huawei_app_launch_help">If Freiheitsmessenger is not set to \"Manage manually\" in the \"App launch\" screen, it will not be able to run in the background.</string>
-	<string name="setup_xiaomi_text">To run in the background, Freiheitsmessenger needs to be locked to the recent apps list.</string>
-	<string name="setup_xiaomi_button">Protect Freiheitsmessenger</string>
-	<string name="setup_xiaomi_help">If Freiheitsmessenger is not locked to the recent apps list, it will be unable to run in the background.</string>
-	<string name="setup_xiaomi_dialog_body_old">1. Open the recent apps list (also called the app switcher)\n\n2. Swipe down on the image of Freiheitsmessenger to show the padlock icon\n\n3. If the padlock is not locked, tap to lock it</string>
-	<string name="setup_xiaomi_dialog_body_new">1. Open the recent apps list (also called the app switcher)\n\n2. Press and hold the image of Freiheitsmessenger until the padlock button appears\n\n3. If the padlock is not locked, tap to lock it</string>
+	<string name="setup_huawei_app_launch_help">If Libre is not set to \"Manage manually\" in the \"App launch\" screen, it will not be able to run in the background.</string>
+	<string name="setup_xiaomi_text">To run in the background, Libre needs to be locked to the recent apps list.</string>
+	<string name="setup_xiaomi_button">Protect Libre</string>
+	<string name="setup_xiaomi_help">If Libre is not locked to the recent apps list, it will be unable to run in the background.</string>
+	<string name="setup_xiaomi_dialog_body_old">1. Open the recent apps list (also called the app switcher)\n\n2. Swipe down on the image of Libre to show the padlock icon\n\n3. If the padlock is not locked, tap to lock it</string>
+	<string name="setup_xiaomi_dialog_body_new">1. Open the recent apps list (also called the app switcher)\n\n2. Press and hold the image of Libre until the padlock button appears\n\n3. If the padlock is not locked, tap to lock it</string>
 	<string name="warning_dozed">%s was unable to run in the background</string>
 
 	<!-- Login -->
 	<string name="enter_password">Password</string>
 	<string name="try_again">Wrong password, try again</string>
 	<string name="dialog_title_cannot_check_password">Cannot Check Password</string>
-	<string name="dialog_message_cannot_check_password">Freiheitsmessenger cannot check your password. Please try rebooting your device to solve this problem.</string>
+	<string name="dialog_message_cannot_check_password">Libre cannot check your password. Please try rebooting your device to solve this problem.</string>
 	<string name="sign_in_button">Sign In</string>
 	<string name="forgotten_password">I have forgotten my password</string>
 	<string name="dialog_title_lost_password">Lost Password</string>
-	<string name="dialog_message_lost_password">Your Freiheitsmessenger account is stored encrypted on your device, not in the cloud, so we can\'t reset your password. Would you like to delete your account and start again?\n\nCaution: Your identities, contacts and messages will be permanently lost.</string>
-	<string name="startup_failed_activity_title">Freiheitsmessenger Startup Failure</string>
-	<string name="startup_failed_clock_error">Freiheitsmessenger was unable to start because your device\'s clock is wrong.\n\nPlease set your device\'s clock to the right time and try again.</string>
-	<string name="startup_failed_db_error">Freiheitsmessenger was unable to open the database containing your account, your contacts and your messages.\n\nPlease upgrade to the latest version of the app and try again, or set up a new account by choosing \'I have forgotten my password\' at the password prompt.</string>
+	<string name="dialog_message_lost_password">Your Libre account is stored encrypted on your device, not in the cloud, so we can\'t reset your password. Would you like to delete your account and start again?\n\nCaution: Your identities, contacts and messages will be permanently lost.</string>
+	<string name="startup_failed_activity_title">Libre Startup Failure</string>
+	<string name="startup_failed_clock_error">Libre was unable to start because your device\'s clock is wrong.\n\nPlease set your device\'s clock to the right time and try again.</string>
+	<string name="startup_failed_db_error">Libre was unable to open the database containing your account, your contacts and your messages.\n\nPlease upgrade to the latest version of the app and try again, or set up a new account by choosing \'I have forgotten my password\' at the password prompt.</string>
 	<string name="startup_failed_data_too_old_error">Your account was created with an old version of this app and cannot be opened with this version.\n\nYou must either reinstall the old version or set up a new account by choosing \'I have forgotten my password\' at the password prompt.</string>
 	<string name="startup_failed_data_too_new_error">Your account was created with a newer version of this app and cannot be opened with this version.\n\nPlease upgrade to the latest version and try again.</string>
-	<string name="startup_failed_service_error">Freiheitsmessenger was unable to start a required component.\n\nPlease upgrade to the latest version of the app and try again.</string>
+	<string name="startup_failed_service_error">Libre was unable to start a required component.\n\nPlease upgrade to the latest version of the app and try again.</string>
 	<plurals name="expiry_warning">
-		<item quantity="one">This is a test version of Freiheitsmessenger. Your account will expire in %d day and cannot be renewed.</item>
-		<item quantity="other">This is a test version of Freiheitsmessenger. Your account will expire in %d days and cannot be renewed.</item>
+		<item quantity="one">This is a test version of Libre. Your account will expire in %d day and cannot be renewed.</item>
+		<item quantity="other">This is a test version of Libre. Your account will expire in %d days and cannot be renewed.</item>
 	</plurals>
 	<string name="expiry_date_reached">This software has expired.\nThank you for testing!</string>
-	<string name="download_briar">To continue using Freiheitsmessenger, please download the latest release.</string>
+	<string name="download_briar">To continue using Libre, please download the latest release.</string>
 	<string name="create_new_account">You will need to create a new account, but you can use the same nickname.</string>
 	<string name="download_briar_button">Download Latest Release</string>
 	<string name="startup_open_database">Decrypting Database…</string>
@@ -74,47 +74,47 @@
 	<string name="lock_button">Lock App</string>
 	<string name="settings_button">Settings</string>
 	<string name="sign_out_button">Sign Out</string>
-	<string name="transports_onboarding_text">Tap here to control how Freiheitsmessenger connects to your contacts.</string>
+	<string name="transports_onboarding_text">Tap here to control how Libre connects to your contacts.</string>
 
 	<!-- Transports: Tor -->
 	<string name="transport_tor">Internet</string>
 	<string name="tor_device_status_online_wifi">Your phone has Internet access via Wi-Fi</string>
 	<string name="tor_device_status_online_mobile">Your phone has Internet access via mobile data</string>
 	<string name="tor_device_status_offline">Your phone does not have Internet access</string>
-	<string name="tor_plugin_status_enabling">Freiheitsmessenger is connecting to the Internet</string>
-	<string name="tor_plugin_status_active">Freiheitsmessenger is connected to the Internet</string>
-	<string name="tor_plugin_status_inactive">Freiheitsmessenger can\'t connect to the Internet</string>
-	<string name="tor_plugin_status_disabled">Freiheitsmessenger is configured not to use the Internet</string>
-	<string name="tor_plugin_status_disabled_mobile_data">Freiheitsmessenger is configured not to use mobile data</string>
-	<string name="tor_plugin_status_disabled_battery">Freiheitsmessenger is configured not to use the Internet when running on battery</string>
-	<string name="tor_plugin_status_disabled_country_blocked">Freiheitsmessenger is configured not to use the Internet in this country</string>
+	<string name="tor_plugin_status_enabling">Libre is connecting to the Internet</string>
+	<string name="tor_plugin_status_active">Libre is connected to the Internet</string>
+	<string name="tor_plugin_status_inactive">Libre can\'t connect to the Internet</string>
+	<string name="tor_plugin_status_disabled">Libre is configured not to use the Internet</string>
+	<string name="tor_plugin_status_disabled_mobile_data">Libre is configured not to use mobile data</string>
+	<string name="tor_plugin_status_disabled_battery">Libre is configured not to use the Internet when running on battery</string>
+	<string name="tor_plugin_status_disabled_country_blocked">Libre is configured not to use the Internet in this country</string>
 
 	<!-- Transports: Wi-Fi -->
 	<string name="transport_lan">Wi-Fi</string>
 	<string name="transport_lan_long">Same Wi-Fi network</string>
 	<string name="lan_device_status_on">Your phone is connected to Wi-Fi</string>
 	<string name="lan_device_status_off">Your phone is not connected to Wi-Fi</string>
-	<string name="lan_plugin_status_enabling">Freiheitsmessenger is connecting to the Wi-Fi network</string>
-	<string name="lan_plugin_status_active">Freiheitsmessenger is connected to the Wi-Fi network</string>
-	<string name="lan_plugin_status_inactive">Freiheitsmessenger can\'t connect to the Wi-Fi network</string>
-	<string name="lan_plugin_status_disabled">Freiheitsmessenger is configured not to use the Wi-Fi network</string>
+	<string name="lan_plugin_status_enabling">Libre is connecting to the Wi-Fi network</string>
+	<string name="lan_plugin_status_active">Libre is connected to the Wi-Fi network</string>
+	<string name="lan_plugin_status_inactive">Libre can\'t connect to the Wi-Fi network</string>
+	<string name="lan_plugin_status_disabled">Libre is configured not to use the Wi-Fi network</string>
 
 	<!-- Transports: Bluetooth -->
 	<string name="transport_bt">Bluetooth</string>
 	<string name="bt_device_status_on">Your phone\'s Bluetooth is turned on</string>
 	<string name="bt_device_status_off">Your phone\'s Bluetooth is turned off</string>
-	<string name="bt_plugin_status_enabling">Freiheitsmessenger is connecting to Bluetooth</string>
-	<string name="bt_plugin_status_active">Freiheitsmessenger is connected to Bluetooth</string>
-	<string name="bt_plugin_status_inactive">Freiheitsmessenger can\'t connect to Bluetooth</string>
-	<string name="bt_plugin_status_disabled">Freiheitsmessenger is configured not to use Bluetooth</string>
+	<string name="bt_plugin_status_enabling">Libre is connecting to Bluetooth</string>
+	<string name="bt_plugin_status_active">Libre is connected to Bluetooth</string>
+	<string name="bt_plugin_status_inactive">Libre can\'t connect to Bluetooth</string>
+	<string name="bt_plugin_status_disabled">Libre is configured not to use Bluetooth</string>
 
 	<!-- Notifications -->
-	<string name="reminder_notification_title">Signed out of Freiheitsmessenger</string>
+	<string name="reminder_notification_title">Signed out of Libre</string>
 	<string name="reminder_notification_text">Tap to sign back in.</string>
-	<string name="reminder_notification_channel_title">Freiheitsmessenger Sign-in Reminder</string>
+	<string name="reminder_notification_channel_title">Libre Sign-in Reminder</string>
 	<string name="reminder_notification_dismiss">Dismiss</string>
-	<string name="ongoing_notification_title">Signed into Freiheitsmessenger</string>
-	<string name="ongoing_notification_text">Touch to open Freiheitsmessenger.</string>
+	<string name="ongoing_notification_title">Signed into Libre</string>
+	<string name="ongoing_notification_text">Touch to open Libre.</string>
 	<plurals name="private_message_notification_text">
 		<item quantity="one">New private message.</item>
 		<item quantity="other">%d new private messages.</item>
@@ -224,7 +224,7 @@
 	<string name="save_image_success">Image was saved</string>
 	<string name="save_image_error">Could not save image</string>
 	<string name="dialog_title_no_image_support">Images Unavailable</string>
-	<string name="dialog_message_no_image_support">Your contact\'s Freiheitsmessenger does not yet support image attachments. Once they upgrade you\'ll see a different icon.</string>
+	<string name="dialog_message_no_image_support">Your contact\'s Libre does not yet support image attachments. Once they upgrade you\'ll see a different icon.</string>
 	<string name="dialog_title_image_support">You can now send images to this contact</string>
 	<string name="dialog_message_image_support">Tap this icon to attach images.</string>
 	<string name="messaging_too_many_attachments_toast">Only the first %d images will be sent</string>
@@ -265,7 +265,7 @@
 	<string name="add_contact_choose_a_nickname">Enter a nickname</string>
 	<string name="nickname_intro">Give your contact a nickname. Only you can see it.</string>
 	<string name="your_link">Give this link to the contact you want to add</string>
-	<string name="link_clip_label">Freiheitsmessenger link</string>
+	<string name="link_clip_label">Libre link</string>
 	<string name="link_copied_toast">Link copied</string>
 	<string name="adding_contact_error">There was an error adding the contact.</string>
 	<string name="pending_contact_requests_snackbar">There are pending contact requests</string>
@@ -280,7 +280,7 @@
 	<string name="own_link_error">Enter your contact\'s link, not your own</string>
 	<string name="nickname_missing">Please enter a nickname</string>
 	<string name="invalid_link">Invalid link</string>
-	<string name="unsupported_link">This link comes from a newer version of Freiheitsmessenger. Please upgrade to the latest version and try again.</string>
+	<string name="unsupported_link">This link comes from a newer version of Libre. Please upgrade to the latest version and try again.</string>
 	<string name="intent_own_link">You opened your own link. Use the one of the contact you want to add!</string>
 	<string name="missing_link">Please enter a link</string>
 	<!-- This is a numeral indicating the first step in a series of screens -->
@@ -311,7 +311,7 @@
 	<!-- Introductions -->
 
 	<string name="introduction_onboarding_title">Introduce your contacts</string>
-	<string name="introduction_onboarding_text">You can introduce your contacts to each other, so they don\'t need to meet in person to connect on Freiheitsmessenger.</string>
+	<string name="introduction_onboarding_text">You can introduce your contacts to each other, so they don\'t need to meet in person to connect on Libre.</string>
 	<string name="introduction_menu_item">Make Introduction</string>
 	<string name="introduction_activity_title">Select Contact</string>
 	<string name="introduction_not_possible">You already have one introduction in progress with these contacts. Please allow for this to finish first. If you or your contacts are rarely online, this can take some time.</string>
@@ -514,7 +514,7 @@
 
 	<!-- Settings Display -->
 	<string name="pref_language_title">Language &amp; region</string>
-	<string name="pref_language_changed">This setting will take effect when you restart Freiheitsmessenger. Please sign out and restart Freiheitsmessenger.</string>
+	<string name="pref_language_changed">This setting will take effect when you restart Libre. Please sign out and restart Libre.</string>
 	<string name="pref_language_default">System default</string>
 	<string name="display_settings_title">Display</string>
 	<string name="pref_theme_title">Theme</string>
@@ -534,7 +534,7 @@
 	<string name="tor_network_setting_without_bridges">Use Tor network without bridges</string>
 	<string name="tor_network_setting_with_bridges">Use Tor network with bridges</string>
 	<string name="tor_network_setting_never">Don\'t connect to the Internet</string>
-	<!-- How and when Freiheitsmessenger will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)" -->
+	<!-- How and when Libre will connect to Tor: E.g. "Don't connect to the Internet (in China)" or "Use Tor network with bridges (in Belarus)" -->
 	<string name="tor_network_setting_summary">Automatic: %1$s (in %2$s)</string>
 	<string name="tor_mobile_data_title">Use mobile data</string>
 	<string name="tor_only_when_charging_title">Connect to the Internet only when charging</string>
@@ -543,11 +543,11 @@
 	<!-- Settings Security and Panic -->
 	<string name="security_settings_title">Security</string>
 	<string name="pref_lock_title">App lock</string>
-	<string name="pref_lock_summary">Use the device\'s screen lock to protect Freiheitsmessenger while signed in</string>
+	<string name="pref_lock_summary">Use the device\'s screen lock to protect Libre while signed in</string>
 	<string name="pref_lock_disabled_summary">To use this feature, set up a screen lock for your device</string>
 	<string name="pref_lock_timeout_title">App lock inactivity timeout</string>
 	<!-- The %s placeholder is replaced with the following time spans, e.g. 5 Minutes, 1 Hour -->
-	<string name="pref_lock_timeout_summary">When not using Freiheitsmessenger, automatically lock it after %s</string>
+	<string name="pref_lock_timeout_summary">When not using Libre, automatically lock it after %s</string>
 	<!-- Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s" -->
 	<string name="pref_lock_timeout_1">1 minute</string>
 	<!-- Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s" -->
@@ -559,7 +559,7 @@
 	<!-- Will be shown in a list of lock times. Should fit into the %s of "automatically lock it after %s" -->
 	<string name="pref_lock_timeout_60">1 hour</string>
 	<string name="pref_lock_timeout_never">Never</string>
-	<string name="pref_lock_timeout_never_summary">Never lock Freiheitsmessenger automatically</string>
+	<string name="pref_lock_timeout_never_summary">Never lock Libre automatically</string>
 
 	<string name="change_password">Change password</string>
 	<string name="current_password">Current password</string>
@@ -568,7 +568,7 @@
 	<string name="password_changed">Password has been changed.</string>
 	<string name="panic_setting">Panic button setup</string>
 	<string name="panic_setting_title">Panic button</string>
-	<string name="panic_setting_hint">Configure how Freiheitsmessenger will react when you use a panic button app</string>
+	<string name="panic_setting_hint">Configure how Libre will react when you use a panic button app</string>
 	<string name="panic_app_setting_title">Panic Button App</string>
 	<string name="unknown_app">an unknown app</string>
 	<string name="panic_app_setting_summary">No app has been set</string>
@@ -577,9 +577,9 @@
 	<string name="dialog_message_connect_panic_app">Are you sure that you want to allow %1$s to trigger destructive panic button actions?</string>
 	<string name="panic_setting_destructive_action">Destructive Actions</string>
 	<string name="panic_setting_signout_title">Sign Out</string>
-	<string name="panic_setting_signout_summary">Sign out of Freiheitsmessenger if a panic button is pressed</string>
+	<string name="panic_setting_signout_summary">Sign out of Libre if a panic button is pressed</string>
 	<string name="purge_setting_title">Delete Account</string>
-	<string name="purge_setting_summary">Delete your Freiheitsmessenger account if a panic button is pressed. Caution: This will permanently delete your identities, contacts and messages</string>
+	<string name="purge_setting_summary">Delete your Libre account if a panic button is pressed. Caution: This will permanently delete your identities, contacts and messages</string>
 
 	<!-- Settings Notifications -->
 	<string name="notification_settings_title">Notifications</string>
@@ -629,10 +629,10 @@
 	<string name="link_warning_open_link">Open Link</string>
 
 	<!-- Crash Reporter -->
-	<string name="crash_report_title">Freiheitsmessenger Crash Report</string>
-	<string name="briar_crashed">Sorry, Freiheitsmessenger has crashed</string>
+	<string name="crash_report_title">Libre Crash Report</string>
+	<string name="briar_crashed">Sorry, Libre has crashed</string>
 	<string name="not_your_fault">This is not your fault.</string>
-	<string name="please_send_report">Please help us build a better Freiheitsmessenger by sending us a crash report.</string>
+	<string name="please_send_report">Please help us build a better Libre by sending us a crash report.</string>
 	<string name="report_is_encrypted">We promise that the report is encrypted and sent securely.</string>
 	<string name="feedback_title">Feedback</string>
 	<string name="describe_crash">Describe what happened (optional)</string>
@@ -655,28 +655,28 @@
 	<string name="close">Close</string>
 	<string name="dev_report_sending">Sending feedback…</string>
 	<string name="dev_report_sent">Feedback sent</string>
-	<string name="dev_report_saved">Report saved. It will be sent the next time you log into Freiheitsmessenger.</string>
+	<string name="dev_report_saved">Report saved. It will be sent the next time you log into Libre.</string>
 	<string name="dev_report_error">Error: Sending report failed</string>
 
 	<!-- Sign Out -->
-	<string name="progress_title_logout">Signing out of Freiheitsmessenger…</string>
+	<string name="progress_title_logout">Signing out of Libre…</string>
 
 	<!-- Screen Filters & Tapjacking -->
 	<string name="screen_filter_title">Screen overlay detected</string>
-	<string name="screen_filter_body">Another app is drawing on top of Freiheitsmessenger. To protect your security, Freiheitsmessenger will not respond to touches when another app is drawing on top.\n\nThe following apps might be drawing on top:\n\n%1$s</string>
-	<string name="screen_filter_body_api_30">Another app is drawing on top of Freiheitsmessenger. To protect your security, Freiheitsmessenger will not respond to touches when another app is drawing on top.\n\nReview apps below to find the responsible app.</string>
+	<string name="screen_filter_body">Another app is drawing on top of Libre. To protect your security, Libre will not respond to touches when another app is drawing on top.\n\nThe following apps might be drawing on top:\n\n%1$s</string>
+	<string name="screen_filter_body_api_30">Another app is drawing on top of Libre. To protect your security, Libre will not respond to touches when another app is drawing on top.\n\nReview apps below to find the responsible app.</string>
 	<string name="screen_filter_allow">Allow these apps to draw on top</string>
 	<string name="screen_filter_review_apps">Review apps</string>
 
 	<!-- Permission Requests -->
 	<string name="permission_camera_title">Camera permission</string>
-	<string name="permission_camera_request_body">To scan the QR code, Freiheitsmessenger needs access to the camera.</string>
+	<string name="permission_camera_request_body">To scan the QR code, Libre needs access to the camera.</string>
 	<string name="permission_location_title">Location permission</string>
-	<string name="permission_location_request_body">To discover Bluetooth devices, Freiheitsmessenger needs permission to access your location.\n\nFreiheitsmessenger does not store your location or share it with anyone.</string>
+	<string name="permission_location_request_body">To discover Bluetooth devices, Libre needs permission to access your location.\n\nLibre does not store your location or share it with anyone.</string>
 	<string name="permission_camera_location_title">Camera and location</string>
-	<string name="permission_camera_location_request_body">To scan the QR code, Freiheitsmessenger needs access to the camera.\n\nTo discover Bluetooth devices, Freiheitsmessenger needs permission to access your location.\n\nFreiheitsmessenger does not store your location or share it with anyone.</string>
+	<string name="permission_camera_location_request_body">To scan the QR code, Libre needs access to the camera.\n\nTo discover Bluetooth devices, Libre needs permission to access your location.\n\nLibre does not store your location or share it with anyone.</string>
 	<string name="permission_camera_denied_body">You have denied access to the camera, but adding contacts requires using the camera.\n\nPlease consider granting access.</string>
-	<string name="permission_location_denied_body">You have denied access to your location, but Freiheitsmessenger needs this permission to discover Bluetooth devices.\n\nPlease consider granting access.</string>
+	<string name="permission_location_denied_body">You have denied access to your location, but Libre needs this permission to discover Bluetooth devices.\n\nPlease consider granting access.</string>
 	<string name="permission_location_setting_title">Location setting</string>
 	<string name="permission_location_setting_body">Your device\'s location setting must be turned on to find other devices via Bluetooth. Please enable location to continue. You can disable it again afterwards.</string>
 	<string name="permission_location_setting_button">Enable location</string>
@@ -684,31 +684,31 @@
 	<string name="show_qr_code_fullscreen">Show QR code fullscreen</string>
 
 	<!-- App Locking -->
-	<string name="lock_unlock">Unlock Freiheitsmessenger</string>
-	<string name="lock_unlock_verbose">Enter your device PIN, pattern or password to unlock Freiheitsmessenger</string>
+	<string name="lock_unlock">Unlock Libre</string>
+	<string name="lock_unlock_verbose">Enter your device PIN, pattern or password to unlock Libre</string>
 	<string name="lock_unlock_fingerprint_description">Touch your fingerprint sensor with the registered finger to continue</string>
 	<string name="lock_unlock_password">Use Password</string>
-	<string name="lock_is_locked">Freiheitsmessenger is locked</string>
+	<string name="lock_is_locked">Libre is locked</string>
 	<string name="lock_tap_to_unlock">Tap to unlock</string>
 
 	<!-- Connections Screen -->
-	<string name="transports_help_text">Freiheitsmessenger can connect to your contacts via the Internet, Wi-Fi or Bluetooth.\n\nAll Internet connections go through the Tor network for privacy.\n\nIf a contact can be reached by multiple methods, Freiheitsmessenger uses them in parallel.</string>
+	<string name="transports_help_text">Libre can connect to your contacts via the Internet, Wi-Fi or Bluetooth.\n\nAll Internet connections go through the Tor network for privacy.\n\nIf a contact can be reached by multiple methods, Libre uses them in parallel.</string>
 
 	<!-- Share app offline -->
 	<string name="hotspot_title">Share this app offline</string>
 	<string name="hotspot_intro">Share this app with someone nearby without an Internet connection by using your phone\'s Wi-Fi.
-		\n\nYour phone will start a Wi-Fi hotspot. People nearby can connect to the hotspot and download the Freiheitsmessenger app from your phone.</string>
+		\n\nYour phone will start a Wi-Fi hotspot. People nearby can connect to the hotspot and download the Libre app from your phone.</string>
 	<string name="hotspot_button_start_sharing">Start hotspot</string>
 	<string name="hotspot_button_stop_sharing">Stop hotspot</string>
 	<string name="hotspot_progress_text_start">Setting up hotspot…</string>
 	<string name="hotspot_notification_channel_title">Wi-Fi hotspot</string>
-	<string name="hotspot_notification_title">Sharing Freiheitsmessenger offline</string>
+	<string name="hotspot_notification_title">Sharing Libre offline</string>
 	<string name="hotspot_button_connected">Next</string>
 
-	<string name="permission_hotspot_location_request_body">To create a Wi-Fi hotspot, Freiheitsmessenger needs permission to access your location.\n\nFreiheitsmessenger does not store your location or share it with anyone.</string>
-	<string name="permission_hotspot_location_denied_body">You have denied access to your location, but Freiheitsmessenger needs this permission to create a Wi-Fi hotspot.\n\nPlease consider granting access.</string>
+	<string name="permission_hotspot_location_request_body">To create a Wi-Fi hotspot, Libre needs permission to access your location.\n\nLibre does not store your location or share it with anyone.</string>
+	<string name="permission_hotspot_location_denied_body">You have denied access to your location, but Libre needs this permission to create a Wi-Fi hotspot.\n\nPlease consider granting access.</string>
 	<string name="wifi_settings_title">Wi-Fi setting</string>
-	<string name="wifi_settings_request_enable_body">To create a Wi-Fi hotspot, Freiheitsmessenger needs to use Wi-Fi. Please enable it.</string>
+	<string name="wifi_settings_request_enable_body">To create a Wi-Fi hotspot, Libre needs to use Wi-Fi. Please enable it.</string>
 
 	<string name="hotspot_tab_manual">Manual</string>
 	<!-- The placeholder to be inserted into the string 'hotspot_manual_wifi': People can connect by %s -->
@@ -716,9 +716,9 @@
 
 	<!-- Wi-Fi setup -->
 	<!-- The %s placeholder will be replaced with the translation of 'hotspot_scanning_a_qr_code' -->
-	<string name="hotspot_manual_wifi">Your phone is providing a Wi-Fi hotspot. People who want to download Freiheitsmessenger can connect to the hotspot by adding it in their device\'s Wi-Fi settings using the details below or by %s. When they have connected to the hotspot, press \'Next\'.</string>
+	<string name="hotspot_manual_wifi">Your phone is providing a Wi-Fi hotspot. People who want to download Libre can connect to the hotspot by adding it in their device\'s Wi-Fi settings using the details below or by %s. When they have connected to the hotspot, press \'Next\'.</string>
 	<string name="hotspot_manual_wifi_ssid">Network name</string>
-	<string name="hotspot_qr_wifi">Your phone is providing a Wi-Fi hotspot. People who want to download Freiheitsmessenger can connect to the hotspot by scanning this QR code. When they have connected to the hotspot, press \'Next\'.</string>
+	<string name="hotspot_qr_wifi">Your phone is providing a Wi-Fi hotspot. People who want to download Libre can connect to the hotspot by scanning this QR code. When they have connected to the hotspot, press \'Next\'.</string>
 	<string name="hotspot_no_peers_connected">No devices connected</string>
 	<plurals name="hotspot_peers_connected">
 		<item quantity="one">%s device connected</item>
@@ -727,11 +727,11 @@
 
 	<!-- Download link -->
 	<!-- The %s placeholder will be replaced with the translation of 'hotspot_scanning_a_qr_code' -->
-	<string name="hotspot_manual_site">Your phone is providing a Wi-Fi hotspot. People who are connected to the hotspot can download Freiheitsmessenger by typing the following link in a web browser or %s.</string>
+	<string name="hotspot_manual_site">Your phone is providing a Wi-Fi hotspot. People who are connected to the hotspot can download Libre by typing the following link in a web browser or %s.</string>
 	<string name="hotspot_manual_site_address">Address (URL)</string>
-	<string name="hotspot_qr_site">Your phone is providing a Wi-Fi hotspot. People who are connected to the hotspot can download Freiheitsmessenger by scanning this QR code.</string>
+	<string name="hotspot_qr_site">Your phone is providing a Wi-Fi hotspot. People who are connected to the hotspot can download Libre by scanning this QR code.</string>
 
-	<!-- e.g. Download Freiheitsmessenger 1.2.20 -->
+	<!-- e.g. Download Libre 1.2.20 -->
 	<string name="website_download_title">Download %s</string>
 	<string name="website_download_intro">Someone nearby shared %s with you.</string>
 	<string name="website_download_outro">After the download is complete, open the downloaded file and install it.</string>
@@ -743,14 +743,14 @@
 	<string name="hotspot_help_wifi_title">Problems with connecting to Wi-Fi:</string>
 	<string name="hotspot_help_wifi_1">Try disabling and re-enabling Wi-Fi on both phones and try again.</string>
 	<string name="hotspot_help_wifi_2">If your phone complains that the Wi-Fi has no Internet, tell it that you want to stay connected anyway.</string>
-	<string name="hotspot_help_wifi_3">Restart the phone which is running the Wi-Fi hotspot, then start Freiheitsmessenger and try sharing again.</string>
+	<string name="hotspot_help_wifi_3">Restart the phone which is running the Wi-Fi hotspot, then start Libre and try sharing again.</string>
 	<string name="hotspot_help_site_title">Problems visiting the local website:</string>
 	<string name="hotspot_help_site_1">Double check that you entered the address exactly as shown. A small error can make it fail.</string>
 	<string name="hotspot_help_site_2">Ensure that your phone is still connected to the correct Wi-Fi (see above) when you try to access the site.</string>
 	<string name="hotspot_help_site_3">If you have a firewall app, check that it isn\'t blocking access.</string>
-	<string name="hotspot_help_site_4">If you can visit the site, but not download the Freiheitsmessenger app, try it with a different web browser app.</string>
+	<string name="hotspot_help_site_4">If you can visit the site, but not download the Libre app, try it with a different web browser app.</string>
 	<string name="hotspot_help_fallback_title">Nothing works?</string>
-	<string name="hotspot_help_fallback_intro">You can try to save the app as an .apk file to share in some other way. Once the file has been transferred to the other device, it can be used to install Freiheitsmessenger.
+	<string name="hotspot_help_fallback_intro">You can try to save the app as an .apk file to share in some other way. Once the file has been transferred to the other device, it can be used to install Libre.
 		\n\nTip: For sharing via Bluetooth, you might need to rename the file to end with .zip first.</string>
 	<string name="hotspot_help_fallback_button">Save app</string>
 
@@ -761,7 +761,7 @@
 	<string name="hotspot_error_start_callback_failed_unknown">Hotspot failed to start with an unknown error, reason %d</string>
 	<string name="hotspot_error_start_callback_no_group_info">Hotspot failed to start: no group info</string>
 	<string name="hotspot_error_web_server_start">Error starting web server</string>
-	<string name="hotspot_error_web_server_serve">Error presenting website.\n\nPlease send feedback (with anonymous data) via the Freiheitsmessenger app if the issue persists.</string>
+	<string name="hotspot_error_web_server_serve">Error presenting website.\n\nPlease send feedback (with anonymous data) via the Libre app if the issue persists.</string>
 	<string name="hotspot_flag_test">Warning: This app was installed with Android Studio and can NOT be installed on another device.</string>
 	<string name="hotspot_error_framework_busy">Unable to start the hotspot.\n\nIf you have another hotspot running or are sharing your Internet connection via Wi-Fi, try stopping that and try again afterwards.</string>
 
@@ -769,13 +769,13 @@
 	<!-- Transfer Data via Removable Drives -->
 
 	<string name="removable_drive_menu_title">Connect via Removable Drive</string>
-	<string name="removable_drive_intro">If you can\'t connect to your contact via the Internet, Wi-Fi or Bluetooth, Freiheitsmessenger can also transfer messages on a removable drive such as a USB stick or an SD card.</string>
-	<string name="removable_drive_explanation">If you can\'t connect to your contact via the Internet, Wi-Fi or Bluetooth, Freiheitsmessenger can also transfer messages on a removable drive such as a USB stick or an SD card.\n\nWhen you use the \"Send Data\" button, any data that\'s waiting to be sent to the contact will be written to the removable drive. This includes private messages, attachments, blogs, forums and private groups.\n\nEverything will be encrypted before it is written to the removable drive.\n\nWhen your contact receives the removable drive, they can use the \"Receive Data\" button to import the messages into Freiheitsmessenger.</string>
+	<string name="removable_drive_intro">If you can\'t connect to your contact via the Internet, Wi-Fi or Bluetooth, Libre can also transfer messages on a removable drive such as a USB stick or an SD card.</string>
+	<string name="removable_drive_explanation">If you can\'t connect to your contact via the Internet, Wi-Fi or Bluetooth, Libre can also transfer messages on a removable drive such as a USB stick or an SD card.\n\nWhen you use the \"Send Data\" button, any data that\'s waiting to be sent to the contact will be written to the removable drive. This includes private messages, attachments, blogs, forums and private groups.\n\nEverything will be encrypted before it is written to the removable drive.\n\nWhen your contact receives the removable drive, they can use the \"Receive Data\" button to import the messages into Libre.</string>
 	<string name="removable_drive_title_send">Send data</string>
 	<string name="removable_drive_title_receive">Receive data</string>
 	<string name="removable_drive_send_intro">Tap the button below to create a new file containing the encrypted messages. You can choose where the file will be saved.\n\nIf you want to save the file on a removable drive, insert the drive now.</string>
 	<string name="removable_drive_send_no_data">There are currently no messages waiting to be sent to this contact.</string>
-	<string name="removable_drive_send_not_supported">This contact is using an old version of Freiheitsmessenger or an old device which does not support this feature.</string>
+	<string name="removable_drive_send_not_supported">This contact is using an old version of Libre or an old device which does not support this feature.</string>
 	<string name="removable_drive_send_button">Choose file for export</string>
 	<string name="removable_drive_ongoing">Please wait for ongoing task to complete</string>
 	<string name="removable_drive_receive_intro">Tap the button below to choose the file that your contact sent you.\n\nIf the file is on a removable drive, insert the drive now.</string>
@@ -785,9 +785,9 @@
 	<string name="removable_drive_success_receive_title">Import successful</string>
 	<string name="removable_drive_success_receive_text">All encrypted messages contained in this file have been received.</string>
 	<string name="removable_drive_error_send_title">Error exporting data</string>
-	<string name="removable_drive_error_send_text">There was an error writing data to the file.\n\nIf you are using a removable drive, ensure that it is properly inserted and try again.\n\nIf the error persists, please send feedback to let the Freiheitsmessenger team know about the issue.</string>
+	<string name="removable_drive_error_send_text">There was an error writing data to the file.\n\nIf you are using a removable drive, ensure that it is properly inserted and try again.\n\nIf the error persists, please send feedback to let the Libre team know about the issue.</string>
 	<string name="removable_drive_error_receive_title">Error importing data</string>
-	<string name="removable_drive_error_receive_text">The selected file did not contain anything that Freiheitsmessenger could recognize.\n\nPlease check that you chose the right file.\n\nIf your contact created the file more than 28 days ago, Freiheitsmessenger will not be able to recognize it.</string>
+	<string name="removable_drive_error_receive_text">The selected file did not contain anything that Libre could recognize.\n\nPlease check that you chose the right file.\n\nIf your contact created the file more than 28 days ago, Libre will not be able to recognize it.</string>
 
 
 	<!-- Screenshots -->
@@ -801,7 +801,7 @@
 	<!-- This is a message to be used in screenshots. Please use the same translation for Bob! -->
 	<string name="screenshot_message_1">Hi Bob!</string>
 	<!-- This is a message to be used in screenshots. Please use the same translation for Alice! -->
-	<string name="screenshot_message_2">Hi Alice! Thanks for telling me about Freiheitsmessenger!</string>
+	<string name="screenshot_message_2">Hi Alice! Thanks for telling me about Libre!</string>
 	<!-- This is a message to be used in screenshots. -->
 	<string name="screenshot_message_3">No problem, hope you like it 😀</string>
 	<string name="share_location">Share location in group</string>

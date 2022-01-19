@@ -288,14 +288,15 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 
 	@Override
 	public void addLocalMessage(Transaction transaction, Message m,
-			Metadata meta, boolean shared, boolean temporary)
+			Metadata meta, boolean shared, boolean temporary,
+			Message.MessageType messageType)
 			throws DbException {
 		if (transaction.isReadOnly()) throw new IllegalArgumentException();
 		T txn = unbox(transaction);
 		if (!db.containsGroup(txn, m.getGroupId()))
 			throw new NoSuchGroupException();
 		if (!db.containsMessage(txn, m.getId())) {
-			db.addMessage(txn, m, DELIVERED, shared, temporary, null);
+			db.addMessage(txn, m, DELIVERED, shared, temporary, null,messageType);
 			transaction.attach(new MessageAddedEvent(m, null));
 			transaction.attach(new MessageStateChangedEvent(m.getId(), true,
 					DELIVERED));
@@ -938,7 +939,7 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 				db.raiseAckFlag(txn, c, m.getId());
 			} else {
 				if(!(new String(m.getBody()).contains(Message.LOCATION_IDENTIFIER))) {
-					db.addMessage(txn, m, UNKNOWN, false, false, c);
+					db.addMessage(txn, m, UNKNOWN, false, false, c,m.getMessageType());
 					transaction.attach(new MessageAddedEvent(m, c));
 				}else{
 					transaction.attach((new LocationMessageEvent(m, c)));

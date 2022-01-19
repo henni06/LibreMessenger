@@ -203,7 +203,8 @@ class BlogPostValidator extends BdfMessageValidator {
 		BdfList wBodyList = BdfList.of(POST.getInt(), text, signature);
 		byte[] wBody = clientHelper.toByteArray(wBodyList);
 		Message wMessage =
-				messageFactory.createMessage(wGroup.getId(), wTimestamp, wBody);
+				messageFactory.createMessage(wGroup.getId(), wTimestamp, wBody,
+						Message.MessageType.DEFAULT);
 		wBodyList.remove(0);
 		BdfMessageContext c = validatePost(wMessage, wGroup, wBodyList);
 
@@ -265,7 +266,8 @@ class BlogPostValidator extends BdfMessageValidator {
 				oldId, signature);
 		byte[] wBody = clientHelper.toByteArray(wBodyList);
 		Message wMessage =
-				messageFactory.createMessage(wGroup.getId(), wTimestamp, wBody);
+				messageFactory.createMessage(wGroup.getId(), wTimestamp, wBody,
+						Message.MessageType.DEFAULT);
 		wBodyList.remove(0);
 		BdfMessageContext c = validateComment(wMessage, wGroup, wBodyList);
 

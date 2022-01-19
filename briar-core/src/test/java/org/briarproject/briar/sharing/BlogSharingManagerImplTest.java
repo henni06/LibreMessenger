@@ -218,7 +218,7 @@ public class BlogSharingManagerImplTest extends BrambleMockTestCase {
 						.createMessageForStoringMetadata(contactGroup.getId());
 				will(returnValue(message));
 				oneOf(db).addLocalMessage(txn, message, new Metadata(), false,
-						false);
+						false, Message.MessageType.DEFAULT);
 				oneOf(sessionEncoder).encodeSession(with(any(Session.class)));
 				will(returnValue(sessionDict));
 				oneOf(clientHelper).mergeMessageMetadata(txn, message.getId(),

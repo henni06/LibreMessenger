@@ -119,7 +119,8 @@ public class MessageSizeIntegrationTest extends BrambleTestCase {
 		GroupId groupId = new GroupId(getRandomId());
 		long timestamp = Long.MAX_VALUE;
 		Message message =
-				messageFactory.createMessage(groupId, timestamp, body);
+				messageFactory.createMessage(groupId, timestamp, body,
+						Message.MessageType.DEFAULT);
 
 		// Check the size of the serialised message
 		int length = message.getRawLength();

@@ -239,7 +239,7 @@ class MessageEncoderImpl implements MessageEncoder {
 			BdfList body) {
 		try {
 			return messageFactory.createMessage(contactGroupId, timestamp,
-					clientHelper.toByteArray(body));
+					clientHelper.toByteArray(body), Message.MessageType.DEFAULT);
 		} catch (FormatException e) {
 			throw new AssertionError(e);
 		}

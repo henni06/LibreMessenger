@@ -3,13 +3,17 @@ package org.briarproject.briar.android.threaded;
 import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +27,8 @@ import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.MessageId;
 import org.briarproject.briar.R;
 import org.briarproject.briar.android.activity.BriarActivity;
+import org.briarproject.briar.android.location.LocationInfo;
+import org.briarproject.briar.android.location.LocationNotificationService;
 import org.briarproject.briar.android.sharing.SharingController.SharingInfo;
 import org.briarproject.briar.android.threaded.ThreadItemAdapter.ThreadItemListener;
 import org.briarproject.briar.android.util.BriarSnackbarBuilder;
@@ -50,6 +56,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -66,17 +73,14 @@ import static org.briarproject.briar.android.view.TextSendController.SendState.S
 public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadItemAdapter<I>>
 		extends BriarActivity implements SendListener, ThreadItemListener<I> {
 
-	protected static final int TP_USERPOSITION=0;
-	protected static final int TP_USERALERT=1;
-	protected static final int TP_USERWARNING=2;
-	protected static final int TP_USERINFO=3;
+
 	private double lng=0;
 	private double lat=0;
 	public static final int V_LIST=0;
 	public static final int V_MAP=1;
 	public static final LocationObserver locationObserver=new LocationObserver();
 	private int view;
-	private FragmentStateAdapter pagerAdapter;
+
 	protected ThreadListFragment threadListFragment;
 	private ThreadMap threadMap;
 	protected final A adapter = createAdapter();
@@ -94,17 +98,48 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 	protected abstract Menu getMenu();
 
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		// Register mMessageReceiver to receive messages.
+		LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver,
+				new IntentFilter("locationChanged"));
+	}
+
+	private BroadcastReceiver locationReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// Extract data included in the Intent
+			double sLat = intent.getDoubleExtra("lat",0);
+			double sLng = intent.getDoubleExtra("lng",0);
+			float sBearing = intent.getFloatExtra("bearing",0);
+
+			Log.d("receiver", "Got message: " + sLat+" "+sLng+ " "+sBearing);
+		}
+	};
+
+	@Override
+	protected void onPause() {
+		// Unregister since the activity is not visible
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(locationReceiver);
+		super.onPause();
+	}
+
 	@CallSuper
 	@Override
 	public void onCreate(@Nullable Bundle state) {
 		super.onCreate(state);
-
+		IntentFilter filter = new IntentFilter();
+		filter.addAction("locationChanged");
+		registerReceiver(locationReceiver, filter);
 		setContentView(R.layout.activity_threaded_conversation);
 
-		threadMap=new ThreadMap();
+		threadMap=new ThreadMap(getViewModel());
 
 		observeOnce(getViewModel().isCreator(), this, isCreator -> {
 			creator=isCreator;
+			threadMap.setAdmin(isCreator);
 		});
 
 		Intent i = getIntent();
@@ -144,6 +179,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		FloatingActionButton fabAlert=(FloatingActionButton) this.findViewById(R.id.fabAlert);
 		FloatingActionButton fabWarning=(FloatingActionButton) this.findViewById(R.id.fabWarning);
 		FloatingActionButton fabInfo=(FloatingActionButton) this.findViewById(R.id.fabInformation);
+		FloatingActionButton fabMeeting=(FloatingActionButton) this.findViewById(R.id.fabMeeting);
 
 		fabAlert.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -152,7 +188,22 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 					threadMap.setActionMode(ThreadMap.AM_ADDALERT);
 				}else {
 					getViewModel().createAndStoreLocationMessage(
-							buildLocationMessage(lng, lat, 0, TP_USERALERT),
+							buildLocationMessage(lng, lat, 0,
+									LocationInfo.LocationInfoType.USERALERT.ordinal()),
+							null);
+				}
+			}
+		});
+
+		fabMeeting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(creator) {
+					threadMap.setActionMode(ThreadMap.AM_ADDMEETING);
+				}else {
+					getViewModel().createAndStoreLocationMessage(
+							buildLocationMessage(lng, lat, 0,
+									LocationInfo.LocationInfoType.USERMEETING.ordinal()),
 							null);
 				}
 			}
@@ -165,7 +216,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 					threadMap.setActionMode(ThreadMap.AM_ADDWARNING);
 				}else {
 					getViewModel().createAndStoreLocationMessage(
-							buildLocationMessage(lng, lat, 0, TP_USERWARNING),
+							buildLocationMessage(lng, lat, 0, LocationInfo.LocationInfoType.USERWARNING.ordinal()),
 							null);
 				}
 
@@ -179,7 +230,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 					threadMap.setActionMode(ThreadMap.AM_ADDINFORMATION);
 				}else {
 					getViewModel().createAndStoreLocationMessage(
-							buildLocationMessage(lng, lat, 0, TP_USERINFO),
+							buildLocationMessage(lng, lat, 0, LocationInfo.LocationInfoType.USERINFO.ordinal()),
 							null);
 				}
 			}
@@ -271,6 +322,8 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		FloatingActionButton fabAlert=(FloatingActionButton) this.findViewById(R.id.fabAlert);
 		FloatingActionButton fabWarning=(FloatingActionButton) this.findViewById(R.id.fabWarning);
 		FloatingActionButton fabInfo=(FloatingActionButton) this.findViewById(R.id.fabInformation);
+		FloatingActionButton fabMeeting=(FloatingActionButton) this.findViewById(R.id.fabMeeting);
+
 		if(fabAlert.getVisibility()==GONE){
 			fabAlert.setVisibility(VISIBLE);
 			fabWarning.setVisibility(VISIBLE);
@@ -278,6 +331,15 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			fabAlert.animate().translationY(-getResources().getDimension(R.dimen.standard_55));
 			fabWarning.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
 			fabInfo.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
+			fabInfo.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
+			if(creator){
+				fabMeeting.setVisibility(VISIBLE);
+				fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
+				fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
+
+			}else{
+				fabMeeting.setVisibility(GONE);
+			}
 
 		}else{
 
@@ -352,6 +414,29 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 						}
 					});
 
+			fabMeeting.animate().translationY(0).setListener(
+					new Animator.AnimatorListener() {
+						@Override
+						public void onAnimationStart(Animator animation) {
+
+						}
+
+						@Override
+						public void onAnimationEnd(Animator animation) {
+							fabMeeting.setVisibility(GONE);
+							fabMeeting.animate().setListener(null);
+						}
+
+						@Override
+						public void onAnimationCancel(Animator animation) {
+
+						}
+
+						@Override
+						public void onAnimationRepeat(Animator animation) {
+
+						}
+					});
 
 		}
 	}
@@ -494,7 +579,16 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		}
 		if(!locationObserver.isLocationActivated(this.groupId)){
 
+			Intent intent = new Intent(this, LocationNotificationService.class);
+			intent.setAction(LocationNotificationService.ACTION_START_FOREGROUND_SERVICE);
+			startService(intent);
 
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				startForegroundService(intent);
+			}else{
+				startService(intent);
+
+			}
 
 			LocationListener locationListener = new LocationListener() {
 				public void onLocationChanged(Location location) {
@@ -505,7 +599,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 						//double speed=location.getSpeed();
 						//double alt=location.getAltitude();
 						getViewModel().createAndStoreLocationMessage(
-								buildLocationMessage(location.getLongitude(),location.getLatitude(),bearing,TP_USERPOSITION),
+								buildLocationMessage(location.getLongitude(),location.getLatitude(),bearing,LocationInfo.LocationInfoType.USERPOSITION.ordinal()),
 								null);
 					} catch (Exception e) {
 					}
@@ -535,6 +629,16 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 			locationManager.removeUpdates(locationObserver.get(groupId));
 			locationObserver.remove(this.groupId);
+			Intent intent = new Intent(this, LocationNotificationService.class);
+			intent.setAction(LocationNotificationService.ACTION_STOP_FOREGROUND_SERVICE);
+			startService(intent);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+				startForegroundService(intent);
+			}else{
+				startService(intent);
+
+			}
 			return false;
 		}
 	}

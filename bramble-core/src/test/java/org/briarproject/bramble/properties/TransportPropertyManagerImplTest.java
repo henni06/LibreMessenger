@@ -849,7 +849,8 @@ public class TransportPropertyManagerImplTest extends BrambleMockTestCase {
 		context.checking(new Expectations() {{
 			oneOf(clock).currentTimeMillis();
 			will(returnValue(timestamp));
-			oneOf(clientHelper).createMessage(g, timestamp, body);
+			oneOf(clientHelper).createMessage(g, timestamp, body,
+					Message.MessageType.DEFAULT);
 			will(returnValue(message));
 			oneOf(clientHelper).addLocalMessage(txn, message, meta, shared,
 					false);

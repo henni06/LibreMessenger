@@ -5,18 +5,18 @@
 
 	<color name="briar_blue_800">#003B86</color>
 	<color name="briar_blue_600">#1b69b6</color>
-	<color name="briar_blue_400">#418cd8</color>
+	<color name="briar_blue_400">#4F6991</color>
 
 	<color name="briar_orange_200">#fed69f</color>
 	<color name="briar_orange_500">#fc9403</color>
 
 	<color name="briar_red_500">#db3b21</color>
 
-	<color name="briar_night_950">#0e171f</color>
-	<color name="briar_night_800">#212d3b</color>
-	<color name="briar_night_700">#2e3d4f</color>
-	<color name="briar_night_500">#435b77</color>
-	<color name="briar_night_50">#ebf3fa</color>
+	<color name="briar_night_950">#314D9E</color>
+	<color name="briar_night_800">#526EA8</color>
+	<color name="briar_night_700">#4F6991</color>
+	<color name="briar_night_500">#527BA8</color>
+	<color name="briar_night_50">#4D7A9E</color>
 
 	<color name="briar_gray_900">#2e2e2e</color>
 	<color name="briar_gray_500">#a7a7a7</color>
