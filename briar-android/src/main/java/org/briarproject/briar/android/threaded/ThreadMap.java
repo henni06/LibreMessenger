@@ -533,7 +533,7 @@ public class ThreadMap extends Fragment {
 								}
 								break;
 							case on:
-								//share
+								shareMarker(selectedLocationInfo);
 								break;
 						}
 					}
@@ -796,6 +796,28 @@ public class ThreadMap extends Fragment {
 					R.id.loMarkerAction)
 					.setVisibility(
 							View.VISIBLE);
+
+		}
+	}
+
+	private void shareMarker(LocationInfo locationInfo){
+		if(locationInfo!=null){
+			LinearLayout loMarkerActions=getView().findViewById(R.id.loMarkerAction);
+			loMarkerActions.animate()
+					.alpha(0f)
+					.setDuration(500)
+					.setListener(new AnimatorListenerAdapter() {
+						@Override
+						public void onAnimationEnd(
+								Animator animation) {
+							//locations.remove(locationInfo);
+							loMarkerActions.setAlpha(1.0f);
+							loMarkerActions.setVisibility(View.GONE);
+							refreshMap();
+						}
+					});
+
+
 
 		}
 	}

@@ -12,7 +12,7 @@
 		android:layout_width="30dp"
 		android:layout_height="30dp"
 		app:civ_border_color="@color/action_bar_text"
-		tools:src="@mipmap/ic_launcher_round" />
+		tools:src="@mipmap/ic_launcher" />
 
 	<ImageView
 		android:id="@+id/contactStatus"

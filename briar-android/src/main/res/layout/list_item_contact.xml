@@ -24,7 +24,7 @@
 			android:layout_width="@dimen/listitem_picture_size"
 			android:layout_height="@dimen/listitem_picture_size"
 			android:layout_gravity="bottom|left|start"
-			tools:src="@mipmap/ic_launcher_round" />
+			tools:src="@mipmap/ic_launcher" />
 
 	</FrameLayout>
 
