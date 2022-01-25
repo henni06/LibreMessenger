@@ -12,6 +12,7 @@ import static org.briarproject.bramble.api.sync.SyncConstants.MESSAGE_HEADER_LEN
 public class Message {
 
 	public static final String LOCATION_IDENTIFIER = "{\"type\":\"location\"";
+	public static final String MARKER_IDENTIFIER = "{\"type\":\"marker\"";
 	/**
 	 * The current version of the message format.
 	 */

@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,6 +37,7 @@ import org.briarproject.bramble.api.FormatException;
 import org.briarproject.bramble.api.data.BdfList;
 import org.briarproject.bramble.api.data.BdfReader;
 import org.briarproject.bramble.api.identity.Author;
+import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
 import org.briarproject.bramble.data.BdfReaderFactoryImpl;
@@ -44,7 +46,9 @@ import org.briarproject.briar.android.location.LocationInfo;
 import org.briarproject.briar.android.location.LocationMessageProducer;
 import org.briarproject.briar.android.privategroup.conversation.GroupMessageItem;
 import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
@@ -283,8 +287,16 @@ public class ThreadMap extends Fragment {
 
 	}
 
+	protected void onMarkerRemoved(MarkerRemovedEvent mre){
+		for(LocationInfo locationInfo:locations){
+			if(locationInfo.id!=null && locationInfo.id.equals(mre.getMarkerID())){
+				locations.remove(locationInfo);
+			}
+		}
+		refreshMap();
+	}
 
-	private void refreshMap(){
+	protected void refreshMap(){
 		try {
 			map.getOverlays().clear();
 			map.getOverlays().add(new MapEventsOverlay(mReceive));
@@ -486,8 +498,12 @@ public class ThreadMap extends Fragment {
 			Bundle savedInstanceState) {
 		ViewGroup view = (ViewGroup) inflater
 				.inflate(R.layout.fragment_map, container, false);
+		ApplicationInfo applicationInfo = this.getContext().getApplicationInfo();
+		Configuration.getInstance().setUserAgentValue(getString(applicationInfo.labelRes));
 		map = (MapView) view.findViewById(R.id.map);
-		map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
+
+		map.setTileSource(TileSourceFactory.WIKIMEDIA);
+		//map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
 		map.setMultiTouchControls(true);
 
 		loEditMarker=view.findViewById(R.id.loEditMarker);
@@ -496,11 +512,7 @@ public class ThreadMap extends Fragment {
 			@Override
 			public void onClick(View v) {
 				loEditMarker.setVisibility(View.GONE);
-				if(selectedLocationInfo!=null){
-					viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(selectedLocationInfo,LocationMessageProducer.Actions.DELETE),null);
-					locations.remove(selectedLocationInfo);
-					refreshMap();
-				}
+				deleteAdminMarker();
 			}
 		});
 		TriStateToggleButton btnMarkerAction=view.findViewById(R.id.markerAction);
@@ -741,10 +753,8 @@ public class ThreadMap extends Fragment {
 			}
 			locations.add(locationInfo);
 			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(locationInfo,LocationMessageProducer.Actions.ADD),null);
-			try {
-				refreshMap();
-			}
-			catch(Exception e){}
+			refreshMap();
+
 			actionMode=AM_SELECT;
 			return false;
 		}
@@ -802,6 +812,18 @@ public class ThreadMap extends Fragment {
 
 	private void shareMarker(LocationInfo locationInfo){
 		if(locationInfo!=null){
+			LocationInfo mLocationInfo = new LocationInfo();
+			mLocationInfo.lng = locationInfo.lng;
+			mLocationInfo.lat = locationInfo.lat;
+			mLocationInfo.timestamp = 0;
+			mLocationInfo.admin =true;
+			mLocationInfo.id="#"+rndID.nextInt()+
+					locationInfo.lng+
+					locationInfo.lat;
+			mLocationInfo.type = locationInfo.type;
+			locations.add(mLocationInfo);
+			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(mLocationInfo,LocationMessageProducer.Actions.ADD),null);
+			locations.remove(locationInfo);
 			LinearLayout loMarkerActions=getView().findViewById(R.id.loMarkerAction);
 			loMarkerActions.animate()
 					.alpha(0f)
@@ -810,7 +832,6 @@ public class ThreadMap extends Fragment {
 						@Override
 						public void onAnimationEnd(
 								Animator animation) {
-							//locations.remove(locationInfo);
 							loMarkerActions.setAlpha(1.0f);
 							loMarkerActions.setVisibility(View.GONE);
 							refreshMap();
@@ -819,6 +840,13 @@ public class ThreadMap extends Fragment {
 
 
 
+		}
+	}
+	public void deleteAdminMarker(){
+		if(selectedLocationInfo!=null){
+			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(selectedLocationInfo,LocationMessageProducer.Actions.DELETE),null);
+			locations.remove(selectedLocationInfo);
+			refreshMap();
 		}
 	}
 }

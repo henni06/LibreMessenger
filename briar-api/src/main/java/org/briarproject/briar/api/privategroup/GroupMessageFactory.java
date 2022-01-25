@@ -4,6 +4,7 @@ import org.briarproject.bramble.api.crypto.CryptoExecutor;
 import org.briarproject.bramble.api.identity.LocalAuthor;
 import org.briarproject.bramble.api.nullsafety.NotNullByDefault;
 import org.briarproject.bramble.api.sync.GroupId;
+import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.MessageId;
 
 import javax.annotation.Nullable;
@@ -58,9 +59,8 @@ public interface GroupMessageFactory {
 	@CryptoExecutor
 	GroupMessage createGroupMessage(GroupId groupId, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor author, String text,
-			MessageId previousMsgId);
+			MessageId previousMsgId, Message.MessageType messageType);
 
-	GroupMessage createLocationMessage(GroupId groupId,long timestamp,
-			LocalAuthor author,double lng,double lat,MessageId previousMsgId);
+
 
 }
