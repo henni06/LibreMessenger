@@ -11,6 +11,7 @@ import org.briarproject.bramble.api.crypto.PublicKey;
 import org.briarproject.bramble.api.crypto.SecretKey;
 import org.briarproject.bramble.api.crypto.SignaturePrivateKey;
 import org.briarproject.bramble.api.crypto.SignaturePublicKey;
+import org.briarproject.bramble.api.data.BdfReader;
 import org.briarproject.bramble.api.db.DataTooNewException;
 import org.briarproject.bramble.api.db.DataTooOldException;
 import org.briarproject.bramble.api.db.DbClosedException;
@@ -22,6 +23,7 @@ import org.briarproject.bramble.api.identity.Author;
 import org.briarproject.bramble.api.identity.AuthorId;
 import org.briarproject.bramble.api.identity.Identity;
 import org.briarproject.bramble.api.identity.LocalAuthor;
+import org.briarproject.bramble.api.location.MarkerData;
 import org.briarproject.bramble.api.nullsafety.NotNullByDefault;
 import org.briarproject.bramble.api.plugin.TransportId;
 import org.briarproject.bramble.api.settings.Settings;
@@ -40,7 +42,10 @@ import org.briarproject.bramble.api.transport.KeySetId;
 import org.briarproject.bramble.api.transport.OutgoingKeys;
 import org.briarproject.bramble.api.transport.TransportKeySet;
 import org.briarproject.bramble.api.transport.TransportKeys;
+import org.briarproject.bramble.data.BdfReaderFactoryImpl;
 
+import java.io.StringReader;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -840,7 +845,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 			throws DbException {
 		PreparedStatement ps = null;
 		try {
-			String masterdataSQL="select messageID from messages where groupId=? and messageType="+Message.MessageType.LOCATION.ordinal();
+			/*String masterdataSQL="select messageID from messages where groupId=? and messageType="+Message.MessageType.LOCATION.ordinal();
 			PreparedStatement masterDataPS=txn.prepareStatement(masterdataSQL);
 			masterDataPS.setBytes(1,m.getGroupId().getBytes());
 			ResultSet masterDataRS=masterDataPS.executeQuery();
@@ -849,7 +854,7 @@ abstract class JdbcDatabase implements Database<Connection> {
 				count++;
 			}
 			masterDataPS.close();
-			masterDataPS.close();
+			masterDataPS.close();*/
 
 			String deleteSQL="delete messages where groupId=? and messageType="+Message.MessageType.LOCATION.ordinal();
 			PreparedStatement deletePS=txn.prepareStatement(deleteSQL);
@@ -3741,6 +3746,42 @@ abstract class JdbcDatabase implements Database<Connection> {
 		} catch (SQLException e) {
 			tryToClose(ps, LOG, WARNING);
 			throw new DbException(e);
+		}
+	}
+
+	@Override
+	public void removeMarker(Connection txn,String markerID){
+		PreparedStatement ps = null;
+		BdfReaderFactoryImpl bdfReaderFactory=  new BdfReaderFactoryImpl();
+
+		try {
+			ArrayList<MarkerData> markerData=new ArrayList<>();
+			String sql = "SELECT messageId,raw from Messages where messageType="+Message.MessageType.MARKER.ordinal();
+			ps = txn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()){
+				MessageId id = new MessageId(rs.getBytes(1));
+				byte[] raw=rs.getBytes(2);
+				if (raw.length <= MESSAGE_HEADER_LENGTH) throw new AssertionError();
+				byte[] body = new byte[raw.length - MESSAGE_HEADER_LENGTH];
+				System.arraycopy(raw, MESSAGE_HEADER_LENGTH, body, 0, body.length);
+
+				markerData.add(new MarkerData(bdfReaderFactory,id,body));
+			}
+			rs.close();
+			for(MarkerData markerDataEntry:markerData){
+				if(markerDataEntry.getMarkerId().equals(markerID)){
+					try {
+						deleteMessage(txn, markerDataEntry.getMessageId());
+					}
+					catch (DbException dbE){
+						dbE.printStackTrace();
+					}
+				}
+			}
+		}
+		catch(SQLException e){
+			tryToClose(ps, LOG, WARNING);
 		}
 	}
 }

@@ -322,7 +322,8 @@ class BdfReaderImpl implements BdfReader {
 	}
 
 	private BdfList readList(int level) throws IOException {
-		if (!hasList()) throw new FormatException();
+		if (!hasList())
+			throw new FormatException();
 		if (level > nestedLimit) throw new FormatException();
 		BdfList list = new BdfList();
 		readListStart();

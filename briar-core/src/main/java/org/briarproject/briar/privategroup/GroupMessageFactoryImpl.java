@@ -81,7 +81,7 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 	@Override
 	public GroupMessage createGroupMessage(GroupId groupId, long timestamp,
 			@Nullable MessageId parentId, LocalAuthor member, String text,
-			MessageId previousMsgId) {
+			MessageId previousMsgId, Message.MessageType messageType) {
 		try {
 			// Generate the signature
 			BdfList memberList = clientHelper.toList(member);
@@ -106,7 +106,7 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 					signature
 			);
 			Message m = clientHelper.createMessage(groupId, timestamp, body,
-					Message.MessageType.DEFAULT);
+					messageType);
 			return new GroupMessage(m, parentId, member);
 		} catch (GeneralSecurityException e) {
 			throw new IllegalArgumentException(e);
@@ -120,42 +120,5 @@ class GroupMessageFactoryImpl implements GroupMessageFactory {
 		return "{'lat':'"+lat+"','lng':'"+lng+"'}";
 	}
 
-	@Override
-	public GroupMessage createLocationMessage(GroupId groupId, long timestamp,
-			LocalAuthor author, double lng, double lat,MessageId previousMsgId) {
-		try {
-
-			// Generate the signature
-			BdfList memberList = clientHelper.toList(author);
-
-
-			BdfList toSign = BdfList.of(
-					groupId,
-					timestamp,
-					memberList,
-					getLocationString(lng,lat)
-			);
-
-			byte[] signature = clientHelper.sign(SIGNING_LABEL_POST, toSign,
-					author.getPrivateKey());
-
-			// Compose the message
-
-
-			BdfList body = BdfList.of(
-					JOIN.getInt(),
-					memberList,
-					getLocationString(lng,lat),
-					signature
-			);
-			Message m = clientHelper.createMessage(groupId, timestamp, body,
-					Message.MessageType.DEFAULT);
-			return new GroupMessage(m, null, author);
-		} catch (GeneralSecurityException e) {
-			throw new IllegalArgumentException(e);
-		} catch (FormatException e) {
-			throw new AssertionError(e);
-		}
-	}
 
 }

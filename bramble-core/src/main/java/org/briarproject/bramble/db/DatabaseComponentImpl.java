@@ -16,9 +16,11 @@ import org.briarproject.bramble.api.contact.event.PendingContactRemovedEvent;
 import org.briarproject.bramble.api.crypto.PrivateKey;
 import org.briarproject.bramble.api.crypto.PublicKey;
 import org.briarproject.bramble.api.crypto.SecretKey;
+import org.briarproject.bramble.api.data.BdfDictionary;
 import org.briarproject.bramble.api.data.BdfList;
 import org.briarproject.bramble.api.data.BdfReader;
 import org.briarproject.bramble.api.data.BdfReaderFactory;
+import org.briarproject.bramble.api.data.MetadataParser;
 import org.briarproject.bramble.api.db.CommitAction;
 import org.briarproject.bramble.api.db.CommitAction.Visitor;
 import org.briarproject.bramble.api.db.ContactExistsException;
@@ -47,6 +49,7 @@ import org.briarproject.bramble.api.identity.Identity;
 import org.briarproject.bramble.api.identity.event.IdentityAddedEvent;
 import org.briarproject.bramble.api.identity.event.IdentityRemovedEvent;
 import org.briarproject.bramble.api.lifecycle.ShutdownManager;
+import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.nullsafety.NotNullByDefault;
 import org.briarproject.bramble.api.plugin.TransportId;
 import org.briarproject.bramble.api.settings.Settings;
@@ -78,16 +81,20 @@ import org.briarproject.bramble.api.sync.validation.MessageState;
 import org.briarproject.bramble.api.transport.KeySetId;
 import org.briarproject.bramble.api.transport.TransportKeySet;
 import org.briarproject.bramble.api.transport.TransportKeys;
+import org.briarproject.bramble.data.BdfReaderFactoryImpl;
 
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -97,10 +104,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Inject;
 
+import netscape.javascript.JSObject;
+
 import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
+import static org.briarproject.bramble.api.data.BdfDictionary.NULL_VALUE;
 import static org.briarproject.bramble.api.data.BdfReader.DEFAULT_MAX_BUFFER_SIZE;
 import static org.briarproject.bramble.api.data.BdfReader.DEFAULT_NESTED_LIMIT;
+import static org.briarproject.bramble.api.db.Metadata.REMOVE;
 import static org.briarproject.bramble.api.sync.Group.Visibility.INVISIBLE;
 import static org.briarproject.bramble.api.sync.Group.Visibility.SHARED;
 import static org.briarproject.bramble.api.sync.validation.MessageState.DELIVERED;
@@ -925,6 +936,34 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 		}
 	}
 
+	private String getMessageText(BdfList body) throws FormatException {
+		// Message type (0), member (1), parent ID (2), previous message ID (3),
+		// text (4), signature (5)
+		return body.getString(4);
+	}
+
+	private BdfList toList(byte[] b, int off, int len) throws FormatException {
+		ByteArrayInputStream in = new ByteArrayInputStream(b, off, len);
+		BdfReaderFactoryImpl bdfReaderFactory=  new BdfReaderFactoryImpl();
+		BdfReader reader = bdfReaderFactory.createReader(in);
+		try {
+			BdfList list = reader.readList();
+			if (!reader.eof()) throw new FormatException();
+			return list;
+		} catch (FormatException e) {
+			throw e;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public BdfList toList(byte[] b) throws FormatException {
+		return toList(b, 0, b.length);
+	}
+
+	public BdfList toList(Message m) throws FormatException {
+		return toList(m.getBody());
+	}
 
 	@Override
 	public void receiveMessage(Transaction transaction, ContactId c, Message m)
@@ -938,7 +977,47 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 				db.raiseSeenFlag(txn, c, m.getId());
 				db.raiseAckFlag(txn, c, m.getId());
 			} else {
-				if(!(new String(m.getBody()).contains(Message.LOCATION_IDENTIFIER))) {
+				if((new String(m.getBody()).contains(Message.MARKER_IDENTIFIER))) {
+					HashMap<String,String> keyValues=new HashMap<>();
+					try {
+
+						String text = getMessageText(toList(m.getBody()));
+						 if(text.trim().startsWith("{") && text.trim().endsWith("}")){
+						 	String jsonPart=text.substring(1,text.length()-2);
+						 	StringTokenizer jsonTokenizer=new StringTokenizer(jsonPart,",");
+						 	while(jsonTokenizer.hasMoreElements()){
+						 		String jsonElement=jsonTokenizer.nextToken();
+						 		String[] pair=jsonElement.split(":");
+						 		if(pair.length==2) {
+								    keyValues.put(pair[0].replace("\"",""),pair[1].replace("\"",""));
+
+							    }
+						    }
+						 }
+					}
+					catch (Exception e){
+						throw new DbException(e);
+					}
+					if(keyValues.containsKey("action")){
+						int action=Integer.parseInt(keyValues.get("action"));
+						switch(action){
+							case 0:
+								db.addMessage(txn, m, UNKNOWN, false, false, c,
+										Message.MessageType.MARKER);
+
+								transaction.attach(new MessageAddedEvent(m, c));
+								break;
+							case 1:
+								break;
+							case 2:
+								String markerID=keyValues.get("id");
+								removeMarker(transaction,markerID);
+								break;
+						}
+					}
+
+				}else
+					if(!(new String(m.getBody()).contains(Message.LOCATION_IDENTIFIER))) {
 					db.addMessage(txn, m, UNKNOWN, false, false, c,m.getMessageType());
 					transaction.attach(new MessageAddedEvent(m, c));
 				}else{
@@ -949,6 +1028,12 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 			}
 			transaction.attach(new MessageToAckEvent(c));
 		}
+	}
+
+	private void removeMarker(Transaction transaction,String markerID){
+
+		db.removeMarker(unbox(transaction),markerID);
+		transaction.attach(new MarkerRemovedEvent(markerID));
 	}
 
 	@Override

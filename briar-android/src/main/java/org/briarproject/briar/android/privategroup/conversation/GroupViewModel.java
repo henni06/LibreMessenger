@@ -18,6 +18,7 @@ import org.briarproject.bramble.api.lifecycle.LifecycleManager;
 import org.briarproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.briarproject.bramble.api.sync.GroupId;
+import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.MessageId;
 import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.bramble.api.system.Clock;
@@ -248,6 +249,7 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		});
 	}
 
+
 	@Override
 	public void createAndStoreLocationMessage(String text,
 			@Nullable MessageId parentId) {
@@ -268,8 +270,20 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 
 	@Override
 	public void createAndStoreMarkerMessage(String text,
-			@Nullable MessageId parentMessageId) {
-
+			@Nullable MessageId parentId) {
+		runOnDbThread(() -> {
+			try {
+				LocalAuthor author = identityManager.getLocalAuthor();
+				MessageId previousMsgId =
+						privateGroupManager.getPreviousMsgId(groupId);
+				GroupCount count = privateGroupManager.getGroupCount(groupId);
+				long timestamp = count.getLatestMsgTime();
+				timestamp = max(clock.currentTimeMillis(), timestamp + 1);
+				createMarkerMessage(text, timestamp, parentId, author, previousMsgId);
+			} catch (DbException e) {
+				handleException(e);
+			}
+		});
 	}
 
 
@@ -279,7 +293,8 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		cryptoExecutor.execute(() -> {
 			LOG.info("Creating group message...");
 			GroupMessage msg = groupMessageFactory.createGroupMessage(groupId,
-					timestamp, parentId, author, text, previousMsgId);
+					timestamp, parentId, author, text, previousMsgId,
+					Message.MessageType.DEFAULT);
 			storePost(msg, text);
 		});
 	}
@@ -290,8 +305,21 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		cryptoExecutor.execute(() -> {
 			LOG.info("Creating location message...");
 			GroupMessage msg = groupMessageFactory.createGroupMessage(groupId,
-					timestamp, parentId, author, text, previousMsgId);
-			storeLocation(msg, text);
+					timestamp, parentId, author, text, previousMsgId,
+					Message.MessageType.LOCATION);
+			storeLocation(msg);
+		});
+	}
+
+	private void createMarkerMessage(String text, long timestamp,
+			@Nullable MessageId parentId, LocalAuthor author,
+			MessageId previousMsgId) {
+		cryptoExecutor.execute(() -> {
+			LOG.info("Creating marker message...");
+			GroupMessage msg = groupMessageFactory.createGroupMessage(groupId,
+					timestamp, parentId, author, text, previousMsgId,
+					Message.MessageType.MARKER);
+			storeMarker(msg);
 		});
 	}
 
@@ -309,7 +337,22 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 		}, this::handleException);
 	}
 
-	private void storeLocation(GroupMessage msg, String text) {
+	private void storeLocation(GroupMessage msg) {
+		runOnDbThread(false, txn -> {
+			long start = now();
+			GroupMessageHeader header =
+					privateGroupManager.addLocalMessage(txn, msg);
+			logDuration(LOG, "Storing location message", start);
+			txn.attach(new Runnable() {
+				@Override
+				public void run() {
+
+				}
+			});
+		}, this::handleException);
+	}
+
+	private void storeMarker(GroupMessage msg) {
 		runOnDbThread(false, txn -> {
 			long start = now();
 			GroupMessageHeader header =
