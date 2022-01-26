@@ -56,7 +56,7 @@
 			android:layout_margin="10dp"
 			android:tint="@color/briar_red_500"
 			android:layout_gravity="bottom|left|end"
-			app:srcCompat="@android:drawable/ic_dialog_alert" />
+			app:srcCompat="@drawable/alert_icon" />
 		<com.google.android.material.floatingactionbutton.FloatingActionButton
 			android:id="@+id/fabWarning"
 			android:visibility="gone"

@@ -195,16 +195,20 @@ class GroupViewModel extends ThreadListViewModel<GroupMessageItem> {
 			start = now();
 			List<GroupMessageItem> items = new ArrayList<>();
 			for (GroupMessageHeader header : headers) {
-				GroupMessageItem item=loadItem(txn, header);
-				if(item.getText().startsWith(ThreadMap.MARKER_IDENTIFIER)){
-					getThreadMap().handleMarkerMessage(item);
-				}else
-				if(
-						item.getText().startsWith(ThreadMap.LOCATION_IDENTIFIER)){
+				try {
+					GroupMessageItem item = loadItem(txn, header);
+					if (item.getText()
+							.startsWith(ThreadMap.MARKER_IDENTIFIER)) {
+						getThreadMap().handleMarkerMessage(item);
+					} else if (
+							item.getText().startsWith(
+									ThreadMap.LOCATION_IDENTIFIER)) {
 
-				}else{
-					items.add(item);
+					} else {
+						items.add(item);
+					}
 				}
+				catch (Exception e){}
 
 			}
 			logDuration(LOG, "Loading bodies and creating items", start);
