@@ -37,6 +37,7 @@ import org.briarproject.bramble.api.FormatException;
 import org.briarproject.bramble.api.data.BdfList;
 import org.briarproject.bramble.api.data.BdfReader;
 import org.briarproject.bramble.api.identity.Author;
+import org.briarproject.bramble.api.location.event.MarkerAddedEvent;
 import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
@@ -155,10 +156,7 @@ public class ThreadMap extends Fragment {
 			}
 		}
 		if(getContext()!=null){
-			try {
-				refreshMap();
-			}
-			catch(Exception e){}
+			refreshMap();
 		}
 	}
 
@@ -286,6 +284,29 @@ public class ThreadMap extends Fragment {
 		}
 
 	}
+
+	protected void onMarkerAdded(MarkerAddedEvent mae){
+			LocationInfo locationInfo=LocationInfo.parseLocationInfo(mae.getText());
+			locationInfo.admin=true;
+			boolean found=false;
+			for (int i = 0; i < locations.size(); i++) {
+
+				if (locations.get(i).admin &&
+						locations.get(i).id!=null && locations.get(i).id.equals(locationInfo.id)) {
+					locations.set(i, locationInfo);
+					found = true;
+				}
+			}
+			if (!found) {
+				locations.add(locationInfo);
+			}
+
+		if(getContext()!=null){
+			refreshMap();
+		}
+		refreshMap();
+	}
+
 
 	protected void onMarkerRemoved(MarkerRemovedEvent mre){
 		for(LocationInfo locationInfo:locations){

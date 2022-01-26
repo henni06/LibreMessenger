@@ -49,6 +49,7 @@ import org.briarproject.bramble.api.identity.Identity;
 import org.briarproject.bramble.api.identity.event.IdentityAddedEvent;
 import org.briarproject.bramble.api.identity.event.IdentityRemovedEvent;
 import org.briarproject.bramble.api.lifecycle.ShutdownManager;
+import org.briarproject.bramble.api.location.event.MarkerAddedEvent;
 import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.nullsafety.NotNullByDefault;
 import org.briarproject.bramble.api.plugin.TransportId;
@@ -978,10 +979,11 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 				db.raiseAckFlag(txn, c, m.getId());
 			} else {
 				if((new String(m.getBody()).contains(Message.MARKER_IDENTIFIER))) {
+					String text=null;
 					HashMap<String,String> keyValues=new HashMap<>();
 					try {
 
-						String text = getMessageText(toList(m.getBody()));
+						 text = getMessageText(toList(m.getBody()));
 						 if(text.trim().startsWith("{") && text.trim().endsWith("}")){
 						 	String jsonPart=text.substring(1,text.length()-2);
 						 	StringTokenizer jsonTokenizer=new StringTokenizer(jsonPart,",");
@@ -1006,6 +1008,7 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 										Message.MessageType.MARKER);
 
 								transaction.attach(new MessageAddedEvent(m, c));
+								transaction.attach(new MarkerAddedEvent(m,text));
 								break;
 							case 1:
 								break;

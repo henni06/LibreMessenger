@@ -15,6 +15,7 @@ import org.briarproject.bramble.api.event.EventBus;
 import org.briarproject.bramble.api.event.EventListener;
 import org.briarproject.bramble.api.identity.IdentityManager;
 import org.briarproject.bramble.api.lifecycle.LifecycleManager;
+import org.briarproject.bramble.api.location.event.MarkerAddedEvent;
 import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
@@ -168,6 +169,11 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	@Override
 	@CallSuper
 	public void eventOccurred(Event e) {
+		if(e instanceof MarkerAddedEvent){
+			MarkerAddedEvent mae=(MarkerAddedEvent)e;
+			threadMap.onMarkerAdded(mae);
+
+		}else
 		if(e instanceof MarkerRemovedEvent){
 			MarkerRemovedEvent mre=(MarkerRemovedEvent)e;
 			threadMap.onMarkerRemoved(mre);

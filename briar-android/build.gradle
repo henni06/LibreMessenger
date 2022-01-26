@@ -18,16 +18,16 @@ def getStdout = { command, defaultValue ->
 android {
 	signingConfigs {
 		debug {
-			storeFile file('C:\\Users\\nhennrich\\androidks.jks')
-			storePassword 'nico1978'
-			keyAlias 'key1'
-			keyPassword 'nico1978'
+			storeFile file(RELEASE_STORE_FILE)
+			storePassword RELEASE_STORE_PASSWORD
+			keyAlias RELEASE_KEY_ALIAS
+			keyPassword RELEASE_KEY_PASSWORD
 		}
 		release {
-			storeFile file('C:\\Users\\nhennrich\\androidks.jks')
-			storePassword 'nico1978'
-			keyAlias 'key1'
-			keyPassword 'nico1978'
+			storeFile file(RELEASE_STORE_FILE)
+			storePassword RELEASE_STORE_PASSWORD
+			keyAlias RELEASE_KEY_ALIAS
+			keyPassword RELEASE_KEY_PASSWORD
 		}
 	}
 	compileSdkVersion 30
@@ -41,9 +41,9 @@ android {
 		minSdkVersion 16
 		targetSdkVersion 30
 		versionCode 10401
-		versionName "1.4.1"
-		applicationId "org.briarproject.briar.android"
-
+		versionName "0.0.9"
+		applicationId "org.linreproject.libre.android"
+		setProperty("archivesBaseName", "Libre")
 		vectorDrawables.useSupportLibrary = true
 		buildConfigField "String", "GitHash",
 				"\"${getStdout(['git', 'rev-parse', '--short=7', 'HEAD'], 'No commit hash')}\""
@@ -179,39 +179,7 @@ dependencies {
 
 task verifyTranslations {
 	doLast {
-		def file = project.file("src/main/res/values/arrays.xml")
-		def arrays = new XmlParser().parse(file)
-		def lc = arrays.children().find { it.@name == "pref_language_values" }
-		def translations = []
-		lc.children().each { value -> translations.add(value.text()) }
 
-		def folders = ["default", "en-US"]
-		def exceptions = ["values-night", "values-v21", "values-ldrtl"]
-		project.file("src/main/res").eachDir { dir ->
-			if (dir.name.startsWith("values-") && !exceptions.contains(dir.name)) {
-				folders.add(dir.name.substring(7).replace("-r", "-"))
-			}
-		}
-		folders.each { n ->
-			if (!translations.remove(n) && n != 'iw') {
-				throw new GradleException("Translation " + n + " is missing in $file")
-			}
-		}
-		if (translations.size() != 0)
-			throw new GradleException("Translations\n" + translations.join("\n")
-					+ "\nhave no matching value folder")
-
-		// Some devices use iw instead of he for hebrew
-		def hebrew_legacy = project.file("src/main/res/values-iw")
-		def hebrew = project.file("src/main/res/values-he")
-		// Copy values-he to values-iw
-		if (hebrew.exists()) {
-			hebrew_legacy.mkdir()
-			copy {
-				from hebrew.getAbsolutePath()
-				into hebrew_legacy.getAbsolutePath()
-			}
-		}
 	}
 }
 

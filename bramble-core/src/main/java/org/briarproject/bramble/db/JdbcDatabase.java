@@ -3762,16 +3762,21 @@ abstract class JdbcDatabase implements Database<Connection> {
 			while(rs.next()){
 				MessageId id = new MessageId(rs.getBytes(1));
 				byte[] raw=rs.getBytes(2);
-				if (raw.length <= MESSAGE_HEADER_LENGTH) throw new AssertionError();
-				byte[] body = new byte[raw.length - MESSAGE_HEADER_LENGTH];
-				System.arraycopy(raw, MESSAGE_HEADER_LENGTH, body, 0, body.length);
+				if (raw != null) {
+					if (raw.length <= MESSAGE_HEADER_LENGTH)
+						throw new AssertionError();
+					byte[] body = new byte[raw.length - MESSAGE_HEADER_LENGTH];
+					System.arraycopy(raw, MESSAGE_HEADER_LENGTH, body, 0,
+							body.length);
 
-				markerData.add(new MarkerData(bdfReaderFactory,id,body));
+					markerData.add(new MarkerData(bdfReaderFactory, id, body));
+				}
 			}
 			rs.close();
 			for(MarkerData markerDataEntry:markerData){
 				if(markerDataEntry.getMarkerId().equals(markerID)){
 					try {
+						deleteMessageMetadata(txn, markerDataEntry.getMessageId());
 						deleteMessage(txn, markerDataEntry.getMessageId());
 					}
 					catch (DbException dbE){
