@@ -42,7 +42,7 @@ android {
 		targetSdkVersion 30
 		versionCode 10401
 		versionName "0.0.9"
-		applicationId "org.linreproject.libre.android"
+		applicationId "org.briarproject.briar.android"
 		setProperty("archivesBaseName", "Libre")
 		vectorDrawables.useSupportLibrary = true
 		buildConfigField "String", "GitHash",
