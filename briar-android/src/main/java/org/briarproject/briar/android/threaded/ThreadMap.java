@@ -582,10 +582,11 @@ public class ThreadMap extends Fragment {
 				                       	selectedLocationInfo.size=sbSize.getProgress();
 				                       	EditText edtMessage=getView().findViewById(R.id.edtMessage);
 				                       	selectedLocationInfo.message=edtMessage.getText().toString();
-				                       	try {
-					                        refreshMap();
-				                        }
-				                       	catch(Exception e){}
+				                       	viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(selectedLocationInfo,LocationMessageProducer.Actions.SET),null);
+
+					                       refreshMap();
+
+
 				                       }
 			                       }
 		                       }

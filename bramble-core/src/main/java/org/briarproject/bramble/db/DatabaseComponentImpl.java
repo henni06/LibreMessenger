@@ -1011,10 +1011,18 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 								transaction.attach(new MarkerAddedEvent(m,text));
 								break;
 							case 1:
-								break;
-							case 2:
 								String markerID=keyValues.get("id");
 								removeMarker(transaction,markerID);
+								db.addMessage(txn, m, UNKNOWN, false, false, c,
+										Message.MessageType.MARKER);
+
+								transaction.attach(new MessageAddedEvent(m, c));
+								transaction.attach(new MarkerAddedEvent(m,text));
+
+								break;
+							case 2:
+								String removeMarkerID=keyValues.get("id");
+								removeMarker(transaction,removeMarkerID);
 								break;
 						}
 					}
@@ -1023,6 +1031,7 @@ class DatabaseComponentImpl<T> implements DatabaseComponent {
 					if(!(new String(m.getBody()).contains(Message.LOCATION_IDENTIFIER))) {
 					db.addMessage(txn, m, UNKNOWN, false, false, c,m.getMessageType());
 					transaction.attach(new MessageAddedEvent(m, c));
+
 				}else{
 					transaction.attach((new LocationMessageEvent(m, c)));
 

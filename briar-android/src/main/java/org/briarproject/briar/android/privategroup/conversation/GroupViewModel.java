@@ -20,6 +20,7 @@ import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.briarproject.bramble.api.sync.GroupId;
 import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.MessageId;
+import org.briarproject.bramble.api.sync.event.MessageAddedEvent;
 import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.bramble.api.system.Clock;
 import org.briarproject.briar.android.sharing.SharingController;
@@ -44,6 +45,7 @@ import org.briarproject.briar.api.privategroup.invitation.GroupInvitationRespons
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.logging.Logger;
