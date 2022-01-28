@@ -301,6 +301,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				findViewById(R.id.fabInformation).setVisibility(GONE);
 				findViewById(R.id.fabWarning).setVisibility(GONE);
 				findViewById(R.id.fabAlert).setVisibility(GONE);
+				findViewById(R.id.fabMeeting).setVisibility(GONE);
 
 			}
 		}

@@ -25,7 +25,7 @@ public class LocationMessageProducer {
 
 			case SET:
 				return buildSetMarkerMessage(locationInfo.id, locationInfo.lng,
-						locationInfo.lat,locationInfo.message,locationInfo.size);
+						locationInfo.lat,locationInfo.message,locationInfo.size,locationInfo.type);
 			case DELETE:
 				return buildDeleteMarkerMessage(locationInfo.id);
 		}
@@ -52,7 +52,8 @@ public class LocationMessageProducer {
 
 	}
 
-	public static String buildSetMarkerMessage(String id,double lng,double lat,String message,int size) {
+	public static String buildSetMarkerMessage(String id,double lng,double lat,String message,int size,
+			LocationInfo.LocationInfoType subType) {
 		JSONObject obj = new JSONObject();
 		try {
 			obj.put("type", "marker");
@@ -62,7 +63,7 @@ public class LocationMessageProducer {
 			obj.put("lat",lat);
 			obj.put("size",size);
 			obj.put("message",message);
-
+			obj.put("subType",subType.ordinal());
 		}
 		catch(Exception e){
 			Log.d(LocationMessageProducer.class.getName(),e.getMessage());

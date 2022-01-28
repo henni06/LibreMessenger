@@ -20,12 +20,15 @@ import org.briarproject.bramble.api.location.event.MarkerRemovedEvent;
 import org.briarproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.briarproject.bramble.api.sync.GroupId;
+import org.briarproject.bramble.api.sync.Message;
 import org.briarproject.bramble.api.sync.MessageId;
 import org.briarproject.bramble.api.sync.event.GroupRemovedEvent;
 import org.briarproject.bramble.api.sync.event.LocationMessageEvent;
 import org.briarproject.bramble.api.sync.event.MessageAddedEvent;
 import org.briarproject.bramble.api.system.AndroidExecutor;
 import org.briarproject.bramble.api.system.Clock;
+import org.briarproject.briar.android.location.LocationInfo;
+import org.briarproject.briar.android.location.LocationMessageProducer;
 import org.briarproject.briar.android.privategroup.conversation.GroupMessageItem;
 import org.briarproject.briar.android.sharing.SharingController;
 import org.briarproject.briar.android.sharing.SharingController.SharingInfo;
@@ -261,10 +264,13 @@ public abstract class ThreadListViewModel<I extends ThreadItem>
 	protected void addItem(I item, boolean scrollToItem) {
 		// If items haven't loaded, we need to wait until they have.
 		// Since this was a R/W DB transaction, the load will pick up this item.
-		if (items.getValue() == null) return;
-		messageTree.add(item);
-		if (scrollToItem) this.scrollToItem.set(item.getId());
-		items.setValue(new LiveResult<>(messageTree.depthFirstOrder()));
+		if(!item.getText().startsWith(Message.LOCATION_IDENTIFIER) &&
+		!item.getText().startsWith(Message.MARKER_IDENTIFIER)) {
+			if (items.getValue() == null) return;
+			messageTree.add(item);
+			if (scrollToItem) this.scrollToItem.set(item.getId());
+			items.setValue(new LiveResult<>(messageTree.depthFirstOrder()));
+		}
 	}
 
 	@UiThread
