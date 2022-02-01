@@ -4,8 +4,15 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<item
-		android:id="@+id/action_group_invite"
+		android:id="@+id/share_map"
 		android:icon="@drawable/social_share_white"
+		android:title="@string/share_map"
+		android:visible="false"
+		app:showAsAction="ifRoom"
+		tools:visible="true" />
+	<item
+		android:id="@+id/action_group_invite"
+		android:icon="@drawable/invite_user"
 		android:title="@string/groups_invite_members"
 		android:visible="false"
 		app:showAsAction="ifRoom"

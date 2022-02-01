@@ -814,5 +814,5 @@
 	<string name="menu_hide_map_functions">Hide map functions</string>
 	<string name="marker_description">Description</string>
 	<string name="marker_size">Size</string>
-
+	<string name="share_map">Share map</string>
 </resources>
