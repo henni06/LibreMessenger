@@ -290,7 +290,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 					Uri file = Uri.parse(path);
 					sharingIntent.putExtra(Intent.EXTRA_STREAM, file);
 					startActivity(Intent.createChooser(sharingIntent,
-							"Share image using"));
+							ThreadListActivity.this.getString(R.string.share_map_message)));
 				}
 			}, MapSnapshot.INCLUDE_FLAG_UPTODATE, threadMap.getMap());
 			new Thread(mapSnapshot).start();

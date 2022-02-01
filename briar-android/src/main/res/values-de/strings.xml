@@ -755,4 +755,5 @@
   <string name="marker_description">Beschreibung</string>
   <string name="marker_size">Größe</string>
   <string name="share_map">Karte teilen</string>
+  <string name="share_map_message">Karte teilen mit...</string>
 </resources>
