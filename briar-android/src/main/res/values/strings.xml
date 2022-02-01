@@ -815,4 +815,6 @@
 	<string name="marker_description">Description</string>
 	<string name="marker_size">Size</string>
 	<string name="share_map">Share map</string>
+	<string name="share_map_message">Share map using...</string>
+
 </resources>
