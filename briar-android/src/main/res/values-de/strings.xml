@@ -754,4 +754,5 @@
   <string name="menu_hide_map_functions">Verberge Kartenfunktionen</string>
   <string name="marker_description">Beschreibung</string>
   <string name="marker_size">Größe</string>
+  <string name="share_map">Karte teilen</string>
 </resources>

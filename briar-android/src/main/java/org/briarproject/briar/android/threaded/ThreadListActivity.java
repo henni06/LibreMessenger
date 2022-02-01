@@ -7,12 +7,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +44,9 @@ import org.briarproject.briar.android.view.UnreadMessageButton;
 import org.briarproject.briar.android.viewmodel.LiveResult;
 import org.briarproject.briar.api.attachment.AttachmentHeader;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.drawing.MapSnapshot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -269,6 +274,28 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==R.id.share_map){
+
+			final MapSnapshot mapSnapshot = new MapSnapshot(new MapSnapshot.MapSnapshotable() {
+				@Override
+				public void callback(final MapSnapshot pMapSnapshot) {
+					if (pMapSnapshot.getStatus() != MapSnapshot.Status.CANVAS_OK) {
+						return;
+					}
+					final Bitmap bitmap = Bitmap.createBitmap(pMapSnapshot.getBitmap());
+					Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+					sharingIntent.setType("image/png");
+					String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap,
+							"LibreMap", null);
+					Uri file = Uri.parse(path);
+					sharingIntent.putExtra(Intent.EXTRA_STREAM, file);
+					startActivity(Intent.createChooser(sharingIntent,
+							"Share image using"));
+				}
+			}, MapSnapshot.INCLUDE_FLAG_UPTODATE, threadMap.getMap());
+			new Thread(mapSnapshot).start();
+
+		}
 		if (item.getItemId() == android.R.id.home) {
 			supportFinishAfterTransition();
 			return true;
@@ -561,9 +588,15 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		switch(view){
 			case V_LIST:
 				transaction.replace(R.id.conversation_container, threadListFragment);
+				if(getMenu()!=null) {
+					getMenu().findItem(R.id.share_map).setVisible(false);
+				}
 				break;
 			case V_MAP:
 				transaction.replace(R.id.conversation_container, threadMap);
+				if(getMenu()!=null) {
+					getMenu().findItem(R.id.share_map).setVisible(creator);
+				}
 				break;
 		}
 		transaction.addToBackStack(null);

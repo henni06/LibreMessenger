@@ -700,17 +700,20 @@ class PrivateGroupManagerImpl extends BdfIncomingMessageHook
 		MessageId previousMsgId = new MessageId(previousMsgIdBytes);
 		BdfDictionary previousMeta = clientHelper
 				.getMessageMetadataAsDictionary(txn, previousMsgId);
-		if (timestamp <= previousMeta.getLong(KEY_TIMESTAMP))
-			throw new FormatException();
-		// previous message must be from same member
-		if (!getAuthor(meta).equals(getAuthor(previousMeta)))
-			throw new FormatException();
-		// previous message must be a POST or JOIN
-		MessageType previousType = MessageType
-				.valueOf(previousMeta.getLong(KEY_TYPE).intValue());
-		if (previousType != JOIN && previousType != POST)
-			throw new FormatException();
-		// track message and broadcast event
+		if(previousMeta.size()>0) {
+			if (previousMeta.containsKey(KEY_TIMESTAMP) &&
+					timestamp <= previousMeta.getLong(KEY_TIMESTAMP))
+				throw new FormatException();
+			// previous message must be from same member
+			if (!getAuthor(meta).equals(getAuthor(previousMeta)))
+				throw new FormatException();
+			// previous message must be a POST or JOIN
+			MessageType previousType = MessageType
+					.valueOf(previousMeta.getLong(KEY_TYPE).intValue());
+			if (previousType != JOIN && previousType != POST)
+				throw new FormatException();
+			// track message and broadcast event
+		}
 		messageTracker.trackIncomingMessage(txn, m);
 		attachGroupMessageAddedEvent(txn, m, meta, false);
 	}

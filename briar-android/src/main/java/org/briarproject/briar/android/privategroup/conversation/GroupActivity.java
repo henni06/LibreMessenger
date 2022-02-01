@@ -138,7 +138,6 @@ public class GroupActivity extends
 			menu.findItem(R.id.action_location_share).setVisible(!isCreator);
 
 		});
-		super.onCreateOptionsMenu(menu);
 		if(locationObserver.isLocationActivated(groupId)){
 			menu.findItem(R.id.action_location_share).setTitle(R.string.menu_hide_location);
 

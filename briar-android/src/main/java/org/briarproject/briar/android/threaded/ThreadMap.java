@@ -49,6 +49,9 @@ import org.briarproject.briar.android.privategroup.conversation.GroupMessageItem
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -93,6 +96,10 @@ public class ThreadMap extends Fragment {
 	private ArrayList<LocationInfo> locations = new ArrayList<LocationInfo>();
 	private ThreadListViewModel viewModel;
 	private boolean admin=false;
+
+	public MapView getMap(){
+		return map;
+	}
 
 	public void setAdmin(boolean admin){
 		this.admin=admin;
@@ -240,6 +247,7 @@ public class ThreadMap extends Fragment {
 			if(location!=null){
 				GeoPoint geoPoint=new GeoPoint(location.getLatitude(),location.getLongitude());
 				map.getController().animateTo(geoPoint);
+
 				hasLocation=true;
 			}
 		}
@@ -466,6 +474,9 @@ public class ThreadMap extends Fragment {
 												iLocationInfo.lng =
 														marker.getPosition()
 																.getLongitude();
+
+												viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(iLocationInfo,LocationMessageProducer.Actions.SET),null);
+
 											}
 
 											@Override
