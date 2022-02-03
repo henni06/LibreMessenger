@@ -1,4 +1,4 @@
-package org.briarproject.briar.android;
+package org.libreproject.libre.android;
 
 import android.view.View;
 

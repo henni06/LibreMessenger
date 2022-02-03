@@ -67,7 +67,7 @@
 
 		<androidx.fragment.app.FragmentContainerView
 			android:id="@+id/fallbackFragment"
-			android:name="org.briarproject.briar.android.hotspot.FallbackFragment"
+			android:name="org.libreproject.libre.android.hotspot.FallbackFragment"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			app:layout_constraintEnd_toEndOf="parent"

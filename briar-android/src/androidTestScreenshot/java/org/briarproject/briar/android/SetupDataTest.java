@@ -1,11 +1,11 @@
-package org.briarproject.briar.android;
+package org.libreproject.libre.android;
 
 import android.content.Context;
 
-import org.briarproject.bramble.api.contact.Contact;
-import org.briarproject.bramble.api.db.DbException;
-import org.briarproject.briar.R;
-import org.briarproject.briar.android.account.SetupActivity;
+import org.libreproject.bramble.api.contact.Contact;
+import org.libreproject.bramble.api.db.DbException;
+import org.libreproject.libre.R;
+import org.libreproject.libre.android.account.SetupActivity;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,9 +26,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static org.briarproject.bramble.api.plugin.LanTcpConstants.ID;
-import static org.briarproject.briar.android.ViewActions.waitUntilMatches;
-import static org.briarproject.briar.android.util.UiUtils.needsDozeWhitelisting;
+import static org.libreproject.bramble.api.plugin.LanTcpConstants.ID;
+import static org.libreproject.libre.android.ViewActions.waitUntilMatches;
+import static org.libreproject.libre.android.util.UiUtils.needsDozeWhitelisting;
 import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertTrue;
 

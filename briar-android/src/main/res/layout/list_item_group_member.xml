@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
-	<org.briarproject.briar.android.view.AuthorView
+	<org.libreproject.libre.android.view.AuthorView
 		android:id="@+id/authorView"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"

@@ -1,17 +1,17 @@
-package org.briarproject.briar.android;
+package org.libreproject.libre.android;
 
 import android.view.View;
 
-import org.briarproject.bramble.api.Pair;
-import org.briarproject.bramble.api.contact.Contact;
-import org.briarproject.bramble.api.contact.ContactManager;
-import org.briarproject.bramble.api.contact.PendingContact;
-import org.briarproject.bramble.api.contact.PendingContactState;
-import org.briarproject.briar.R;
-import org.briarproject.briar.android.account.SetupActivity;
-import org.briarproject.briar.android.contact.add.remote.PendingContactListActivity;
-import org.briarproject.briar.android.navdrawer.NavDrawerActivity;
-import org.briarproject.briar.android.splash.SplashScreenActivity;
+import org.libreproject.bramble.api.Pair;
+import org.libreproject.bramble.api.contact.Contact;
+import org.libreproject.bramble.api.contact.ContactManager;
+import org.libreproject.bramble.api.contact.PendingContact;
+import org.libreproject.bramble.api.contact.PendingContactState;
+import org.libreproject.libre.R;
+import org.libreproject.libre.android.account.SetupActivity;
+import org.libreproject.libre.android.contact.add.remote.PendingContactListActivity;
+import org.libreproject.libre.android.navdrawer.NavDrawerActivity;
+import org.libreproject.libre.android.splash.SplashScreenActivity;
 import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,11 +39,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static java.lang.Thread.sleep;
-import static org.briarproject.bramble.api.plugin.LanTcpConstants.ID;
-import static org.briarproject.briar.android.OverlayTapViewAction.visualClick;
-import static org.briarproject.briar.android.ViewActions.waitFor;
-import static org.briarproject.briar.android.ViewActions.waitUntilMatches;
-import static org.briarproject.briar.android.util.UiUtils.needsDozeWhitelisting;
+import static org.libreproject.bramble.api.plugin.LanTcpConstants.ID;
+import static org.libreproject.libre.android.OverlayTapViewAction.visualClick;
+import static org.libreproject.libre.android.ViewActions.waitFor;
+import static org.libreproject.libre.android.ViewActions.waitUntilMatches;
+import static org.libreproject.libre.android.util.UiUtils.needsDozeWhitelisting;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.junit.Assert.assertTrue;
 

@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:padding="@dimen/margin_activity_vertical">
 
-		<org.briarproject.briar.android.account.DozeView
+		<org.libreproject.libre.android.account.DozeView
 			android:id="@+id/dozeView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
-		<org.briarproject.briar.android.account.HuaweiProtectedAppsView
+		<org.libreproject.libre.android.account.HuaweiProtectedAppsView
 			android:id="@+id/huaweiProtectedAppsView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/dozeView" />
 
-		<org.briarproject.briar.android.account.HuaweiAppLaunchView
+		<org.libreproject.libre.android.account.HuaweiAppLaunchView
 			android:id="@+id/huaweiAppLaunchView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/huaweiProtectedAppsView" />
 
-		<org.briarproject.briar.android.account.XiaomiView
+		<org.libreproject.libre.android.account.XiaomiView
 			android:id="@+id/xiaomiView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

@@ -1,13 +1,13 @@
-package org.briarproject.briar.android;
+package org.libreproject.libre.android;
 
 import android.app.Activity;
 import android.util.Log;
 
 import com.jraska.falcon.Falcon.UnableToTakeScreenshotException;
 
-import org.briarproject.bramble.api.connection.ConnectionRegistry;
-import org.briarproject.bramble.api.system.Clock;
-import org.briarproject.briar.api.test.TestDataCreator;
+import org.libreproject.bramble.api.connection.ConnectionRegistry;
+import org.libreproject.bramble.api.system.Clock;
+import org.libreproject.libre.api.test.TestDataCreator;
 import org.junit.ClassRule;
 
 import javax.inject.Inject;
