@@ -13,7 +13,7 @@
 		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<org.briarproject.briar.android.view.AuthorView
+	<org.libreproject.libre.android.view.AuthorView
 		android:id="@+id/author"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"

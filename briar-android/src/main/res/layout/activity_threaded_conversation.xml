@@ -22,14 +22,14 @@
 			android:orientation="horizontal"/>
 
 
-		<org.briarproject.briar.android.view.UnreadMessageButton
+		<org.libreproject.libre.android.view.UnreadMessageButton
 			android:id="@+id/upButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="top|right|end"
 			app:direction="up" />
 
-		<org.briarproject.briar.android.view.UnreadMessageButton
+		<org.libreproject.libre.android.view.UnreadMessageButton
 			android:id="@+id/downButton"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -95,13 +95,13 @@
 
 	</FrameLayout>
 
-	<org.briarproject.briar.android.view.TextInputView
+	<org.libreproject.libre.android.view.TextInputView
 		android:id="@+id/text_input_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:hint="@string/forum_new_message_hint" >
 
 
-	</org.briarproject.briar.android.view.TextInputView>
+	</org.libreproject.libre.android.view.TextInputView>
 
 </LinearLayout>

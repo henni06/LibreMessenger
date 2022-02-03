@@ -21,7 +21,7 @@
 		app:cardCornerRadius="0dp"
 		app:cardUseCompatPadding="false">
 
-		<org.briarproject.briar.android.view.EmojiTextInputView
+		<org.libreproject.libre.android.view.EmojiTextInputView
 			android:id="@+id/emojiTextInput"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

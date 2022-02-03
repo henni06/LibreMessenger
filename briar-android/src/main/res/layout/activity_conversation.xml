@@ -44,14 +44,14 @@
 
 	</com.google.android.material.appbar.AppBarLayout>
 
-	<org.briarproject.briar.android.view.BriarRecyclerView
+	<org.libreproject.libre.android.view.BriarRecyclerView
 		android:id="@+id/conversationView"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="2"
 		app:scrollToEnd="false" />
 
-	<org.briarproject.briar.android.view.ImagePreview
+	<org.libreproject.libre.android.view.ImagePreview
 		android:id="@+id/imagePreview"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
@@ -59,7 +59,7 @@
 		android:visibility="gone"
 		tools:visibility="visible" />
 
-	<org.briarproject.briar.android.view.TextInputView
+	<org.libreproject.libre.android.view.TextInputView
 		android:id="@+id/text_input_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

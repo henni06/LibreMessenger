@@ -6,7 +6,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
-	<org.briarproject.briar.android.view.TextAvatarView
+	<org.libreproject.libre.android.view.TextAvatarView
 		android:id="@+id/avatar"
 		android:layout_width="@dimen/listitem_picture_frame_size"
 		android:layout_height="@dimen/listitem_picture_frame_size"

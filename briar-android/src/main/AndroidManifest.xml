@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="org.briarproject.briar">
+	package="org.libreproject.libre">
 
 	<uses-feature
 		android:name="android.hardware.bluetooth"
@@ -43,7 +43,7 @@
 		android:required="true"
 		/>
 	<application
-		android:name="org.briarproject.briar.android.BriarApplicationImpl"
+		android:name="org.libreproject.libre.android.BriarApplicationImpl"
 		android:allowBackup="false"
 		tools:replace="android:allowBackup"
 		android:banner="@mipmap/tv_banner"
@@ -57,7 +57,7 @@
 		tools:targetApi="16">
 
 		<receiver
-			android:name="org.briarproject.briar.android.login.SignInReminderReceiver"
+			android:name="org.libreproject.libre.android.login.SignInReminderReceiver"
 			android:exported="false">
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -65,9 +65,9 @@
 			</intent-filter>
 		</receiver>
 
-		<service android:enabled="true" android:foregroundServiceType="location" android:name="org.briarproject.briar.android.location.LocationNotificationService"></service>
+		<service android:enabled="true" android:foregroundServiceType="location" android:name="org.libreproject.libre.android.location.LocationNotificationService"></service>
 		<service
-			android:name="org.briarproject.briar.android.BriarService"
+			android:name="org.libreproject.libre.android.BriarService"
 			android:exported="false">
 			<intent-filter>
 				<action android:name="org.briarproject.briar.android.BriarService" />
@@ -75,11 +75,11 @@
 		</service>
 
 		<service
-			android:name="org.briarproject.briar.android.NotificationCleanupService"
+			android:name="org.libreproject.libre.android.NotificationCleanupService"
 			android:exported="false" />
 
 		<activity
-			android:name="org.briarproject.briar.android.reporting.CrashReportActivity"
+			android:name="org.libreproject.libre.android.reporting.CrashReportActivity"
 			android:excludeFromRecents="true"
 			android:exported="false"
 			android:finishOnTaskLaunch="true"
@@ -90,31 +90,31 @@
 			android:windowSoftInputMode="adjustResize|stateHidden" />
 
 		<activity
-			android:name="org.briarproject.briar.android.reporting.FeedbackActivity"
+			android:name="org.libreproject.libre.android.reporting.FeedbackActivity"
 			android:exported="false"
 			android:label="@string/feedback_title"
-			android:parentActivityName="org.briarproject.briar.android.settings.SettingsActivity"
+			android:parentActivityName="org.libreproject.libre.android.settings.SettingsActivity"
 			android:theme="@style/BriarTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.settings.SettingsActivity" />
+				android:value="org.libreproject.libre.android.settings.SettingsActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.splash.ExpiredActivity"
+			android:name="org.libreproject.libre.android.splash.ExpiredActivity"
 			android:label="@string/app_name" />
 
 		<activity
-			android:name="org.briarproject.briar.android.login.StartupActivity"
+			android:name="org.libreproject.libre.android.login.StartupActivity"
 			android:label="@string/app_name" />
 
 		<activity
-			android:name="org.briarproject.briar.android.account.SetupActivity"
+			android:name="org.libreproject.libre.android.account.SetupActivity"
 			android:label="@string/setup_title" />
 
 		<activity
-			android:name="org.briarproject.briar.android.splash.SplashScreenActivity"
+			android:name="org.libreproject.libre.android.splash.SplashScreenActivity"
 			android:label="@string/app_name"
 			android:theme="@style/BriarTheme.NoActionBar">
 			<intent-filter>
@@ -126,7 +126,7 @@
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:name="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:launchMode="singleTask"
 			android:theme="@style/BriarTheme.NoActionBar">
 			<intent-filter android:label="@string/add_contact_remotely_title_case">
@@ -145,215 +145,215 @@
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.conversation.ConversationActivity"
+			android:name="org.libreproject.libre.android.conversation.ConversationActivity"
 			android:label="@string/app_name"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:theme="@style/BriarTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateUnchanged">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name=".android.conversation.ImageActivity"
-			android:parentActivityName="org.briarproject.briar.android.conversation.ConversationActivity"
+			android:name="org.libreproject.libre.android.conversation.ImageActivity"
+			android:parentActivityName="org.libreproject.libre.android.conversation.ConversationActivity"
 			android:theme="@style/BriarTheme.ActionBarOverlay">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.conversation.ConversationActivity" />
+				android:value="org.libreproject.libre.android.conversation.ConversationActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.creation.CreateGroupActivity"
+			android:name="org.libreproject.libre.android.privategroup.creation.CreateGroupActivity"
 			android:label="@string/groups_create_group_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.conversation.GroupActivity"
+			android:name="org.libreproject.libre.android.privategroup.conversation.GroupActivity"
 			android:label="@string/app_name"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:theme="@style/BriarTheme.NoActionBar"
 
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 			<intent-filter>
 				<action android:name="locationChanged"></action>
 			</intent-filter>
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.invitation.GroupInvitationActivity"
+			android:name="org.libreproject.libre.android.privategroup.invitation.GroupInvitationActivity"
 			android:label="@string/groups_invitations_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity">
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.memberlist.GroupMemberListActivity"
+			android:name="org.libreproject.libre.android.privategroup.memberlist.GroupMemberListActivity"
 			android:label="@string/groups_member_list"
-			android:parentActivityName="org.briarproject.briar.android.privategroup.conversation.GroupActivity">
+			android:parentActivityName="org.libreproject.libre.android.privategroup.conversation.GroupActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.privategroup.conversation.GroupActivity" />
+				android:value="org.libreproject.libre.android.privategroup.conversation.GroupActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.reveal.RevealContactsActivity"
+			android:name="org.libreproject.libre.android.privategroup.reveal.RevealContactsActivity"
 			android:label="@string/groups_reveal_contacts"
-			android:parentActivityName="org.briarproject.briar.android.privategroup.conversation.GroupActivity">
+			android:parentActivityName="org.libreproject.libre.android.privategroup.conversation.GroupActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.privategroup.conversation.GroupActivity" />
+				android:value="org.libreproject.libre.android.privategroup.conversation.GroupActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.privategroup.creation.GroupInviteActivity"
+			android:name="org.libreproject.libre.android.privategroup.creation.GroupInviteActivity"
 			android:label="@string/groups_invite_members"
-			android:parentActivityName="org.briarproject.briar.android.privategroup.conversation.GroupActivity"
+			android:parentActivityName="org.libreproject.libre.android.privategroup.conversation.GroupActivity"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.privategroup.conversation.GroupActivity" />
+				android:value="org.libreproject.libre.android.privategroup.conversation.GroupActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.ForumInvitationActivity"
+			android:name="org.libreproject.libre.android.sharing.ForumInvitationActivity"
 			android:label="@string/forum_invitations_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity">
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.BlogInvitationActivity"
+			android:name="org.libreproject.libre.android.sharing.BlogInvitationActivity"
 			android:label="@string/blogs_sharing_invitations_title"
-			android:parentActivityName="org.briarproject.briar.android.conversation.ConversationActivity">
+			android:parentActivityName="org.libreproject.libre.android.conversation.ConversationActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.conversation.ConversationActivity" />
+				android:value="org.libreproject.libre.android.conversation.ConversationActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.forum.CreateForumActivity"
+			android:name="org.libreproject.libre.android.forum.CreateForumActivity"
 			android:label="@string/create_forum_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.forum.ForumActivity"
+			android:name="org.libreproject.libre.android.forum.ForumActivity"
 			android:label="@string/app_name"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:theme="@style/BriarTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.ShareForumActivity"
+			android:name="org.libreproject.libre.android.sharing.ShareForumActivity"
 			android:label="@string/activity_share_toolbar_header"
-			android:parentActivityName="org.briarproject.briar.android.forum.ForumActivity"
+			android:parentActivityName="org.libreproject.libre.android.forum.ForumActivity"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.forum.ForumActivity" />
+				android:value="org.libreproject.libre.android.forum.ForumActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.ShareBlogActivity"
+			android:name="org.libreproject.libre.android.sharing.ShareBlogActivity"
 			android:label="@string/activity_share_toolbar_header"
-			android:parentActivityName="org.briarproject.briar.android.blog.BlogActivity"
+			android:parentActivityName="org.libreproject.libre.android.blog.BlogActivity"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.blog.BlogActivity" />
+				android:value="org.libreproject.libre.android.blog.BlogActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.ForumSharingStatusActivity"
+			android:name="org.libreproject.libre.android.sharing.ForumSharingStatusActivity"
 			android:label="@string/sharing_status"
-			android:parentActivityName="org.briarproject.briar.android.forum.ForumActivity">
+			android:parentActivityName="org.libreproject.libre.android.forum.ForumActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.forum.ForumActivity" />
+				android:value="org.libreproject.libre.android.forum.ForumActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.sharing.BlogSharingStatusActivity"
+			android:name="org.libreproject.libre.android.sharing.BlogSharingStatusActivity"
 			android:label="@string/sharing_status"
-			android:parentActivityName="org.briarproject.briar.android.blog.BlogActivity">
+			android:parentActivityName="org.libreproject.libre.android.blog.BlogActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.blog.BlogActivity" />
+				android:value="org.libreproject.libre.android.blog.BlogActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.blog.BlogActivity"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:name="org.libreproject.libre.android.blog.BlogActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:theme="@style/BriarTheme.NoActionBar">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.blog.WriteBlogPostActivity"
+			android:name="org.libreproject.libre.android.blog.WriteBlogPostActivity"
 			android:label="@string/blogs_write_blog_post"
-			android:parentActivityName="org.briarproject.briar.android.blog.BlogActivity"
+			android:parentActivityName="org.libreproject.libre.android.blog.BlogActivity"
 			android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.blog.BlogActivity" />
+				android:value="org.libreproject.libre.android.blog.BlogActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.blog.ReblogActivity"
+			android:name="org.libreproject.libre.android.blog.ReblogActivity"
 			android:label="@string/blogs_reblog_button"
-			android:parentActivityName="org.briarproject.briar.android.blog.BlogActivity"
+			android:parentActivityName="org.libreproject.libre.android.blog.BlogActivity"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.blog.BlogActivity" />
+				android:value="org.libreproject.libre.android.blog.BlogActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.contact.add.nearby.AddNearbyContactActivity"
+			android:name="org.libreproject.libre.android.contact.add.nearby.AddNearbyContactActivity"
 			android:label="@string/add_contact_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:theme="@style/BriarTheme.NoActionBar">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.introduction.IntroductionActivity"
+			android:name="org.libreproject.libre.android.introduction.IntroductionActivity"
 			android:label="@string/introduction_activity_title"
-			android:parentActivityName="org.briarproject.briar.android.conversation.ConversationActivity"
+			android:parentActivityName="org.libreproject.libre.android.conversation.ConversationActivity"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.conversation.ConversationActivity" />
+				android:value="org.libreproject.libre.android.conversation.ConversationActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.StartupFailureActivity"
+			android:name="org.libreproject.libre.android.StartupFailureActivity"
 			android:excludeFromRecents="true"
 			android:exported="false"
 			android:finishOnTaskLaunch="true"
@@ -363,13 +363,13 @@
 			android:windowSoftInputMode="adjustResize|stateHidden" />
 
 		<activity
-			android:name="org.briarproject.briar.android.settings.SettingsActivity"
+			android:name="org.libreproject.libre.android.settings.SettingsActivity"
 			android:label="@string/settings_button"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity"
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:permission="android.permission.READ_NETWORK_USAGE_HISTORY">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 			<intent-filter>
 				<action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -377,44 +377,44 @@
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.navdrawer.TransportsActivity"
+			android:name="org.libreproject.libre.android.navdrawer.TransportsActivity"
 			android:label="@string/network_settings_title"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity">
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.login.ChangePasswordActivity"
+			android:name="org.libreproject.libre.android.login.ChangePasswordActivity"
 			android:label="@string/change_password"
-			android:parentActivityName="org.briarproject.briar.android.settings.SettingsActivity"
+			android:parentActivityName="org.libreproject.libre.android.settings.SettingsActivity"
 			android:windowSoftInputMode="adjustResize|stateAlwaysVisible">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.settings.SettingsActivity" />
+				android:value="org.libreproject.libre.android.settings.SettingsActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.test.TestDataActivity"
+			android:name="org.libreproject.libre.android.test.TestDataActivity"
 			android:label="Create test data"
-			android:parentActivityName="org.briarproject.briar.android.settings.SettingsActivity">
+			android:parentActivityName="org.libreproject.libre.android.settings.SettingsActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.settings.SettingsActivity" />
+				android:value="org.libreproject.libre.android.settings.SettingsActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.panic.PanicPreferencesActivity"
+			android:name="org.libreproject.libre.android.panic.PanicPreferencesActivity"
 			android:label="@string/panic_setting"
-			android:parentActivityName="org.briarproject.briar.android.settings.SettingsActivity">
+			android:parentActivityName="org.libreproject.libre.android.settings.SettingsActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.settings.SettingsActivity" />
+				android:value="org.libreproject.libre.android.settings.SettingsActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.panic.PanicResponderActivity"
+			android:name="org.libreproject.libre.android.panic.PanicResponderActivity"
 			android:noHistory="true"
 			android:theme="@style/TranslucentTheme">
 			<!-- this can never have launchMode singleTask or singleInstance! -->
@@ -425,62 +425,62 @@
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.logout.ExitActivity"
+			android:name="org.libreproject.libre.android.logout.ExitActivity"
 			android:theme="@android:style/Theme.NoDisplay" />
 
 		<activity
-			android:name=".android.logout.HideUiActivity"
+			android:name="org.libreproject.libre.android.logout.HideUiActivity"
 			android:theme="@android:style/Theme.NoDisplay" />
 
 		<activity
-			android:name=".android.account.UnlockActivity"
+			android:name="org.libreproject.libre.android.account.UnlockActivity"
 			android:label="@string/lock_unlock"
 			android:launchMode="singleTask"
 			android:theme="@style/BriarTheme.NoActionBar" />
 
 		<activity
-			android:name=".android.contact.add.remote.AddContactActivity"
+			android:name="org.libreproject.libre.android.contact.add.remote.AddContactActivity"
 			android:label="@string/add_contact_remotely_title_case"
 			android:theme="@style/LibreTheme"
 			android:windowSoftInputMode="adjustResize|stateHidden" />
 
 		<activity
-			android:name="org.briarproject.briar.android.blog.RssFeedActivity"
+			android:name="org.libreproject.libre.android.blog.RssFeedActivity"
 			android:label="@string/blogs_rss_feeds"
-			android:parentActivityName="org.briarproject.briar.android.navdrawer.NavDrawerActivity">
+			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.navdrawer.NavDrawerActivity" />
+				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
 		</activity>
 
 		<activity
-			android:name="org.briarproject.briar.android.removabledrive.RemovableDriveActivity"
+			android:name="org.libreproject.libre.android.removabledrive.RemovableDriveActivity"
 			android:label="@string/removable_drive_menu_title"
-			android:parentActivityName="org.briarproject.briar.android.conversation.ConversationActivity">
+			android:parentActivityName="org.libreproject.libre.android.conversation.ConversationActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.conversation.ConversationActivity" />
+				android:value="org.libreproject.libre.android.conversation.ConversationActivity" />
 		</activity>
 
 		<activity
-			android:name=".android.contact.add.remote.PendingContactListActivity"
+			android:name="org.libreproject.libre.android.contact.add.remote.PendingContactListActivity"
 			android:label="@string/pending_contact_requests"
 			android:theme="@style/LibreTheme" />
 
 		<activity
-			android:name=".android.hotspot.HotspotActivity"
+			android:name="org.libreproject.libre.android.hotspot.HotspotActivity"
 			android:label="@string/hotspot_title"
 			android:theme="@style/LibreTheme" />
 
 		<activity
-			android:name=".android.contact.connect.ConnectViaBluetoothActivity"
+			android:name="org.libreproject.libre.android.contact.connect.ConnectViaBluetoothActivity"
 			android:exported="false"
 			android:label="@string/connect_via_bluetooth_title"
-			android:parentActivityName="org.briarproject.briar.android.conversation.ConversationActivity"
+			android:parentActivityName="org.libreproject.libre.android.conversation.ConversationActivity"
 			android:theme="@style/LibreTheme">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="org.briarproject.briar.android.conversation.ConversationActivity" />
+				android:value="org.libreproject.libre.android.conversation.ConversationActivity" />
 		</activity>
 
 	</application>

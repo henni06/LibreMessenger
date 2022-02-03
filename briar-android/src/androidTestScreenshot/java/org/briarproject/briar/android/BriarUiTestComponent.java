@@ -1,15 +1,15 @@
-package org.briarproject.briar.android;
+package org.libreproject.libre.android;
 
-import org.briarproject.bramble.BrambleAndroidModule;
-import org.briarproject.bramble.BrambleCoreModule;
-import org.briarproject.bramble.account.BriarAccountModule;
-import org.briarproject.bramble.plugin.file.RemovableDriveModule;
-import org.briarproject.bramble.system.ClockModule;
-import org.briarproject.briar.BriarCoreModule;
-import org.briarproject.briar.android.attachment.AttachmentModule;
-import org.briarproject.briar.android.attachment.media.MediaModule;
-import org.briarproject.briar.android.conversation.ConversationActivityScreenshotTest;
-import org.briarproject.briar.android.settings.SettingsActivityScreenshotTest;
+import org.libreproject.bramble.BrambleAndroidModule;
+import org.libreproject.bramble.BrambleCoreModule;
+import org.libreproject.bramble.account.BriarAccountModule;
+import org.libreproject.bramble.plugin.file.RemovableDriveModule;
+import org.libreproject.bramble.system.ClockModule;
+import org.libreproject.libre.BriarCoreModule;
+import org.libreproject.libre.android.attachment.AttachmentModule;
+import org.libreproject.libre.android.attachment.media.MediaModule;
+import org.libreproject.libre.android.conversation.ConversationActivityScreenshotTest;
+import org.libreproject.libre.android.settings.SettingsActivityScreenshotTest;
 
 import javax.inject.Singleton;
 

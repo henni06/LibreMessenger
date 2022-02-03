@@ -5,7 +5,7 @@
 
 	<fragment
 		android:id="@+id/fragment"
-		android:name="org.briarproject.briar.android.panic.PanicPreferencesFragment"
+		android:name="org.libreproject.libre.android.panic.PanicPreferencesFragment"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 </FrameLayout>

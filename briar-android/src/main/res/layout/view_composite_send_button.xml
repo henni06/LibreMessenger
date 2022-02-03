@@ -5,7 +5,7 @@
 	android:layout_width="@dimen/text_input_height"
 	android:layout_height="@dimen/text_input_height"
 	android:layout_gravity="bottom"
-	tools:parentTag="org.briarproject.briar.android.view.CompositeSendButton"
+	tools:parentTag="org.libreproject.libre.android.view.CompositeSendButton"
 	tools:showIn="@layout/text_input_view">
 
 	<androidx.appcompat.widget.AppCompatImageButton

@@ -1,0 +1,30 @@
+package org.libreproject.libre.api.privategroup;
+
+import org.libreproject.bramble.api.identity.Author;
+import org.libreproject.libre.api.identity.AuthorInfo;
+import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
+import org.libreproject.bramble.api.sync.GroupId;
+import org.libreproject.bramble.api.sync.MessageId;
+import org.libreproject.libre.api.client.PostHeader;
+
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+@Immutable
+@NotNullByDefault
+public class GroupMessageHeader extends PostHeader {
+
+	private final GroupId groupId;
+
+	public GroupMessageHeader(GroupId groupId, MessageId id,
+			@Nullable MessageId parentId, long timestamp,
+			Author author, AuthorInfo authorInfo, boolean read) {
+		super(id, parentId, timestamp, author, authorInfo, read);
+		this.groupId = groupId;
+	}
+
+	public GroupId getGroupId() {
+		return groupId;
+	}
+
+}

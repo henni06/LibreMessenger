@@ -1,6 +1,6 @@
-package org.briarproject.briar.android.test;
+package org.libreproject.libre.android.test;
 
-import org.briarproject.briar.api.test.TestAvatarCreator;
+import org.libreproject.libre.api.test.TestAvatarCreator;
 
 import java.io.InputStream;
 
