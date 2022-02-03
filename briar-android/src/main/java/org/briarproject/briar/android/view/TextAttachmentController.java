@@ -268,7 +268,7 @@ public class TextAttachmentController extends TextSendController
 				R.style.OnboardingDialogTheme).setTarget(sendButton)
 				.setPrimaryText(R.string.dialog_title_image_support)
 				.setSecondaryText(R.string.dialog_message_image_support)
-				.setBackgroundColour(getColor(activity, R.color.briar_primary))
+				.setBackgroundColour(getColor(activity, R.color.libre_primary))
 				.setIconDrawable(drawable)
 				.setIconDrawableColourFilter(color)
 				.show();

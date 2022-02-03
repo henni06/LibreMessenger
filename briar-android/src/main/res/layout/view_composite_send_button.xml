@@ -35,7 +35,7 @@
 		android:padding="4dp"
 		android:scaleType="center"
 		app:srcCompat="@drawable/social_send_now_white"
-		app:tint="@color/briar_accent" />
+		app:tint="@color/libre_accent" />
 
 	<ImageView
 		android:id="@+id/bombBadge"
@@ -46,7 +46,7 @@
 		android:contentDescription="@string/auto_delete_msg_contact_enabled"
 		android:visibility="invisible"
 		app:srcCompat="@drawable/ic_bomb"
-		app:tint="@color/briar_accent"
+		app:tint="@color/libre_accent"
 		tools:visibility="visible" />
 
 	<ProgressBar

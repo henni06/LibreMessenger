@@ -75,7 +75,7 @@ public class PendingContactListActivity extends BriarActivity
 		list.showProgressBar();
 
 		offlineSnackbar = new BriarSnackbarBuilder()
-				.setBackgroundColor(R.color.briar_red_500)
+				.setBackgroundColor(R.color.libre_red_500)
 				.make(list, R.string.offline_state, LENGTH_INDEFINITE);
 	}
 

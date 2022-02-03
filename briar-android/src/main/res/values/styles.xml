@@ -5,9 +5,9 @@
 
 	<style name="BriarToolbar" parent="Widget.AppCompat.Toolbar">
 		<item name="android:background">?colorPrimary</item>
-		<item name="android:textColorPrimary">@color/briar_text_primary_inverse</item>
+		<item name="android:textColorPrimary">@color/libre_text_primary_inverse</item>
 		<item name="android:textSize">@dimen/text_size_medium</item>
-		<item name="colorPrimary">@color/briar_primary</item>
+		<item name="colorPrimary">@color/libre_primary</item>
 		<item name="titleTextAppearance">@style/BriarToolbarTitleTextAppearance</item>
 		<item name="subtitleTextAppearance">@style/BriarToolbarSubTitleTextAppearance</item>
 		<item name="android:theme">@style/BriarToolbarTheme</item>
@@ -15,15 +15,15 @@
 	</style>
 
 	<style name="BriarToolbarTheme">
-		<item name="colorControlNormal">@color/briar_text_primary_inverse</item>
+		<item name="colorControlNormal">@color/libre_text_primary_inverse</item>
 	</style>
 
 	<style name="BriarToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-		<item name="android:textColor">@color/briar_text_primary_inverse</item>
+		<item name="android:textColor">@color/libre_text_primary_inverse</item>
 	</style>
 
 	<style name="BriarToolbarSubTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
-		<item name="android:textColor">@color/briar_text_secondary_inverse</item>
+		<item name="android:textColor">@color/libre_text_secondary_inverse</item>
 	</style>
 
 	<style name="PopupMenu" parent="Theme.AppCompat.DayNight.DarkActionBar">
@@ -32,7 +32,7 @@
 
 	<style name="ButtonTheme" parent="Theme.AppCompat.DayNight">
 		<!-- A strange hack needed only to override button color on all API levels -->
-		<item name="colorAccent">@color/briar_button_background_color</item>
+		<item name="colorAccent">@color/libre_button_background_color</item>
 	</style>
 
 	<style name="BriarButton" parent="Widget.AppCompat.Button.Colored">
@@ -45,17 +45,17 @@
 	</style>
 
 	<style name="BriarButtonFlat.Negative" parent="Widget.AppCompat.Button.Borderless">
-		<item name="android:textColor">@color/briar_button_text_negative</item>
+		<item name="android:textColor">@color/libre_button_text_negative</item>
 		<item name="android:textSize">@dimen/text_size_medium</item>
 	</style>
 
 	<style name="BriarButtonFlat.Positive" parent="Widget.AppCompat.Button.Borderless">
-		<item name="android:textColor">@color/briar_button_text_positive</item>
+		<item name="android:textColor">@color/libre_button_text_positive</item>
 		<item name="android:textSize">@dimen/text_size_medium</item>
 	</style>
 
 	<style name="BriarButtonFlat.Neutral" parent="Widget.AppCompat.Button.Borderless">
-		<item name="android:textColor">@color/briar_button_text_neutral</item>
+		<item name="android:textColor">@color/libre_button_text_neutral</item>
 		<item name="android:textSize">@dimen/text_size_medium</item>
 	</style>
 

@@ -6,7 +6,7 @@
 	android:layout_height="wrap_content"
 	android:background="@color/preference_category_background"
 	android:padding="16dp"
-	android:textColor="@color/briar_accent"
+	android:textColor="@color/libre_accent"
 	android:textSize="14sp"
 	android:textStyle="bold"
 	tools:text="@string/security_settings_title" />

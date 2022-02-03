@@ -15,7 +15,7 @@ android:layout_height="fill_parent">
 		android:layout_height="wrap_content"
 		android:gravity="center"
 		android:visibility="gone"
-		android:background="@color/briar_accent"
+		android:background="@color/libre_accent"
 		android:id="@+id/loMarkerAction"
 		android:orientation="horizontal">
 		<ImageView
@@ -25,9 +25,9 @@ android:layout_height="fill_parent">
 		<it.beppi.tristatetogglebutton_library.TriStateToggleButton
 			android:layout_width="160dp"
 			android:layout_margin="5dp"
-			app:tbOffColor="@color/briar_red_500"
-			app:tbMidColor="@color/briar_blue_600"
-			app:tbOnColor="@color/briar_brand_green"
+			app:tbOffColor="@color/libre_red_500"
+			app:tbMidColor="@color/libre_blue_600"
+			app:tbOnColor="@color/libre_brand_green"
 			app:tbDefaultStatus="mid"
 			android:layout_height="40dp"
 			android:id="@+id/markerAction"
@@ -36,14 +36,14 @@ android:layout_height="fill_parent">
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:src="@android:drawable/ic_menu_share"
-			app:tint="@color/briar_brand_green" />
+			app:tint="@color/libre_brand_green" />
 	</LinearLayout>
 	<TableLayout
 		android:layout_width="match_parent"
 		android:stretchColumns="1"
 		android:visibility="gone"
 		android:id="@+id/loEditMarker"
-		android:background="@color/briar_accent"
+		android:background="@color/libre_accent"
 		android:layout_height="wrap_content">
 		<TableRow
 			android:id="@+id/row1"

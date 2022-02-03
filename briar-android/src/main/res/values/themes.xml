@@ -2,10 +2,10 @@
 <resources>
 
 	<style name="LibreTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-		<item name="colorPrimary">@color/briar_primary</item>
-		<item name="colorPrimaryDark">@color/briar_primary_dark</item>
-		<item name="colorAccent">@color/briar_accent</item>
-		<item name="android:textColorLink">@color/briar_text_link</item>
+		<item name="colorPrimary">@color/libre_primary</item>
+		<item name="colorPrimaryDark">@color/libre_primary_dark</item>
+		<item name="colorAccent">@color/libre_accent</item>
+		<item name="android:textColorLink">@color/libre_text_link</item>
 		<item name="android:windowBackground">@color/window_background</item>
 		<item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
 		<item name="windowActionModeOverlay">true</item>
@@ -31,13 +31,13 @@
 	</style>
 
 	<style name="BriarDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.MinWidth">
-		<item name="colorPrimary">@color/briar_primary</item>
-		<item name="colorPrimaryDark">@color/briar_primary_dark</item>
-		<item name="colorAccent">@color/briar_accent</item>
+		<item name="colorPrimary">@color/libre_primary</item>
+		<item name="colorPrimaryDark">@color/libre_primary_dark</item>
+		<item name="colorAccent">@color/libre_accent</item>
 		<item name="buttonBarPositiveButtonStyle">@style/BriarButtonFlat.Positive</item>
 		<item name="buttonBarNeutralButtonStyle">@style/BriarButtonFlat.Neutral</item>
 		<item name="buttonBarNegativeButtonStyle">@style/BriarButtonFlat.Negative</item>
-		<item name="android:textColorLink">@color/briar_text_link</item>
+		<item name="android:textColorLink">@color/libre_text_link</item>
 		<item name="android:windowBackground">@color/window_background</item>
 		<item name="android:windowAnimationStyle">@style/DialogAnimation</item>
 		<item name="android:filterTouchesWhenObscured">true</item>
@@ -71,9 +71,9 @@
 	</style>
 
 	<style name="OnboardingDialogTheme" parent="BriarDialogTheme">
-		<item name="android:background">@color/briar_primary</item>
-		<item name="android:textColorPrimary">@color/briar_text_primary_inverse</item>
-		<item name="android:textColorSecondary">@color/briar_text_secondary_inverse</item>
+		<item name="android:background">@color/libre_primary</item>
+		<item name="android:textColorPrimary">@color/libre_text_primary_inverse</item>
+		<item name="android:textColorSecondary">@color/libre_text_secondary_inverse</item>
 		<item name="buttonBarNeutralButtonStyle">@style/Widget.AppCompat.Button.Borderless</item>
 	</style>
 

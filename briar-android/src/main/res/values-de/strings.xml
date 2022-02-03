@@ -756,4 +756,10 @@
   <string name="marker_size">Größe</string>
   <string name="share_map">Karte teilen</string>
   <string name="share_map_message">Karte teilen mit...</string>
+  <string name="toast_alert_sent">Alarm wurde versandt</string>
+  <string name="toast_warning_sent">Warnung wurde versandt</string>
+  <string name="toast_information_sent">Information wurde versandt</string>
+  <string name="toast_meeting_sent">Treffpunkt wurde versandt</string>
+
+
 </resources>

@@ -981,7 +981,7 @@ public class ConversationActivity extends BriarActivity
 		}
 
 		int color =
-				ContextCompat.getColor(this, R.color.briar_primary);
+				ContextCompat.getColor(this, R.color.libre_primary);
 		Drawable drawable = VectorDrawableCompat
 				.create(getResources(), R.drawable.ic_more_vert_accent, null);
 		new MaterialTapTargetPrompt.Builder(ConversationActivity.this,

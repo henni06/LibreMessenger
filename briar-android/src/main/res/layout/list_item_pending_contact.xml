@@ -60,7 +60,7 @@
 		app:layout_constraintEnd_toStartOf="@+id/time"
 		app:layout_constraintStart_toStartOf="@+id/name"
 		app:layout_constraintTop_toBottomOf="@+id/name"
-		tools:textColor="@color/briar_red_500" />
+		tools:textColor="@color/libre_red_500" />
 
 	<TextView
 		android:id="@+id/time"

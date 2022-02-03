@@ -9,7 +9,7 @@
 		android:layout_width="@dimen/avatar_forum_size"
 		android:layout_height="@dimen/avatar_forum_size"
 		android:layout_gravity="bottom|left|start"
-		tools:src="@color/briar_button_text_positive" />
+		tools:src="@color/libre_button_text_positive" />
 
 	<androidx.appcompat.widget.AppCompatTextView
 		android:id="@+id/textAvatarView"
@@ -24,7 +24,7 @@
 		android:shadowDx="0"
 		android:shadowDy="1.5"
 		android:shadowRadius="1.5"
-		android:textColor="@color/briar_text_primary_inverse"
+		android:textColor="@color/libre_text_primary_inverse"
 		android:textSize="@dimen/avatar_text_size"
 		tools:text="T" />
 
@@ -36,7 +36,7 @@
 		android:background="@drawable/bubble"
 		android:gravity="center"
 		android:minWidth="@dimen/unread_bubble_size"
-		android:textColor="@color/briar_text_primary_inverse"
+		android:textColor="@color/libre_text_primary_inverse"
 		android:textSize="@dimen/unread_bubble_text_size"
 		android:textStyle="bold"
 		android:visibility="invisible"
