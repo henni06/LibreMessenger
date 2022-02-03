@@ -453,8 +453,8 @@ public class NavDrawerActivity extends BriarActivity implements
 
 	@ColorRes
 	private int getIconColor(State state) {
-		if (state == ACTIVE) return R.color.briar_lime_400;
-		else if (state == ENABLING) return R.color.briar_orange_500;
+		if (state == ACTIVE) return R.color.libre_lime_400;
+		else if (state == ENABLING) return R.color.libre_orange_500;
 		else return android.R.color.tertiary_text_light;
 	}
 
@@ -480,7 +480,7 @@ public class NavDrawerActivity extends BriarActivity implements
 				.setIconDrawable(drawable)
 				.setIconDrawableColourFilter(color)
 				.setBackgroundColour(
-						ContextCompat.getColor(this, R.color.briar_primary))
+						ContextCompat.getColor(this, R.color.libre_primary))
 				.show();
 		navDrawerViewModel.transportsOnboardingShown();
 	}

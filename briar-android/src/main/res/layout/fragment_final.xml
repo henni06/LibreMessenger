@@ -24,7 +24,7 @@
 			app:layout_constraintVertical_chainStyle="packed"
 			tools:ignore="ContentDescription"
 			tools:srcCompat="@drawable/alerts_and_states_error"
-			tools:tint="@color/briar_red_500" />
+			tools:tint="@color/libre_red_500" />
 
 		<TextView
 			android:id="@+id/titleView"

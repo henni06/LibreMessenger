@@ -169,7 +169,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		nc.setLockscreenVisibility(VISIBILITY_SECRET);
 		nc.enableVibration(true);
 		nc.enableLights(true);
-		nc.setLightColor(getColor(appContext, R.color.briar_lime_400));
+		nc.setLightColor(getColor(appContext, R.color.libre_lime_400));
 		notificationManager.createNotificationChannel(nc);
 	}
 
@@ -271,7 +271,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		NotificationCompat.Builder b =
 				new NotificationCompat.Builder(appContext, ONGOING_CHANNEL_ID);
 		b.setSmallIcon(icon);
-		b.setColor(getColor(appContext, R.color.briar_primary));
+		b.setColor(getColor(appContext, R.color.libre_primary));
 		b.setContentTitle(appContext.getText(title));
 		b.setContentText(appContext.getText(text));
 		b.setWhen(0); // Don't show the time
@@ -317,7 +317,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 			BriarNotificationBuilder b = new BriarNotificationBuilder(
 					appContext, CONTACT_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_private_message);
-			b.setColorRes(R.color.briar_primary);
+			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
 			b.setContentText(appContext.getResources().getQuantityString(
 					R.plurals.private_message_notification_text, contactTotal,
@@ -419,7 +419,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 			BriarNotificationBuilder b =
 					new BriarNotificationBuilder(appContext, GROUP_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_private_group);
-			b.setColorRes(R.color.briar_primary);
+			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
 			b.setContentText(appContext.getResources().getQuantityString(
 					R.plurals.group_message_notification_text, groupTotal,
@@ -487,7 +487,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 			BriarNotificationBuilder b =
 					new BriarNotificationBuilder(appContext, FORUM_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_forum);
-			b.setColorRes(R.color.briar_primary);
+			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
 			b.setContentText(appContext.getResources().getQuantityString(
 					R.plurals.forum_post_notification_text, forumTotal,
@@ -553,7 +553,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 			BriarNotificationBuilder b =
 					new BriarNotificationBuilder(appContext, BLOG_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_blog);
-			b.setColorRes(R.color.briar_primary);
+			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
 			b.setContentText(appContext.getResources().getQuantityString(
 					R.plurals.blog_post_notification_text, blogTotal,
@@ -592,7 +592,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		BriarNotificationBuilder b =
 				new BriarNotificationBuilder(appContext, CONTACT_CHANNEL_ID);
 		b.setSmallIcon(R.drawable.notification_contact_added);
-		b.setColorRes(R.color.briar_primary);
+		b.setColorRes(R.color.libre_primary);
 		b.setContentTitle(appContext.getText(R.string.app_name));
 		b.setContentText(appContext.getResources().getQuantityString(
 				R.plurals.contact_added_notification_text, contactAddedTotal,
@@ -633,7 +633,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		NotificationCompat.Builder b =
 				new NotificationCompat.Builder(appContext, REMINDER_CHANNEL_ID);
 		b.setSmallIcon(R.drawable.notification_signout);
-		b.setColor(getColor(appContext, R.color.briar_primary));
+		b.setColor(getColor(appContext, R.color.libre_primary));
 		b.setContentTitle(
 				appContext.getText(R.string.reminder_notification_title));
 		b.setContentText(
@@ -735,7 +735,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		BriarNotificationBuilder b =
 				new BriarNotificationBuilder(appContext, HOTSPOT_CHANNEL_ID);
 		b.setSmallIcon(R.drawable.notification_hotspot);
-		b.setColorRes(R.color.briar_brand_green);
+		b.setColorRes(R.color.libre_brand_green);
 		b.setContentTitle(
 				appContext.getText(R.string.hotspot_notification_title));
 		b.setNotificationCategory(CATEGORY_SERVICE);

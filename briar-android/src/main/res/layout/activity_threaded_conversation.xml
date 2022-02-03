@@ -54,7 +54,7 @@
 			android:layout_weight="0.8"
 			android:clickable="true"
 			android:layout_margin="10dp"
-			android:tint="@color/briar_red_500"
+			android:tint="@color/libre_red_500"
 			android:layout_gravity="bottom|left|end"
 			app:srcCompat="@drawable/alert_icon" />
 		<com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -65,7 +65,7 @@
 
 			android:clickable="true"
 			android:layout_margin="10dp"
-			android:tint="@color/briar_orange_500"
+			android:tint="@color/libre_orange_500"
 			android:layout_gravity="bottom|left|end"
 			app:srcCompat="@android:drawable/ic_dialog_alert" />
 		<com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -76,7 +76,7 @@
 			android:layout_height="@dimen/standard_45"
 			android:layout_weight="0.8"
 			android:clickable="true"
-			android:tint="@color/briar_blue_600"
+			android:tint="@color/libre_blue_600"
 			android:layout_gravity="bottom|left|end"
 			app:srcCompat="@android:drawable/ic_dialog_info" />
 

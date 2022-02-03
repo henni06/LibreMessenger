@@ -23,7 +23,7 @@ import static com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE;
 public class BriarSnackbarBuilder {
 
 	@ColorRes
-	private int backgroundResId = R.color.briar_primary;
+	private int backgroundResId = R.color.libre_primary;
 	@StringRes
 	private int actionResId;
 	@Nullable
@@ -34,7 +34,7 @@ public class BriarSnackbarBuilder {
 		s.getView().setBackgroundResource(backgroundResId);
 		if (onClickListener != null) {
 			s.setActionTextColor(getColor(view.getContext(),
-					R.color.briar_button_text_positive));
+					R.color.libre_button_text_positive));
 			s.setAction(actionResId, onClickListener);
 		}
 		// Workaround for https://issuetracker.google.com/issues/64285517

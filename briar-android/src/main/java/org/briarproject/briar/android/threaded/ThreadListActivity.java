@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
@@ -15,14 +16,16 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.briarproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.briarproject.bramble.api.nullsafety.ParametersNotNullByDefault;
@@ -34,8 +37,6 @@ import org.briarproject.briar.android.location.LocationInfo;
 import org.briarproject.briar.android.location.LocationNotificationService;
 import org.briarproject.briar.android.sharing.SharingController.SharingInfo;
 import org.briarproject.briar.android.threaded.ThreadItemAdapter.ThreadItemListener;
-import org.briarproject.briar.android.util.BriarSnackbarBuilder;
-import org.briarproject.briar.android.view.BriarRecyclerView;
 import org.briarproject.briar.android.view.TextInputView;
 import org.briarproject.briar.android.view.TextSendController;
 import org.briarproject.briar.android.view.TextSendController.SendListener;
@@ -46,29 +47,21 @@ import org.briarproject.briar.api.attachment.AttachmentHeader;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.drawing.MapSnapshot;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
 import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static androidx.recyclerview.widget.RecyclerView.NO_POSITION;
+import static android.widget.Toast.LENGTH_SHORT;
 import static org.briarproject.bramble.util.StringUtils.isNullOrEmpty;
 import static org.briarproject.briar.android.util.UiUtils.observeOnce;
 import static org.briarproject.briar.android.view.TextSendController.SendState.SENT;
@@ -139,9 +132,23 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		filter.addAction("locationChanged");
 		registerReceiver(locationReceiver, filter);
 		setContentView(R.layout.activity_threaded_conversation);
+		FloatingActionButton fabAlert=(FloatingActionButton) this.findViewById(R.id.fabAlert);
+		FloatingActionButton fabWarning=(FloatingActionButton) this.findViewById(R.id.fabWarning);
+		FloatingActionButton fabInfo=(FloatingActionButton) this.findViewById(R.id.fabInformation);
+		FloatingActionButton fabMeeting=(FloatingActionButton) this.findViewById(R.id.fabMeeting);
 
 		threadMap=new ThreadMap(getViewModel());
+		threadMap.setUserInteractionListener(
+				new ThreadMap.UserInteractionListener() {
+					@Override
+					public void onMarkerAdded() {
+						fabWarning.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+						fabAlert.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+						fabInfo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+						fabMeeting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
 
+					}
+				});
 		observeOnce(getViewModel().isCreator(), this, isCreator -> {
 			creator=isCreator;
 			threadMap.setAdmin(isCreator);
@@ -181,21 +188,24 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			threadListFragment.scrollDown();
 		});
 
-		FloatingActionButton fabAlert=(FloatingActionButton) this.findViewById(R.id.fabAlert);
-		FloatingActionButton fabWarning=(FloatingActionButton) this.findViewById(R.id.fabWarning);
-		FloatingActionButton fabInfo=(FloatingActionButton) this.findViewById(R.id.fabInformation);
-		FloatingActionButton fabMeeting=(FloatingActionButton) this.findViewById(R.id.fabMeeting);
 
 		fabAlert.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(creator) {
 					threadMap.setActionMode(ThreadMap.AM_ADDALERT);
+					fabWarning.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabAlert.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_selected_button_background_color)));
+					fabInfo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabMeeting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+
 				}else {
+
 					getViewModel().createAndStoreLocationMessage(
 							buildLocationMessage(lng, lat, 0,
 									LocationInfo.LocationInfoType.USERALERT.ordinal()),
 							null);
+					postSendMessage(R.string.toast_alert_sent);
 				}
 			}
 		});
@@ -205,11 +215,17 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			public void onClick(View v) {
 				if(creator) {
 					threadMap.setActionMode(ThreadMap.AM_ADDMEETING);
+					fabWarning.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabAlert.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabInfo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabMeeting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_selected_button_background_color)));
+
 				}else {
 					getViewModel().createAndStoreLocationMessage(
 							buildLocationMessage(lng, lat, 0,
 									LocationInfo.LocationInfoType.USERMEETING.ordinal()),
 							null);
+					postSendMessage(R.string.toast_meeting_sent);
 				}
 			}
 		});
@@ -217,12 +233,18 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		fabWarning.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(creator) {
+				if(creator){
+					fabWarning.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_selected_button_background_color)));
+					fabAlert.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabInfo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabMeeting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
 					threadMap.setActionMode(ThreadMap.AM_ADDWARNING);
 				}else {
 					getViewModel().createAndStoreLocationMessage(
 							buildLocationMessage(lng, lat, 0, LocationInfo.LocationInfoType.USERWARNING.ordinal()),
 							null);
+					postSendMessage(R.string.toast_warning_sent);
+
 				}
 
 			}
@@ -233,10 +255,16 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			public void onClick(View v) {
 				if(creator) {
 					threadMap.setActionMode(ThreadMap.AM_ADDINFORMATION);
+					fabWarning.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabAlert.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+					fabInfo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_selected_button_background_color)));
+					fabMeeting.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.libre_button_background_color)));
+
 				}else {
 					getViewModel().createAndStoreLocationMessage(
 							buildLocationMessage(lng, lat, 0, LocationInfo.LocationInfoType.USERINFO.ordinal()),
 							null);
+					postSendMessage(R.string.toast_information_sent);
 				}
 			}
 		});
@@ -254,6 +282,18 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		});
 		viewModel.setThreadMap(threadMap);
 
+	}
+
+	private void postSendMessage(int resID){
+
+		Toast.makeText(ThreadListActivity.this, resID, LENGTH_SHORT)
+				.show();
+		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+		} else {
+			v.vibrate(500);
+		}
 	}
 
 	@CallSuper
@@ -360,14 +400,10 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 			fabWarning.animate().translationY(-getResources().getDimension(R.dimen.standard_105));
 			fabInfo.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
 			fabInfo.animate().translationY(-getResources().getDimension(R.dimen.standard_155));
-			if(creator){
-				fabMeeting.setVisibility(VISIBLE);
-				fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
-				fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
+			fabMeeting.setVisibility(VISIBLE);
+			fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
+			fabMeeting.animate().translationY(-getResources().getDimension(R.dimen.standard_205));
 
-			}else{
-				fabMeeting.setVisibility(GONE);
-			}
 
 		}else{
 

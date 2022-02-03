@@ -75,6 +75,11 @@ import androidx.fragment.app.Fragment;
 import it.beppi.tristatetogglebutton_library.TriStateToggleButton;
 
 public class ThreadMap extends Fragment {
+
+	public interface UserInteractionListener{
+		public void onMarkerAdded();
+	}
+
 	private Random rndID=new Random();
 
 	public static final String LOCATION_IDENTIFIER = "{\"type\":\"location\"";
@@ -91,11 +96,17 @@ public class ThreadMap extends Fragment {
 	private LocationInfo selectedLocationInfo=null;
 	private TableLayout loEditMarker;
 	private int actionMode=AM_SELECT;
+	private UserInteractionListener userInteractionListener;
 	private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 	private MapView map = null;
 	private ArrayList<LocationInfo> locations = new ArrayList<LocationInfo>();
 	private ThreadListViewModel viewModel;
 	private boolean admin=false;
+
+	public void setUserInteractionListener(
+			UserInteractionListener userInteractionListener) {
+		this.userInteractionListener = userInteractionListener;
+	}
 
 	public MapView getMap(){
 		return map;
@@ -787,7 +798,9 @@ public class ThreadMap extends Fragment {
 			locations.add(locationInfo);
 			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(locationInfo,LocationMessageProducer.Actions.ADD),null);
 			refreshMap();
-
+			if(userInteractionListener!=null){
+				userInteractionListener.onMarkerAdded();
+			}
 			actionMode=AM_SELECT;
 			return false;
 		}

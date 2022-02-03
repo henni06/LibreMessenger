@@ -209,8 +209,8 @@ public class TransportsActivity extends BriarActivity {
 
 	@ColorRes
 	private int getIconColor(State state) {
-		if (state == ACTIVE) return R.color.briar_lime_400;
-		else if (state == ENABLING) return R.color.briar_orange_500;
+		if (state == ACTIVE) return R.color.libre_lime_400;
+		else if (state == ENABLING) return R.color.libre_orange_500;
 		else return android.R.color.tertiary_text_light;
 	}
 

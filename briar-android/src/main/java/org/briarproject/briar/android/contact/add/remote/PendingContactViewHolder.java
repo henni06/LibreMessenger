@@ -46,11 +46,11 @@ class PendingContactViewHolder extends ViewHolder {
 		});
 
 		int color = ContextCompat
-				.getColor(status.getContext(), R.color.briar_lime_600);
+				.getColor(status.getContext(), R.color.libre_lime_600);
 		switch (item.getState()) {
 			case WAITING_FOR_CONNECTION:
 				color = ContextCompat.getColor(status.getContext(),
-						R.color.briar_orange_500);
+						R.color.libre_orange_500);
 				status.setText(R.string.waiting_for_contact_to_come_online);
 				break;
 			case OFFLINE:
@@ -64,7 +64,7 @@ class PendingContactViewHolder extends ViewHolder {
 				break;
 			case FAILED:
 				color = ContextCompat
-						.getColor(status.getContext(), R.color.briar_red_500);
+						.getColor(status.getContext(), R.color.libre_red_500);
 				status.setText(R.string.adding_contact_failed);
 				break;
 			default:

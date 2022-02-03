@@ -35,7 +35,7 @@
 		android:background="@drawable/bubble"
 		android:gravity="center"
 		android:minWidth="@dimen/unread_bubble_size"
-		android:textColor="@color/briar_text_primary_inverse"
+		android:textColor="@color/libre_text_primary_inverse"
 		android:textSize="@dimen/unread_bubble_text_size"
 		android:textStyle="bold"
 		app:layout_constraintEnd_toEndOf="@+id/avatarFrameView"

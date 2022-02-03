@@ -41,8 +41,6 @@ import org.briarproject.bramble.util.StringUtils;
 import org.briarproject.briar.R;
 import org.briarproject.briar.android.reporting.FeedbackActivity;
 import org.briarproject.briar.android.view.ArticleMovementMethod;
-import org.briarproject.briar.api.privategroup.PrivateGroupManager;
-import org.briarproject.briar.privategroup.PrivateGroupManagerImpl_Factory;
 
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -247,7 +245,7 @@ public class UiUtils {
 		Spannable readMore = new SpannableString(
 				ctx.getString(R.string.read_more) + ellipsis);
 		ForegroundColorSpan fg = new ForegroundColorSpan(
-				ContextCompat.getColor(ctx, R.color.briar_text_link));
+				ContextCompat.getColor(ctx, R.color.libre_text_link));
 		readMore.setSpan(fg, 0, readMore.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		builder.append(readMore);
