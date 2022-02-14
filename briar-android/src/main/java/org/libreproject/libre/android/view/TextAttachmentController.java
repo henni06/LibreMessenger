@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
@@ -16,6 +18,7 @@ import org.libreproject.libre.android.attachment.AttachmentManager;
 import org.libreproject.libre.android.attachment.AttachmentResult;
 import org.libreproject.libre.android.view.ImagePreview.ImagePreviewListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -63,6 +66,44 @@ public class TextAttachmentController extends TextSendController
 
 		sendButton = (CompositeSendButton) compositeSendButton;
 		sendButton.setOnImageClickListener(view -> onImageButtonClicked());
+		sendButton.setOnSpeechTouchListener((view, event) -> {
+			onSpeechButtonTouched(event);
+			return false;
+		});
+	}
+
+	public void onSpeechReceived(String filename){
+		ArrayList<Uri> uris=new ArrayList<>();
+		uris.add(Uri.fromFile(new File(filename)));
+
+		onStartingMessage();
+		loadingUris = true;
+		imageUris.addAll(uris);
+
+		LiveData<AttachmentResult> result =
+				attachmentManager.storeAttachments(imageUris, false);
+		result.observe(attachmentListener, new Observer<AttachmentResult>() {
+			@Override
+			public void onChanged(@Nullable AttachmentResult attachmentResult) {
+				if (attachmentResult == null) {
+					// The fresh LiveData was deliberately set to null.
+					// This means that we can stop observing it.
+					result.removeObserver(this);
+				} else {
+					boolean noError = onNewAttachmentItemResults(
+							attachmentResult.getItemResults());
+					if (noError && attachmentResult.isFinished()) {
+						onAllAttachmentsCreated();
+						listener.onSendClick(textInput.getText(),
+								attachmentManager.getAttachmentHeadersForSending(),
+								expectedTimer);
+
+						result.removeObserver(this);
+					}
+				}
+			}
+		});
+
 	}
 
 	@Override
@@ -129,6 +170,20 @@ public class TextAttachmentController extends TextSendController
 		sendButton.setImagesSupported();
 	}
 
+	private void onSpeechButtonTouched(MotionEvent motionEvent) {
+		if(motionEvent.getAction()==MotionEvent.ACTION_UP){
+			if (attachmentListener.getLifecycle().getCurrentState() != DESTROYED) {
+				attachmentListener.onAttachSpeechStop();
+			}
+		}else
+		if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+			if (attachmentListener.getLifecycle().getCurrentState() != DESTROYED) {
+				attachmentListener.onAttachSpeechStart();
+			}
+		}
+
+	}
+
 	private void onImageButtonClicked() {
 		if (!sendButton.hasImageSupport()) {
 			Context ctx = imagePreview.getContext();
@@ -171,6 +226,7 @@ public class TextAttachmentController extends TextSendController
 		}
 		imageUris.addAll(newUris);
 		updateViewState();
+
 		List<ImagePreviewItem> items = ImagePreviewItem.fromUris(imageUris);
 		imagePreview.showPreview(items);
 		// store attachments and show preview when successful
@@ -203,7 +259,10 @@ public class TextAttachmentController extends TextSendController
 				onError(result.getErrorMsg());
 				return false;
 			} else {
-				imagePreview.loadPreviewImage(result);
+				if(!result.getItem().getExtension().equals("3ga")) {
+					imagePreview.loadPreviewImage(result);
+				}
+
 			}
 		}
 		return true;
@@ -315,5 +374,10 @@ public class TextAttachmentController extends TextSendController
 		void onAttachImageClicked();
 
 		void onTooManyAttachments();
+
+		void onAttachSpeechStart();
+
+		void onAttachSpeechStop();
+
 	}
 }

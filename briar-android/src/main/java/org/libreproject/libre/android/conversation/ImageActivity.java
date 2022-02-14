@@ -23,7 +23,7 @@ import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.activity.BriarActivity;
 import org.libreproject.libre.android.attachment.AttachmentItem;
 import org.libreproject.libre.android.util.ActivityLaunchers.CreateDocumentAdvanced;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.PullDownLayout;
 
 import java.util.List;
@@ -288,7 +288,7 @@ public class ImageActivity extends BriarActivity
 				R.string.save_image_error : R.string.save_image_success;
 		int colorRes = error ?
 				R.color.libre_red_500 : R.color.libre_primary;
-		new BriarSnackbarBuilder()
+		new LibreSnackbarBuilder()
 				.setBackgroundColor(colorRes)
 				.make(layout, stringRes, LENGTH_LONG)
 				.show();

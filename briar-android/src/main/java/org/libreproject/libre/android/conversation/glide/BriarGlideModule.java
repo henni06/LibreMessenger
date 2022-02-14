@@ -9,7 +9,7 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.api.attachment.AttachmentHeader;
 
 import java.io.InputStream;
@@ -25,8 +25,8 @@ public final class BriarGlideModule extends AppGlideModule {
 	@Override
 	public void registerComponents(Context context, Glide glide,
 			Registry registry) {
-		BriarApplication app =
-				(BriarApplication) context.getApplicationContext();
+		LibreApplication app =
+				(LibreApplication) context.getApplicationContext();
 		BriarModelLoaderFactory factory = new BriarModelLoaderFactory(app);
 		registry.prepend(AttachmentHeader.class, InputStream.class, factory);
 	}

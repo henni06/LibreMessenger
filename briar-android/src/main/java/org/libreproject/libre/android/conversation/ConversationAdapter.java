@@ -10,7 +10,7 @@ import org.libreproject.bramble.api.Pair;
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
 import org.libreproject.bramble.api.sync.MessageId;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.util.BriarAdapter;
+import org.libreproject.libre.android.util.LibreAdapter;
 import org.libreproject.libre.android.util.ItemReturningAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import static org.libreproject.libre.api.autodelete.AutoDeleteConstants.NO_AUTO_
 
 @NotNullByDefault
 class ConversationAdapter
-		extends BriarAdapter<ConversationItem, ConversationItemViewHolder>
+		extends LibreAdapter<ConversationItem, ConversationItemViewHolder>
 		implements ItemReturningAdapter<ConversationItem> {
 
 	private final ConversationListener listener;

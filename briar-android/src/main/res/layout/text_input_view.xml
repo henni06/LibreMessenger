@@ -25,7 +25,7 @@
 
 		<org.libreproject.libre.android.view.CompositeSendButton
 			android:id="@+id/compositeSendButton"
-			android:layout_width="@dimen/text_input_height"
+			android:layout_width="wrap_content"
 			android:layout_height="@dimen/text_input_height"
 			android:layout_gravity="bottom" />
 

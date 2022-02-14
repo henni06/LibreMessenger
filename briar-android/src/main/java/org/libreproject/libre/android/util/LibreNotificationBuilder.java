@@ -11,11 +11,11 @@ import androidx.core.content.ContextCompat;
 import static android.os.Build.VERSION.SDK_INT;
 import static androidx.core.app.NotificationCompat.VISIBILITY_PRIVATE;
 
-public class BriarNotificationBuilder extends NotificationCompat.Builder {
+public class LibreNotificationBuilder extends NotificationCompat.Builder {
 
 	private final Context context;
 
-	public BriarNotificationBuilder(Context context, String channelId) {
+	public LibreNotificationBuilder(Context context, String channelId) {
 		super(context, channelId);
 		this.context = context;
 		// Auto-cancel does not fire the delete intent, see
@@ -27,12 +27,12 @@ public class BriarNotificationBuilder extends NotificationCompat.Builder {
 		if (SDK_INT >= 21) setVisibility(VISIBILITY_PRIVATE);
 	}
 
-	public BriarNotificationBuilder setColorRes(@ColorRes int res) {
+	public LibreNotificationBuilder setColorRes(@ColorRes int res) {
 		setColor(ContextCompat.getColor(context, res));
 		return this;
 	}
 
-	public BriarNotificationBuilder setNotificationCategory(String category) {
+	public LibreNotificationBuilder setNotificationCategory(String category) {
 		if (SDK_INT >= 21) setCategory(category);
 		return this;
 	}

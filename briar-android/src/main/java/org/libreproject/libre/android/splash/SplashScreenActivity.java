@@ -25,7 +25,7 @@ import static android.os.Build.VERSION.SDK_INT;
 import static androidx.preference.PreferenceManager.setDefaultValues;
 import static java.lang.System.currentTimeMillis;
 import static java.util.logging.Logger.getLogger;
-import static org.libreproject.libre.android.BriarApplication.ENTRY_ACTIVITY;
+import static org.libreproject.libre.android.LibreApplication.ENTRY_ACTIVITY;
 import static org.libreproject.libre.android.TestingConstants.EXPIRY_DATE;
 
 @MethodsNotNullByDefault

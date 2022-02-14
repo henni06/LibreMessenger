@@ -18,7 +18,7 @@ import org.libreproject.libre.R;
 import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.fragment.BaseFragment;
 import org.libreproject.libre.android.sharing.ForumInvitationActivity;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 
 import javax.annotation.Nullable;
@@ -76,7 +76,7 @@ public class ForumListFragment extends BaseFragment implements
 				})
 		);
 
-		snackbar = new BriarSnackbarBuilder()
+		snackbar = new LibreSnackbarBuilder()
 				.setAction(R.string.show, this)
 				.make(list, "", LENGTH_INDEFINITE);
 		viewModel.getNumInvitations().observe(getViewLifecycleOwner(), num -> {

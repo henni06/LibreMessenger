@@ -20,7 +20,7 @@ import org.libreproject.libre.android.fragment.BaseFragment;
 import org.libreproject.libre.android.privategroup.creation.CreateGroupActivity;
 import org.libreproject.libre.android.privategroup.invitation.GroupInvitationActivity;
 import org.libreproject.libre.android.privategroup.list.GroupViewHolder.OnGroupRemoveClickListener;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 
 import javax.annotation.Nullable;
@@ -82,7 +82,7 @@ public class GroupListFragment extends BaseFragment implements
 				})
 		);
 
-		Snackbar snackbar = new BriarSnackbarBuilder()
+		Snackbar snackbar = new LibreSnackbarBuilder()
 				.setAction(R.string.show, this)
 				.make(list, "", LENGTH_INDEFINITE);
 		viewModel.getNumInvitations().observe(getViewLifecycleOwner(), num -> {

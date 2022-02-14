@@ -5,7 +5,7 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.api.attachment.AttachmentHeader;
 
 import java.io.InputStream;
@@ -14,9 +14,9 @@ import java.io.InputStream;
 class BriarModelLoaderFactory
 		implements ModelLoaderFactory<AttachmentHeader, InputStream> {
 
-	private final BriarApplication app;
+	private final LibreApplication app;
 
-	BriarModelLoaderFactory(BriarApplication app) {
+	BriarModelLoaderFactory(LibreApplication app) {
 		this.app = app;
 	}
 

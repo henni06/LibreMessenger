@@ -20,7 +20,7 @@ import static androidx.core.content.ContextCompat.getColor;
 import static com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE;
 
 @NotNullByDefault
-public class BriarSnackbarBuilder {
+public class LibreSnackbarBuilder {
 
 	@ColorRes
 	private int backgroundResId = R.color.libre_primary;
@@ -62,13 +62,13 @@ public class BriarSnackbarBuilder {
 		return make(view, view.getResources().getText(resId), duration);
 	}
 
-	public BriarSnackbarBuilder setBackgroundColor(
+	public LibreSnackbarBuilder setBackgroundColor(
 			@ColorRes int backgroundResId) {
 		this.backgroundResId = backgroundResId;
 		return this;
 	}
 
-	public BriarSnackbarBuilder setAction(@StringRes int actionResId,
+	public LibreSnackbarBuilder setAction(@StringRes int actionResId,
 			OnClickListener onClickListener) {
 		this.actionResId = actionResId;
 		this.onClickListener = onClickListener;

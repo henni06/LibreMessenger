@@ -20,7 +20,7 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_TASK_ON_HOME;
-import static org.libreproject.libre.android.BriarApplication.ENTRY_ACTIVITY;
+import static org.libreproject.libre.android.LibreApplication.ENTRY_ACTIVITY;
 import static org.libreproject.libre.android.account.SetupViewModel.State.AUTHOR_NAME;
 import static org.libreproject.libre.android.account.SetupViewModel.State.CREATED;
 import static org.libreproject.libre.android.account.SetupViewModel.State.DOZE;

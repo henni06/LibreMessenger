@@ -130,7 +130,7 @@ public class AppModule {
 	}
 
 	public static AndroidComponent getAndroidComponent(Context ctx) {
-		BriarApplication app = (BriarApplication) ctx.getApplicationContext();
+		LibreApplication app = (LibreApplication) ctx.getApplicationContext();
 		return app.getApplicationComponent();
 	}
 

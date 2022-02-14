@@ -13,7 +13,7 @@ import org.libreproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.libreproject.bramble.api.system.AndroidWakeLockManager;
 import org.libreproject.bramble.api.system.Wakeful;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.android.account.UnlockActivity;
 import org.libreproject.libre.android.controller.BriarController;
 import org.libreproject.libre.android.controller.DbController;
@@ -250,7 +250,7 @@ public abstract class BriarActivity extends BaseActivity {
 		if (SDK_INT >= 21) finishAndRemoveTask();
 		else supportFinishAfterTransition();
 		LOG.info("Exiting");
-		BriarApplication app = (BriarApplication) getApplication();
+		LibreApplication app = (LibreApplication) getApplication();
 		if (!app.isInstrumentationTest()) System.exit(0);
 	}
 

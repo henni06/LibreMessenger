@@ -10,7 +10,7 @@ import org.libreproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.libreproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.libreproject.libre.R;
 import org.libreproject.libre.android.AndroidComponent;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.android.DestroyableContext;
 import org.libreproject.libre.android.Localizer;
 import org.libreproject.libre.android.controller.ActivityLifecycleController;
@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity
 		// because it already attaches fragments which need access
 		// to the component for their own injection
 		AndroidComponent applicationComponent =
-				((BriarApplication) getApplication()).getApplicationComponent();
+				((LibreApplication) getApplication()).getApplicationComponent();
 		activityComponent = DaggerActivityComponent.builder()
 				.androidComponent(applicationComponent)
 				.activityModule(getActivityModule())
@@ -188,7 +188,7 @@ public abstract class BaseActivity extends AppCompatActivity
 	}
 
 	private boolean showScreenFilterWarning() {
-		if (((BriarApplication) getApplication()).isInstrumentationTest()) {
+		if (((LibreApplication) getApplication()).isInstrumentationTest()) {
 			return false;
 		}
 		// If the dialog is already visible, filter the tap

@@ -7,7 +7,7 @@ import com.bumptech.glide.signature.ObjectKey;
 
 import org.libreproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.libreproject.bramble.api.nullsafety.ParametersNotNullByDefault;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.api.attachment.AttachmentHeader;
 
 import java.io.InputStream;
@@ -22,7 +22,7 @@ public final class BriarModelLoader
 	@Inject
 	BriarDataFetcherFactory dataFetcherFactory;
 
-	BriarModelLoader(BriarApplication app) {
+	BriarModelLoader(LibreApplication app) {
 		app.getApplicationComponent().inject(this);
 	}
 

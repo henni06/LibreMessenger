@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import static org.libreproject.bramble.api.lifecycle.LifecycleManager.StartResult;
-import static org.libreproject.libre.android.BriarService.EXTRA_START_RESULT;
+import static org.libreproject.libre.android.LibreService.EXTRA_START_RESULT;
 
 @MethodsNotNullByDefault
 @ParametersNotNullByDefault

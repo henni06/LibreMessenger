@@ -33,7 +33,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
-import static org.libreproject.bramble.util.AndroidUtils.getSupportedImageContentTypes;
+import static org.libreproject.bramble.util.AndroidUtils.getSupportedContentTypes;
 import static org.libreproject.bramble.util.IoUtils.tryToClose;
 import static org.libreproject.bramble.util.LogUtils.logException;
 import static org.libreproject.libre.android.attachment.AttachmentItem.State.AVAILABLE;
@@ -89,7 +89,7 @@ class AttachmentRetrieverImpl implements AttachmentRetriever {
 		List<AttachmentHeader> headers = messageHeader.getAttachmentHeaders();
 		List<LiveData<AttachmentItem>> items = new ArrayList<>(headers.size());
 		boolean needsSize = headers.size() == 1;
-		List<String> supported = asList(getSupportedImageContentTypes());
+		List<String> supported = asList(getSupportedContentTypes());
 		for (AttachmentHeader h : headers) {
 			// Fail early if we don't support the content type
 			if (!supported.contains(h.getContentType())) {
@@ -233,16 +233,26 @@ class AttachmentRetrieverImpl implements AttachmentRetriever {
 		// get file extension
 		String extension =
 				imageHelper.getExtensionFromMimeType(size.getMimeType());
-		boolean hasError = extension == null || size.hasError();
-		if (!h.getContentType().equals(size.getMimeType())) {
-			if (LOG.isLoggable(WARNING)) {
-				LOG.warning("Header has different mime type (" +
-						h.getContentType() + ") than image (" +
-						size.getMimeType() + ").");
+		boolean hasError;
+		if(h.getContentType().equals("audio/3gpp")) {
+			hasError=false;
+			extension="3gpp;";
+		}else{
+			hasError = extension == null || size.hasError();
+			if (
+					!h.getContentType().equals(size.getMimeType())) {
+				if (LOG.isLoggable(WARNING)) {
+
+
+					LOG.warning("Header has different mime type (" +
+							h.getContentType() + ") than image (" +
+							size.getMimeType() + ").");
+				}
+				hasError = true;
 			}
-			hasError = true;
 		}
 		if (extension == null) extension = "";
+
 		State state = hasError ? ERROR : AVAILABLE;
 		return new AttachmentItem(h, size.getWidth(), size.getHeight(),
 				extension, thumbnailSize.getWidth(), thumbnailSize.getHeight(),

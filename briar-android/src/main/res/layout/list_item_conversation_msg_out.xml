@@ -101,7 +101,28 @@
 				tools:src="@drawable/message_delivered" />
 
 		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/audioLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="1dp"
 
+			android:orientation="horizontal"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="parent"
+			android:visibility="gone"
+			app:layout_constraintHorizontal_bias="1.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			<ImageView
+				android:id="@+id/audioImage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:srcCompat="@android:drawable/ic_media_play"
+				app:tint="@color/libre_brand_green"
+				tools:layout_editor_absoluteX="0dp"
+				tools:layout_editor_absoluteY="0dp" />
+		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

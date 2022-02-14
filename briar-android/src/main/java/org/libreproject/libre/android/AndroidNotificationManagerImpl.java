@@ -35,7 +35,7 @@ import org.libreproject.libre.android.login.SignInReminderReceiver;
 import org.libreproject.libre.android.navdrawer.NavDrawerActivity;
 import org.libreproject.libre.android.privategroup.conversation.GroupActivity;
 import org.libreproject.libre.android.splash.SplashScreenActivity;
-import org.libreproject.libre.android.util.BriarNotificationBuilder;
+import org.libreproject.libre.android.util.LibreNotificationBuilder;
 import org.libreproject.libre.api.android.AndroidNotificationManager;
 import org.libreproject.libre.api.blog.event.BlogPostAddedEvent;
 import org.libreproject.libre.api.conversation.ConversationResponse;
@@ -314,7 +314,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		if (contactTotal == 0) {
 			clearContactNotification();
 		} else if (settings.getBoolean(PREF_NOTIFY_PRIVATE, true)) {
-			BriarNotificationBuilder b = new BriarNotificationBuilder(
+			LibreNotificationBuilder b = new LibreNotificationBuilder(
 					appContext, CONTACT_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_private_message);
 			b.setColorRes(R.color.libre_primary);
@@ -354,7 +354,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 	}
 
 	@UiThread
-	private void setAlertProperties(BriarNotificationBuilder b) {
+	private void setAlertProperties(LibreNotificationBuilder b) {
 		long currentTime = clock.currentTimeMillis();
 		if (currentTime - lastSound > SOUND_DELAY) {
 			boolean sound = settings.getBoolean(PREF_NOTIFY_SOUND, true);
@@ -381,7 +381,7 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		return defaults;
 	}
 
-	private void setDeleteIntent(BriarNotificationBuilder b, Uri uri) {
+	private void setDeleteIntent(LibreNotificationBuilder b, Uri uri) {
 		Intent i = new Intent(appContext, NotificationCleanupService.class);
 		i.setData(uri);
 		b.setDeleteIntent(PendingIntent.getService(appContext, nextRequestId++,
@@ -416,8 +416,8 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		if (groupTotal == 0) {
 			clearGroupMessageNotification();
 		} else if (settings.getBoolean(PREF_NOTIFY_GROUP, true)) {
-			BriarNotificationBuilder b =
-					new BriarNotificationBuilder(appContext, GROUP_CHANNEL_ID);
+			LibreNotificationBuilder b =
+					new LibreNotificationBuilder(appContext, GROUP_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_private_group);
 			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
@@ -484,8 +484,8 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		if (forumTotal == 0) {
 			clearForumPostNotification();
 		} else if (settings.getBoolean(PREF_NOTIFY_FORUM, true)) {
-			BriarNotificationBuilder b =
-					new BriarNotificationBuilder(appContext, FORUM_CHANNEL_ID);
+			LibreNotificationBuilder b =
+					new LibreNotificationBuilder(appContext, FORUM_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_forum);
 			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
@@ -550,8 +550,8 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 		if (blogTotal == 0) {
 			clearBlogPostNotification();
 		} else if (settings.getBoolean(PREF_NOTIFY_BLOG, true)) {
-			BriarNotificationBuilder b =
-					new BriarNotificationBuilder(appContext, BLOG_CHANNEL_ID);
+			LibreNotificationBuilder b =
+					new LibreNotificationBuilder(appContext, BLOG_CHANNEL_ID);
 			b.setSmallIcon(R.drawable.notification_blog);
 			b.setColorRes(R.color.libre_primary);
 			b.setContentTitle(appContext.getText(R.string.app_name));
@@ -589,8 +589,8 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 
 	@UiThread
 	private void updateContactAddedNotification() {
-		BriarNotificationBuilder b =
-				new BriarNotificationBuilder(appContext, CONTACT_CHANNEL_ID);
+		LibreNotificationBuilder b =
+				new LibreNotificationBuilder(appContext, CONTACT_CHANNEL_ID);
 		b.setSmallIcon(R.drawable.notification_contact_added);
 		b.setColorRes(R.color.libre_primary);
 		b.setContentTitle(appContext.getText(R.string.app_name));
@@ -732,8 +732,8 @@ class AndroidNotificationManagerImpl implements AndroidNotificationManager,
 			channel.setLockscreenVisibility(VISIBILITY_SECRET);
 			notificationManager.createNotificationChannel(channel);
 		}
-		BriarNotificationBuilder b =
-				new BriarNotificationBuilder(appContext, HOTSPOT_CHANNEL_ID);
+		LibreNotificationBuilder b =
+				new LibreNotificationBuilder(appContext, HOTSPOT_CHANNEL_ID);
 		b.setSmallIcon(R.drawable.notification_hotspot);
 		b.setColorRes(R.color.libre_brand_green);
 		b.setContentTitle(

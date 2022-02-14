@@ -6,7 +6,7 @@ import android.os.Bundle;
 import org.libreproject.bramble.api.nullsafety.MethodsNotNullByDefault;
 import org.libreproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.BriarService;
+import org.libreproject.libre.android.LibreService;
 import org.libreproject.libre.android.account.SetupActivity;
 import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.activity.BaseActivity;
@@ -90,7 +90,7 @@ public class StartupActivity extends BaseActivity implements
 				showInitialFragment(new PasswordFragment());
 			}
 		} else if (state == SIGNED_IN || state == STARTING) {
-			startService(new Intent(this, BriarService.class));
+			startService(new Intent(this, LibreService.class));
 			// Only show OpenDatabaseFragment if not already visible.
 			if (!isFragmentAdded(OpenDatabaseFragment.TAG)) {
 				showNextFragment(new OpenDatabaseFragment());

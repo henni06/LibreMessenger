@@ -28,7 +28,7 @@ import org.libreproject.bramble.api.plugin.Plugin.State;
 import org.libreproject.bramble.api.plugin.TorConstants;
 import org.libreproject.bramble.api.plugin.TransportId;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.android.StartupFailureActivity;
 import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.activity.BriarActivity;
@@ -73,8 +73,8 @@ import static org.libreproject.bramble.api.lifecycle.LifecycleManager.LifecycleS
 import static org.libreproject.bramble.api.plugin.Plugin.State.ACTIVE;
 import static org.libreproject.bramble.api.plugin.Plugin.State.ENABLING;
 import static org.libreproject.bramble.api.plugin.Plugin.State.STARTING_STOPPING;
-import static org.libreproject.libre.android.BriarService.EXTRA_STARTUP_FAILED;
-import static org.libreproject.libre.android.BriarService.EXTRA_START_RESULT;
+import static org.libreproject.libre.android.LibreService.EXTRA_STARTUP_FAILED;
+import static org.libreproject.libre.android.LibreService.EXTRA_START_RESULT;
 import static org.libreproject.libre.android.TestingConstants.IS_DEBUG_BUILD;
 import static org.libreproject.libre.android.activity.RequestCodes.REQUEST_PASSWORD;
 import static org.libreproject.libre.android.navdrawer.IntentRouter.handleExternalIntent;
@@ -136,7 +136,7 @@ public class NavDrawerActivity extends BriarActivity implements
 		exitIfStartupFailed(getIntent());
 		setContentView(R.layout.activity_nav_drawer);
 
-		BriarApplication app = (BriarApplication) getApplication();
+		LibreApplication app = (LibreApplication) getApplication();
 		if (IS_DEBUG_BUILD && !app.isInstrumentationTest()) {
 			navDrawerViewModel.showExpiryWarning()
 					.observe(this, this::showExpiryWarning);

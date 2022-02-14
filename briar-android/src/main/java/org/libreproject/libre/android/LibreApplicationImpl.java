@@ -34,11 +34,11 @@ import static java.util.logging.Level.INFO;
 import static java.util.logging.Logger.getLogger;
 import static org.libreproject.libre.android.TestingConstants.IS_DEBUG_BUILD;
 
-public class BriarApplicationImpl extends Application
-		implements BriarApplication {
+public class LibreApplicationImpl extends Application
+		implements LibreApplication {
 
 	private static final Logger LOG =
-			getLogger(BriarApplicationImpl.class.getName());
+			getLogger(LibreApplicationImpl.class.getName());
 
 	private AndroidComponent applicationComponent;
 	private volatile SharedPreferences prefs;

@@ -4,7 +4,7 @@ import org.libreproject.bramble.BrambleAndroidEagerSingletons;
 import org.libreproject.bramble.BrambleCoreEagerSingletons;
 import org.libreproject.libre.BriarCoreEagerSingletons;
 
-public class BriarTestComponentApplication extends BriarApplicationImpl {
+public class LibreTestComponentApplication extends LibreApplicationImpl {
 
 	@Override
 	protected AndroidComponent createApplicationComponent() {

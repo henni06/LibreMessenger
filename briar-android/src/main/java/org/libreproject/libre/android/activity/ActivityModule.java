@@ -10,7 +10,7 @@ import org.libreproject.libre.android.controller.DbControllerImpl;
 import dagger.Module;
 import dagger.Provides;
 
-import static org.libreproject.libre.android.BriarService.BriarServiceConnection;
+import static org.libreproject.libre.android.LibreService.BriarServiceConnection;
 
 @Module
 public class ActivityModule {
