@@ -88,6 +88,11 @@ class AttachmentCreatorImpl implements AttachmentCreator {
 		observeForeverOnce(groupId, id -> {
 			if (id == null) throw new IllegalStateException();
 			boolean needsSize = uris.size() == 1;
+			if(uris.size() == 1){
+				if(uris.get(0).getPath().endsWith("3gp")){
+					needsSize = false;
+				}
+			}
 			task = new AttachmentCreationTask(messagingManager,
 					app.getContentResolver(), this, imageCompressor, id,
 					uris, needsSize);

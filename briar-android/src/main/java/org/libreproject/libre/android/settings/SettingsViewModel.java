@@ -50,7 +50,7 @@ import static android.widget.Toast.LENGTH_LONG;
 import static java.util.Arrays.asList;
 import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
-import static org.libreproject.bramble.util.AndroidUtils.getSupportedImageContentTypes;
+import static org.libreproject.bramble.util.AndroidUtils.getSupportedContentTypes;
 import static org.libreproject.bramble.util.LogUtils.logDuration;
 import static org.libreproject.bramble.util.LogUtils.logException;
 import static org.libreproject.bramble.util.LogUtils.now;
@@ -224,7 +224,7 @@ class SettingsViewModel extends DbViewModel implements EventListener {
 				getApplication().getContentResolver();
 		String contentType = contentResolver.getType(uri);
 		if (contentType == null) throw new IOException("null content type");
-		if (!asList(getSupportedImageContentTypes()).contains(contentType)) {
+		if (!asList(getSupportedContentTypes()).contains(contentType)) {
 			throw new UnsupportedMimeTypeException(contentType, uri);
 		}
 		InputStream is = contentResolver.openInputStream(uri);

@@ -16,7 +16,7 @@ import com.vanniktech.emoji.EmojiPopup;
 import com.vanniktech.emoji.RecentEmoji;
 
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 
 import javax.inject.Inject;
 
@@ -115,8 +115,8 @@ public class EmojiTextInputView extends LinearLayout implements
 		Object o = getContext().getSystemService(INPUT_METHOD_SERVICE);
 		imm = (InputMethodManager) requireNonNull(o);
 
-		BriarApplication app =
-				(BriarApplication) context.getApplicationContext();
+		LibreApplication app =
+				(LibreApplication) context.getApplicationContext();
 		app.getApplicationComponent().inject(this);
 		emojiPopup = EmojiPopup.Builder
 				.fromRootView(getRootView())

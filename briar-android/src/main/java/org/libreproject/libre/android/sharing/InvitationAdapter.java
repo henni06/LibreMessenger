@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.util.BriarAdapter;
+import org.libreproject.libre.android.util.LibreAdapter;
 import org.libreproject.libre.api.sharing.InvitationItem;
 
 import androidx.annotation.NonNull;
 
 public abstract class InvitationAdapter<I extends InvitationItem, VH extends InvitationViewHolder<I>>
-		extends BriarAdapter<I, VH> {
+		extends LibreAdapter<I, VH> {
 
 	private final InvitationClickListener<I> listener;
 

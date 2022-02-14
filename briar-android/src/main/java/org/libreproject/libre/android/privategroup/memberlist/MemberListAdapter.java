@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.util.BriarAdapter;
+import org.libreproject.libre.android.util.LibreAdapter;
 
 import androidx.annotation.NonNull;
 
 import static org.libreproject.libre.android.util.UiUtils.getContactDisplayName;
 
 class MemberListAdapter extends
-		BriarAdapter<MemberListItem, MemberListItemHolder> {
+		LibreAdapter<MemberListItem, MemberListItemHolder> {
 
 	MemberListAdapter(Context context) {
 		super(context, MemberListItem.class);

@@ -7,7 +7,12 @@
 	android:layout_gravity="bottom"
 	tools:parentTag="org.libreproject.libre.android.view.CompositeSendButton"
 	tools:showIn="@layout/text_input_view">
-
+	<androidx.appcompat.widget.LinearLayoutCompat
+		android:orientation="horizontal"
+		android:id="@+id/loTextActions"
+		android:visibility="gone"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
 	<androidx.appcompat.widget.AppCompatImageButton
 		android:id="@+id/imageButton"
 		android:layout_width="@dimen/text_input_height"
@@ -19,10 +24,25 @@
 		android:focusable="true"
 		android:padding="4dp"
 		android:scaleType="center"
-		android:visibility="invisible"
+		android:visibility="visible"
 		app:srcCompat="@drawable/ic_image_off"
 		app:tint="?attr/colorControlNormal" />
 
+	<androidx.appcompat.widget.AppCompatImageButton
+		android:id="@+id/speechButton"
+		android:layout_width="@dimen/text_input_height"
+		android:layout_height="@dimen/text_input_height"
+		android:background="?attr/selectableItemBackground"
+		android:clickable="true"
+		android:contentDescription="@string/image_attach"
+		android:enabled="false"
+		android:focusable="true"
+		android:padding="4dp"
+		android:scaleType="center"
+		android:visibility="visible"
+		app:srcCompat="@android:drawable/ic_btn_speak_now"
+		app:tint="?attr/colorControlNormal" />
+	</androidx.appcompat.widget.LinearLayoutCompat>
 	<androidx.appcompat.widget.AppCompatImageButton
 		android:id="@+id/sendButton"
 		android:layout_width="@dimen/text_input_height"

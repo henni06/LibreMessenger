@@ -13,13 +13,15 @@ import org.libreproject.libre.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static java.util.Objects.requireNonNull;
 
 public class CompositeSendButton extends FrameLayout {
 
-	private final AppCompatImageButton sendButton, imageButton;
+	private final LinearLayoutCompat loTextActions;
+	private final AppCompatImageButton sendButton, imageButton,speechButton;
 	private final ImageView bombBadge;
 	private final ProgressBar progressBar;
 
@@ -34,8 +36,10 @@ public class CompositeSendButton extends FrameLayout {
 
 		sendButton = findViewById(R.id.sendButton);
 		imageButton = findViewById(R.id.imageButton);
+		speechButton=findViewById(R.id.speechButton);
 		bombBadge = findViewById(R.id.bombBadge);
 		progressBar = findViewById(R.id.progressBar);
+		loTextActions=findViewById(R.id.loTextActions);
 	}
 
 	@Override
@@ -60,6 +64,10 @@ public class CompositeSendButton extends FrameLayout {
 		imageButton.setOnClickListener(l);
 	}
 
+	public void setOnSpeechTouchListener(@Nullable OnTouchListener l) {
+		speechButton.setOnTouchListener(l);
+	}
+
 	/**
 	 * By default, image support is disabled.
 	 * Once you know that it is supported in the current context,
@@ -80,15 +88,15 @@ public class CompositeSendButton extends FrameLayout {
 
 	public void showImageButton(boolean showImageButton, boolean sendEnabled) {
 		if (showImageButton) {
-			imageButton.setVisibility(VISIBLE);
+			loTextActions.setVisibility(VISIBLE);
 			sendButton.setEnabled(false);
 			sendButton.clearAnimation();
 			sendButton.animate().alpha(0f).withEndAction(() -> {
 				sendButton.setVisibility(INVISIBLE);
 				imageButton.setEnabled(true);
 			}).start();
-			imageButton.clearAnimation();
-			imageButton.animate().alpha(1f).start();
+			loTextActions.clearAnimation();
+			loTextActions.animate().alpha(1f).start();
 		} else {
 			sendButton.setVisibility(VISIBLE);
 			// enable/disable buttons right away to allow fast sending
@@ -96,17 +104,17 @@ public class CompositeSendButton extends FrameLayout {
 			imageButton.setEnabled(false);
 			sendButton.clearAnimation();
 			sendButton.animate().alpha(1f).start();
-			imageButton.clearAnimation();
-			imageButton.animate().alpha(0f).withEndAction(() ->
-					imageButton.setVisibility(INVISIBLE)
+			loTextActions.clearAnimation();
+			loTextActions.animate().alpha(0f).withEndAction(() ->
+					loTextActions.setVisibility(GONE)
 			).start();
 		}
 	}
 
 	public void showProgress(boolean show) {
 		sendButton.setVisibility(show ? INVISIBLE : VISIBLE);
-		imageButton.setVisibility(show ? INVISIBLE : VISIBLE);
-		progressBar.setVisibility(show ? VISIBLE : INVISIBLE);
+		loTextActions.setVisibility(show ? INVISIBLE : VISIBLE);
+		progressBar.setVisibility(show ? VISIBLE : GONE);
 	}
 
 }

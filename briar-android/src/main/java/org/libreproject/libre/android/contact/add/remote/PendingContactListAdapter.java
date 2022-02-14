@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import org.libreproject.bramble.api.contact.PendingContact;
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.util.BriarAdapter;
+import org.libreproject.libre.android.util.LibreAdapter;
 
 @NotNullByDefault
 class PendingContactListAdapter extends
-		BriarAdapter<PendingContactItem, PendingContactViewHolder> {
+		LibreAdapter<PendingContactItem, PendingContactViewHolder> {
 
 	private final PendingContactListener listener;
 

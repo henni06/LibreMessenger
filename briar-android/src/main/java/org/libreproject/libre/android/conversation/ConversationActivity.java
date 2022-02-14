@@ -3,9 +3,13 @@ package org.libreproject.libre.android.conversation;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -58,7 +62,7 @@ import org.libreproject.libre.android.privategroup.conversation.GroupActivity;
 import org.libreproject.libre.android.removabledrive.RemovableDriveActivity;
 import org.libreproject.libre.android.util.ActivityLaunchers.GetImageAdvanced;
 import org.libreproject.libre.android.util.ActivityLaunchers.GetMultipleImagesAdvanced;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 import org.libreproject.libre.android.view.ImagePreview;
 import org.libreproject.libre.android.view.TextAttachmentController;
@@ -119,6 +123,9 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import de.hdodenhof.circleimageview.CircleImageView;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.view.Gravity.RIGHT;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -161,9 +168,11 @@ public class ConversationActivity extends BriarActivity
 	private static final Logger LOG =
 			getLogger(ConversationActivity.class.getName());
 
+
+	private boolean recording=false;
 	private static final int TRANSITION_DURATION_MS = 500;
 	private static final int ONBOARDING_DELAY_MS = 250;
-
+	private String speechFileName;
 	@Inject
 	AndroidNotificationManager notificationManager;
 	@Inject
@@ -215,6 +224,7 @@ public class ConversationActivity extends BriarActivity
 	private LinearLayoutManager layoutManager;
 	private TextInputView textInputView;
 	private TextSendController sendController;
+	private MediaRecorder myAudioRecorder = new MediaRecorder();
 	private SelectionTracker<String> tracker;
 	@Nullable
 	private Parcelable layoutManagerState;
@@ -320,7 +330,7 @@ public class ConversationActivity extends BriarActivity
 		super.onActivityResult(request, result, data);
 
 		if (request == REQUEST_INTRODUCTION && result == RESULT_OK) {
-			new BriarSnackbarBuilder()
+			new LibreSnackbarBuilder()
 					.make(list, R.string.introduction_sent,
 							Snackbar.LENGTH_SHORT)
 					.show();
@@ -789,6 +799,86 @@ public class ConversationActivity extends BriarActivity
 		String warning = String.format(format, MAX_ATTACHMENTS_PER_MESSAGE);
 		Toast.makeText(this, warning, LENGTH_SHORT).show();
 	}
+
+	public static final int RequestPermissionCode = 1;
+
+	private void requestPermission() {
+		ActivityCompat.requestPermissions(ConversationActivity.this, new
+				String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO,READ_EXTERNAL_STORAGE}, RequestPermissionCode);
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+			String permissions[], int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+		switch (requestCode) {
+			case RequestPermissionCode:
+				if (grantResults.length> 0) {
+					boolean StoragePermission = grantResults[0] ==
+							PackageManager.PERMISSION_GRANTED;
+					boolean RecordPermission = grantResults[1] ==
+							PackageManager.PERMISSION_GRANTED;
+
+					if (StoragePermission && RecordPermission) {
+						Toast.makeText(ConversationActivity.this, "Permission Granted",
+								Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(ConversationActivity.this,"Permission Denied",Toast.LENGTH_LONG).show();
+					}
+				}
+				break;
+		}
+	}
+
+	public boolean checkPermission() {
+		int result = ContextCompat.checkSelfPermission(getApplicationContext(),
+				WRITE_EXTERNAL_STORAGE);
+		int result1 = ContextCompat.checkSelfPermission(getApplicationContext(),
+				RECORD_AUDIO);
+		int resultRExtS = ContextCompat.checkSelfPermission(getApplicationContext(),
+				READ_EXTERNAL_STORAGE);
+		return result == PackageManager.PERMISSION_GRANTED &&
+				result1 == PackageManager.PERMISSION_GRANTED &&
+				resultRExtS==PackageManager.PERMISSION_GRANTED;
+	}
+
+	@Override
+	public void onAttachSpeechStart() {
+		if(checkPermission()) {
+			myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+			myAudioRecorder
+					.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+			myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+				speechFileName= getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/tmpSpeech"+System.currentTimeMillis()+".3gp";
+			}
+			else
+			{
+				speechFileName= Environment.getExternalStorageDirectory().toString() + "/tmpSpeech"+System.currentTimeMillis()+".3gp";
+			}
+			myAudioRecorder.setOutputFile(speechFileName);
+			try {
+				myAudioRecorder.prepare();
+				myAudioRecorder.start();
+				recording=true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}else{
+			requestPermission();
+		}
+	}
+
+	@Override
+	public void onAttachSpeechStop() {
+		if(recording) {
+			myAudioRecorder.stop();
+		((TextAttachmentController) sendController).onSpeechReceived(speechFileName);
+		}
+	}
+
 
 	@Override
 	public LiveData<SendState> onSendClick(@Nullable String text,

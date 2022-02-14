@@ -37,7 +37,7 @@ public abstract class UiTest {
 	protected SettingsManager settingsManager;
 
 	public UiTest() {
-		BriarTestComponentApplication app = getApplicationContext();
+		LibreTestComponentApplication app = getApplicationContext();
 		inject((BriarUiTestComponent) app.getApplicationComponent());
 	}
 
@@ -63,7 +63,7 @@ public abstract class UiTest {
 			accountManager.deleteAccount();
 			accountManager.createAccount(USERNAME, PASSWORD);
 			Intent serviceIntent =
-					new Intent(getApplicationContext(), BriarService.class);
+					new Intent(getApplicationContext(), LibreService.class);
 			getApplicationContext().startService(serviceIntent);
 			try {
 				lifecycleManager.waitForStartup();

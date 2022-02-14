@@ -2,7 +2,7 @@ package org.libreproject.libre.android.contact;
 
 import android.content.Context;
 
-import org.libreproject.libre.android.util.BriarAdapter;
+import org.libreproject.libre.android.util.LibreAdapter;
 
 import javax.annotation.Nullable;
 
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import static org.libreproject.libre.android.util.UiUtils.getContactDisplayName;
 
 public abstract class BaseContactListAdapter<I extends ContactItem, VH extends ContactItemViewHolder<I>>
-		extends BriarAdapter<I, VH> {
+		extends LibreAdapter<I, VH> {
 
 	@Nullable
 	protected final OnContactClickListener<I> listener;

@@ -17,7 +17,7 @@ import org.libreproject.bramble.api.settings.Settings;
 import org.libreproject.bramble.api.settings.SettingsManager;
 import org.libreproject.bramble.api.settings.event.SettingsUpdatedEvent;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.BriarService;
+import org.libreproject.libre.android.LibreService;
 import org.libreproject.libre.api.android.AndroidNotificationManager;
 import org.libreproject.libre.api.android.LockManager;
 
@@ -84,7 +84,7 @@ public class LockManagerImpl implements LockManager, Service, EventListener {
 		alarmManager =
 				(AlarmManager) appContext.getSystemService(ALARM_SERVICE);
 		Intent i =
-				new Intent(ACTION_LOCK, null, appContext, BriarService.class);
+				new Intent(ACTION_LOCK, null, appContext, LibreService.class);
 		i.putExtra(EXTRA_PID, myPid());
 		// When not using FLAG_UPDATE_CURRENT, the intent might have no extras
 		lockIntent = getService(appContext, 0, i, FLAG_UPDATE_CURRENT);

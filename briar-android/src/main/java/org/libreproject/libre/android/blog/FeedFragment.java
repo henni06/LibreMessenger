@@ -16,7 +16,7 @@ import org.libreproject.libre.R;
 import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.blog.BaseViewModel.ListUpdate;
 import org.libreproject.libre.android.fragment.BaseFragment;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 import org.libreproject.libre.android.widget.LinkDialogFragment;
 import org.libreproject.libre.api.blog.Blog;
@@ -179,7 +179,7 @@ public class FeedFragment extends BaseFragment
 		int count = adapter.getItemCount();
 		boolean scroll = !isLocal && count > (lastVisible - firstVisible + 1);
 
-		BriarSnackbarBuilder sb = new BriarSnackbarBuilder();
+		LibreSnackbarBuilder sb = new LibreSnackbarBuilder();
 		if (scroll) {
 			sb.setAction(R.string.blogs_blog_post_scroll_to,
 					v -> list.smoothScrollToPosition(0));

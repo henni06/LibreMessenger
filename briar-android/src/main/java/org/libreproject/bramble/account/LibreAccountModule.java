@@ -8,11 +8,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class BriarAccountModule {
+public class LibreAccountModule {
 
 	@Provides
 	@Singleton
-	AccountManager provideAccountManager(BriarAccountManager accountManager) {
+	AccountManager provideAccountManager(LibreAccountManager accountManager) {
 		return accountManager;
 	}
 }

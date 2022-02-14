@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import androidx.appcompat.app.ActionBar;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static org.libreproject.libre.android.BriarApplication.ENTRY_ACTIVITY;
+import static org.libreproject.libre.android.LibreApplication.ENTRY_ACTIVITY;
 
 public class TestDataActivity extends BriarActivity {
 

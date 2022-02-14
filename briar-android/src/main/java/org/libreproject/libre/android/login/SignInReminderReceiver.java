@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 
 import org.libreproject.bramble.api.account.AccountManager;
 import org.libreproject.libre.android.AndroidComponent;
-import org.libreproject.libre.android.BriarApplication;
+import org.libreproject.libre.android.LibreApplication;
 import org.libreproject.libre.api.android.AndroidNotificationManager;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class SignInReminderReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context ctx, Intent intent) {
-		BriarApplication app = (BriarApplication) ctx.getApplicationContext();
+		LibreApplication app = (LibreApplication) ctx.getApplicationContext();
 		AndroidComponent applicationComponent = app.getApplicationComponent();
 		applicationComponent.inject(this);
 

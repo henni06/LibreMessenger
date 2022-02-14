@@ -62,6 +62,8 @@ public class TextSendController implements TextInputListener {
 		updateViewState();
 	}
 
+
+
 	@Override
 	public void onSendEvent() {
 		if (canSend()) {

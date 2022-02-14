@@ -17,7 +17,7 @@ import static android.bluetooth.BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE;
 import static android.bluetooth.BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION;
 import static android.content.Intent.EXTRA_MIME_TYPES;
 import static android.os.Build.VERSION.SDK_INT;
-import static org.libreproject.bramble.util.AndroidUtils.getSupportedImageContentTypes;
+import static org.libreproject.bramble.util.AndroidUtils.getSupportedContentTypes;
 
 @NotNullByDefault
 public class ActivityLaunchers {
@@ -47,7 +47,7 @@ public class ActivityLaunchers {
 			putShowAdvancedExtra(i);
 			i.setType("image/*");
 			if (SDK_INT >= 19)
-				i.putExtra(EXTRA_MIME_TYPES, getSupportedImageContentTypes());
+				i.putExtra(EXTRA_MIME_TYPES, getSupportedContentTypes());
 			return i;
 		}
 	}
@@ -60,7 +60,7 @@ public class ActivityLaunchers {
 			putShowAdvancedExtra(i);
 			i.setType("image/*");
 			if (SDK_INT >= 19)
-				i.putExtra(EXTRA_MIME_TYPES, getSupportedImageContentTypes());
+				i.putExtra(EXTRA_MIME_TYPES, getSupportedContentTypes());
 			return i;
 		}
 	}

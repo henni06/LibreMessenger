@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
 import static java.util.Arrays.asList;
 import static java.util.logging.Level.WARNING;
 import static java.util.logging.Logger.getLogger;
-import static org.libreproject.bramble.util.AndroidUtils.getSupportedImageContentTypes;
+import static org.libreproject.bramble.util.AndroidUtils.getSupportedContentTypes;
 import static org.libreproject.bramble.util.IoUtils.tryToClose;
 import static org.libreproject.bramble.util.LogUtils.logDuration;
 import static org.libreproject.bramble.util.LogUtils.logException;
@@ -95,22 +95,33 @@ class AttachmentCreationTask {
 	private AttachmentHeader storeAttachment(Uri uri)
 			throws IOException, DbException {
 		long start = now();
-		String contentType = contentResolver.getType(uri);
-		if (contentType == null) throw new IOException("null content type");
-		if (!asList(getSupportedImageContentTypes()).contains(contentType)) {
-			throw new UnsupportedMimeTypeException(contentType, uri);
+		if(!uri.getPath().endsWith(".3gp")) {
+			String contentType = contentResolver.getType(uri);
+			if (contentType == null) throw new IOException("null content type");
+			if (!asList(getSupportedContentTypes())
+					.contains(contentType)) {
+				throw new UnsupportedMimeTypeException(contentType, uri);
+			}
+			InputStream is = contentResolver.openInputStream(uri);
+			if (is == null) throw new IOException();
+			is = imageCompressor
+					.compressImage(is, contentType);
+
+			long timestamp = System.currentTimeMillis();
+			AttachmentHeader h = messagingManager
+					.addLocalAttachment(groupId, timestamp,
+							ImageCompressor.MIME_TYPE, is);
+			tryToClose(is, LOG, WARNING);
+			logDuration(LOG, "Storing attachment", start);
+			return h;
+		}else{
+			long timestamp = System.currentTimeMillis();
+			InputStream is=contentResolver.openInputStream(uri);
+			AttachmentHeader h=messagingManager
+					.addLocalAttachment(groupId,timestamp,"audio/3gpp",is);
+			return h;
 		}
-		InputStream is = contentResolver.openInputStream(uri);
-		if (is == null) throw new IOException();
-		is = imageCompressor
-				.compressImage(is, contentType);
-		long timestamp = System.currentTimeMillis();
-		AttachmentHeader h = messagingManager
-				.addLocalAttachment(groupId, timestamp,
-						ImageCompressor.MIME_TYPE, is);
-		tryToClose(is, LOG, WARNING);
-		logDuration(LOG, "Storing attachment", start);
-		return h;
+
 	}
 
 }

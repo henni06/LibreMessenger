@@ -5,7 +5,7 @@ import org.libreproject.bramble.BrambleAndroidModule;
 import org.libreproject.bramble.BrambleAppComponent;
 import org.libreproject.bramble.BrambleCoreEagerSingletons;
 import org.libreproject.bramble.BrambleCoreModule;
-import org.libreproject.bramble.account.BriarAccountModule;
+import org.libreproject.bramble.account.LibreAccountModule;
 import org.libreproject.bramble.api.FeatureFlags;
 import org.libreproject.bramble.api.account.AccountManager;
 import org.libreproject.bramble.api.connection.ConnectionRegistry;
@@ -89,7 +89,7 @@ import dagger.Component;
 		BrambleCoreModule.class,
 		BriarCoreModule.class,
 		BrambleAndroidModule.class,
-		BriarAccountModule.class,
+		LibreAccountModule.class,
 		AppModule.class,
 		AttachmentModule.class,
 		ClockModule.class,
@@ -207,7 +207,7 @@ public interface AndroidComponent
 
 	void inject(SignInReminderReceiver briarService);
 
-	void inject(BriarService briarService);
+	void inject(LibreService libreService);
 
 	void inject(NotificationCleanupService notificationCleanupService);
 

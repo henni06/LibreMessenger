@@ -1,8 +1,12 @@
 package org.libreproject.libre.android.conversation;
 
 import android.content.res.ColorStateList;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
 import org.libreproject.libre.R;
@@ -27,7 +31,7 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 	private final ConstraintSet textConstraints = new ConstraintSet();
 	private final ConstraintSet imageConstraints = new ConstraintSet();
 	private final ConstraintSet imageTextConstraints = new ConstraintSet();
-
+	private final LinearLayout audioLayout;
 	ConversationMessageViewHolder(View v, ConversationListener listener,
 			boolean isIncoming, RecycledViewPool imageViewPool,
 			ImageItemDecoration imageItemDecoration) {
@@ -37,8 +41,10 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 		// image list
 		RecyclerView list = v.findViewById(R.id.imageList);
 		list.setRecycledViewPool(imageViewPool);
+		audioLayout = (LinearLayout) v.findViewById(R.id.audioLayout);
 		adapter = new ImageAdapter(v.getContext(), listener);
 		list.setAdapter(adapter);
+
 		list.addItemDecoration(imageItemDecoration);
 
 		// remember original status text color
@@ -71,7 +77,14 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 		if (item.getAttachments().isEmpty()) {
 			bindTextItem();
 		} else {
-			bindImageItem(item);
+			if(item.getAttachments().size()==1 &&
+			item.getAttachments().get(0).getHeader().
+					getContentType().startsWith("audio/")){
+				bindAudioItem(item);
+			}else{
+				bindImageItem(item);
+			}
+
 		}
 	}
 
@@ -107,6 +120,20 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 		}
 		constraintSet.applyTo(layout);
 		adapter.setConversationItem(item);
+	}
+
+
+
+	private void bindAudioItem(ConversationMessageItem item) {
+		audioLayout.setVisibility(View.VISIBLE);
+		audioLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//AttachmentItem aItem=new AttachmentItem();
+				;
+
+			}
+		});
 	}
 
 	private void resetStatusLayoutForText() {

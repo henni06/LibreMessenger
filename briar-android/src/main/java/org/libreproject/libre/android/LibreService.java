@@ -48,7 +48,7 @@ import static java.util.logging.Level.WARNING;
 import static org.libreproject.bramble.api.lifecycle.LifecycleManager.StartResult.ALREADY_RUNNING;
 import static org.libreproject.bramble.api.lifecycle.LifecycleManager.StartResult.SUCCESS;
 import static org.libreproject.bramble.api.nullsafety.NullSafety.requireNonNull;
-import static org.libreproject.libre.android.BriarApplication.ENTRY_ACTIVITY;
+import static org.libreproject.libre.android.LibreApplication.ENTRY_ACTIVITY;
 import static org.libreproject.libre.api.android.AndroidNotificationManager.FAILURE_CHANNEL_ID;
 import static org.libreproject.libre.api.android.AndroidNotificationManager.ONGOING_CHANNEL_ID;
 import static org.libreproject.libre.api.android.AndroidNotificationManager.ONGOING_CHANNEL_OLD_ID;
@@ -56,7 +56,7 @@ import static org.libreproject.libre.api.android.AndroidNotificationManager.ONGO
 import static org.libreproject.libre.api.android.LockManager.ACTION_LOCK;
 import static org.libreproject.libre.api.android.LockManager.EXTRA_PID;
 
-public class BriarService extends Service {
+public class LibreService extends Service {
 
 	public static String EXTRA_START_RESULT =
 			"org.briarproject.briar.START_RESULT";
@@ -64,14 +64,14 @@ public class BriarService extends Service {
 			"org.briarproject.briar.STARTUP_FAILED";
 
 	private static final Logger LOG =
-			Logger.getLogger(BriarService.class.getName());
+			Logger.getLogger(LibreService.class.getName());
 
 	private final AtomicBoolean created = new AtomicBoolean(false);
 	private final Binder binder = new BriarBinder();
 
 	@Nullable
 	private BroadcastReceiver receiver = null;
-	private BriarApplication app;
+	private LibreApplication app;
 
 	@Inject
 	AndroidNotificationManager notificationManager;
@@ -93,7 +93,7 @@ public class BriarService extends Service {
 	public void onCreate() {
 		super.onCreate();
 
-		app = (BriarApplication) getApplication();
+		app = (LibreApplication) getApplication();
 		app.getApplicationComponent().inject(this);
 
 		LOG.info("Created");
@@ -176,7 +176,7 @@ public class BriarService extends Service {
 	private void showStartupFailure(StartResult result) {
 		androidExecutor.runOnUiThread(() -> {
 			// Bring the entry activity to the front to clear the back stack
-			Intent i = new Intent(BriarService.this, ENTRY_ACTIVITY);
+			Intent i = new Intent(LibreService.this, ENTRY_ACTIVITY);
 			i.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP);
 			i.putExtra(EXTRA_STARTUP_FAILED, true);
 			i.putExtra(EXTRA_START_RESULT, result);
@@ -309,8 +309,8 @@ public class BriarService extends Service {
 		/**
 		 * Returns the bound service.
 		 */
-		public BriarService getService() {
-			return BriarService.this;
+		public LibreService getService() {
+			return LibreService.this;
 		}
 	}
 

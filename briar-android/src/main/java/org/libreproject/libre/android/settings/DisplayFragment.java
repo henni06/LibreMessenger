@@ -29,7 +29,7 @@ import static androidx.core.view.ViewCompat.LAYOUT_DIRECTION_LTR;
 import static java.util.Objects.requireNonNull;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Logger.getLogger;
-import static org.libreproject.libre.android.BriarApplication.ENTRY_ACTIVITY;
+import static org.libreproject.libre.android.LibreApplication.ENTRY_ACTIVITY;
 import static org.libreproject.libre.android.navdrawer.NavDrawerActivity.SIGN_OUT_URI;
 import static org.libreproject.libre.android.settings.SettingsActivity.EXTRA_THEME_CHANGE;
 

@@ -13,7 +13,7 @@ public class BriarTestRunner extends AndroidJUnitRunner {
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException {
 		return super.newApplication(cl,
-				BriarTestComponentApplication.class.getName(), context);
+				LibreTestComponentApplication.class.getName(), context);
 	}
 
 }

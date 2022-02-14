@@ -12,9 +12,9 @@ import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
 import org.libreproject.bramble.api.settings.Settings;
 import org.libreproject.bramble.api.settings.SettingsManager;
 import org.libreproject.bramble.api.system.AndroidWakeLockManager;
-import org.libreproject.libre.android.BriarApplication;
-import org.libreproject.libre.android.BriarService;
-import org.libreproject.libre.android.BriarService.BriarServiceConnection;
+import org.libreproject.libre.android.LibreApplication;
+import org.libreproject.libre.android.LibreService;
+import org.libreproject.libre.android.LibreService.BriarServiceConnection;
 import org.libreproject.libre.android.controller.handler.ResultHandler;
 import org.libreproject.libre.api.android.DozeWatchdog;
 
@@ -92,8 +92,8 @@ public class BriarControllerImpl implements BriarController {
 
 	@Override
 	public void startAndBindService() {
-		activity.startService(new Intent(activity, BriarService.class));
-		bound = activity.bindService(new Intent(activity, BriarService.class),
+		activity.startService(new Intent(activity, LibreService.class));
+		bound = activity.bindService(new Intent(activity, LibreService.class),
 				serviceConnection, 0);
 	}
 
@@ -105,7 +105,7 @@ public class BriarControllerImpl implements BriarController {
 
 	@Override
 	public void hasDozed(ResultHandler<Boolean> handler) {
-		BriarApplication app = (BriarApplication) activity.getApplication();
+		LibreApplication app = (LibreApplication) activity.getApplication();
 		if (app.isInstrumentationTest() || !dozeWatchdog.getAndResetDozeFlag()
 				|| !needsDozeWhitelisting(activity)) {
 			handler.onResult(false);
@@ -142,8 +142,8 @@ public class BriarControllerImpl implements BriarController {
 			try {
 				// Wait for the service to finish starting up
 				IBinder binder = serviceConnection.waitForBinder();
-				BriarService service =
-						((BriarService.BriarBinder) binder).getService();
+				LibreService service =
+						((LibreService.BriarBinder) binder).getService();
 				service.waitForStartup();
 				// Shut down the service and wait for it to shut down
 				LOG.info("Shutting down service");

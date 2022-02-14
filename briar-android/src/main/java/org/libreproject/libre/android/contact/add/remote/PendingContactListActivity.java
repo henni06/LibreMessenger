@@ -12,7 +12,7 @@ import org.libreproject.bramble.api.nullsafety.ParametersNotNullByDefault;
 import org.libreproject.libre.R;
 import org.libreproject.libre.android.activity.ActivityComponent;
 import org.libreproject.libre.android.activity.BriarActivity;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 
 import java.util.Collection;
@@ -74,7 +74,7 @@ public class PendingContactListActivity extends BriarActivity
 		list.setAdapter(adapter);
 		list.showProgressBar();
 
-		offlineSnackbar = new BriarSnackbarBuilder()
+		offlineSnackbar = new LibreSnackbarBuilder()
 				.setBackgroundColor(R.color.libre_red_500)
 				.make(list, R.string.offline_state, LENGTH_INDEFINITE);
 	}

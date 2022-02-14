@@ -1,5 +1,7 @@
 package org.libreproject.libre.android.view;
 
+import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.net.Uri;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;

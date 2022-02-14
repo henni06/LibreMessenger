@@ -9,7 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.libreproject.bramble.api.sync.MessageId;
 import org.libreproject.libre.R;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 import org.libreproject.libre.android.view.UnreadMessageButton;
 
@@ -78,7 +78,7 @@ public class ThreadListFragment extends Fragment {
 
 
 	public void displaySnackbar(@StringRes int stringId) {
-		new BriarSnackbarBuilder()
+		new LibreSnackbarBuilder()
 				.make(list, stringId, Snackbar.LENGTH_SHORT)
 				.show();
 	}

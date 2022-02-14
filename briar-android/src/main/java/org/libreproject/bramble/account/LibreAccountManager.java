@@ -12,10 +12,10 @@ import org.libreproject.libre.android.util.UiUtils;
 
 import javax.inject.Inject;
 
-class BriarAccountManager extends AndroidAccountManager {
+class LibreAccountManager extends AndroidAccountManager {
 
 	@Inject
-	BriarAccountManager(DatabaseConfig databaseConfig, CryptoComponent crypto,
+	LibreAccountManager(DatabaseConfig databaseConfig, CryptoComponent crypto,
 			IdentityManager identityManager, SharedPreferences prefs,
 			Application app) {
 		super(databaseConfig, crypto, identityManager, prefs, app);

@@ -20,7 +20,7 @@ import org.libreproject.libre.android.contact.add.remote.AddContactActivity;
 import org.libreproject.libre.android.contact.add.remote.PendingContactListActivity;
 import org.libreproject.libre.android.conversation.ConversationActivity;
 import org.libreproject.libre.android.fragment.BaseFragment;
-import org.libreproject.libre.android.util.BriarSnackbarBuilder;
+import org.libreproject.libre.android.util.LibreSnackbarBuilder;
 import org.libreproject.libre.android.view.BriarRecyclerView;
 
 import javax.annotation.Nullable;
@@ -156,7 +156,7 @@ public class ContactListFragment extends BaseFragment
 		if (snackbar != null) return;
 		View v = requireView();
 		int stringRes = R.string.pending_contact_requests_snackbar;
-		snackbar = new BriarSnackbarBuilder()
+		snackbar = new LibreSnackbarBuilder()
 				.setAction(R.string.show, view -> showPendingContactList())
 				.make(v, stringRes, LENGTH_INDEFINITE);
 		snackbar.show();
