@@ -131,6 +131,8 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 			public void onClick(View v) {
 				//AttachmentItem aItem=new AttachmentItem();
 				;
+				item.getAttachments();
+
 
 			}
 		});

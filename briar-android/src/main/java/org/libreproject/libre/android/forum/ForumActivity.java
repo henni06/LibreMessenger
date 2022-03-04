@@ -100,6 +100,8 @@ public class ForumActivity extends
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.forum_actions, menu);
+		menu.findItem(R.id.action_location_share).setVisible(false);
+		menu.findItem(R.id.action_map).setVisible(false);
 
 		super.onCreateOptionsMenu(menu);
 		return true;
