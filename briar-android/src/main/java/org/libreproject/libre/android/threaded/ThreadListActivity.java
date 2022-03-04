@@ -630,7 +630,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				break;
 			case V_MAP:
 				transaction.replace(R.id.conversation_container, threadMap);
-				if(getMenu()!=null) {
+				if(getMenu()!=null && getMenu().findItem(R.id.share_map)!=null) {
 					getMenu().findItem(R.id.share_map).setVisible(creator);
 				}
 				break;
