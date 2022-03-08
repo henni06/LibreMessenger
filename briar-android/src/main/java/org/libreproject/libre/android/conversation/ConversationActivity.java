@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
@@ -89,6 +91,15 @@ import org.libreproject.libre.api.messaging.MessagingManager;
 import org.libreproject.libre.api.messaging.PrivateMessageHeader;
 import org.libreproject.libre.api.privategroup.invitation.GroupInvitationManager;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -1146,29 +1157,85 @@ public class ConversationActivity extends BriarActivity
 		startActivity(i);
 	}
 
+	private static final int DEFAULT_BUFFER_SIZE = 8192;
+
+	private static void copyInputStreamToFile(InputStream inputStream, File file)
+			throws IOException {
+
+		// append = false
+		try (FileOutputStream outputStream = new FileOutputStream(file, false)) {
+			int read;
+			byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];
+			while ((read = inputStream.read(bytes)) != -1) {
+				outputStream.write(bytes, 0, read);
+			}
+		}
+
+	}
+
+
 	@Override
 	public void onAttachmentClicked(View view,
 			ConversationMessageItem messageItem, AttachmentItem item) {
-		String name;
-		if (messageItem.isIncoming()) {
-			// must be available when items are being displayed
-			name = viewModel.getContactDisplayName().getValue();
-		} else {
-			name = getString(R.string.you);
+		if(item.getHeader().getContentType().startsWith("audio/")){
+			try {
+
+
+				InputStream is=this.attachmentRetriever.getMessageAttachment(item.getHeader()).getStream();
+				File file = File.createTempFile("audiomessage", null, this.getCacheDir());
+
+				copyInputStreamToFile(is, file);
+				MediaPlayer mediaPlayer = new MediaPlayer();
+				mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+				mediaPlayer.setDataSource(file.getPath());
+				mediaPlayer.setOnErrorListener(
+						new MediaPlayer.OnErrorListener() {
+							@Override
+							public boolean onError(MediaPlayer mp, int what,
+									int extra) {
+
+								return false;
+							}
+						});
+				mediaPlayer.setOnPreparedListener(
+						new MediaPlayer.OnPreparedListener() {
+							@Override
+							public void onPrepared(MediaPlayer mp) {
+
+								mp.start();
+							}
+						});
+				mediaPlayer.prepareAsync();
+
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+
+
+		}else {
+			String name;
+			if (messageItem.isIncoming()) {
+				// must be available when items are being displayed
+				name = viewModel.getContactDisplayName().getValue();
+			} else {
+				name = getString(R.string.you);
+			}
+			ArrayList<AttachmentItem> attachments =
+					new ArrayList<>(messageItem.getAttachments());
+			Intent i = new Intent(this, ImageActivity.class);
+			i.putParcelableArrayListExtra(ATTACHMENTS, attachments);
+			i.putExtra(ATTACHMENT_POSITION, attachments.indexOf(item));
+			i.putExtra(NAME, name);
+			i.putExtra(DATE, messageItem.getTime());
+			i.putExtra(ITEM_ID, messageItem.getId().getBytes());
+			// restoring list position should not trigger android bug #224270
+			String transitionName = item.getTransitionName(messageItem.getId());
+			ActivityOptionsCompat options =
+					makeSceneTransitionAnimation(this, view, transitionName);
+			ActivityCompat.startActivity(this, i, options.toBundle());
 		}
-		ArrayList<AttachmentItem> attachments =
-				new ArrayList<>(messageItem.getAttachments());
-		Intent i = new Intent(this, ImageActivity.class);
-		i.putParcelableArrayListExtra(ATTACHMENTS, attachments);
-		i.putExtra(ATTACHMENT_POSITION, attachments.indexOf(item));
-		i.putExtra(NAME, name);
-		i.putExtra(DATE, messageItem.getTime());
-		i.putExtra(ITEM_ID, messageItem.getId().getBytes());
-		// restoring list position should not trigger android bug #224270
-		String transitionName = item.getTransitionName(messageItem.getId());
-		ActivityOptionsCompat options =
-				makeSceneTransitionAnimation(this, view, transitionName);
-		ActivityCompat.startActivity(this, i, options.toBundle());
 	}
 
 	@Override
