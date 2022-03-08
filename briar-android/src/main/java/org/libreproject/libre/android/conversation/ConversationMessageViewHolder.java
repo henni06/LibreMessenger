@@ -32,10 +32,12 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 	private final ConstraintSet imageConstraints = new ConstraintSet();
 	private final ConstraintSet imageTextConstraints = new ConstraintSet();
 	private final LinearLayout audioLayout;
+	private ConversationListener listener;
 	ConversationMessageViewHolder(View v, ConversationListener listener,
 			boolean isIncoming, RecycledViewPool imageViewPool,
 			ImageItemDecoration imageItemDecoration) {
 		super(v, listener, isIncoming);
+		this.listener=listener;
 		statusLayout = v.findViewById(R.id.statusLayout);
 
 		// image list
@@ -131,7 +133,8 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 			public void onClick(View v) {
 				//AttachmentItem aItem=new AttachmentItem();
 				;
-				item.getAttachments();
+				listener.onAttachmentClicked(ConversationMessageViewHolder.this.itemView,item,item.getAttachments().get(0));
+				//item.getAttachments();
 
 
 			}
