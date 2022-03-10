@@ -23,9 +23,9 @@ jobs:
       - name: Build release APK
         run: bash ./gradlew assembleRelease
       - name: check folder
-        run: ls /home/runner/work/LibreMessenger/LibreMessenger/briar-android/build/outputs/apk/official
+        run: ls /home/runner/work/LibreMessenger/LibreMessenger/briar-android/build/outputs/apk/official/release
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: briar-android/build/outputs/apk/release/libre-release.apk
+          path: briar-android/build/outputs/apk/official/release/libre-release.apk
