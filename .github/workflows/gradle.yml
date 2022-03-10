@@ -32,6 +32,7 @@ jobs:
       - name: Release with Notes
         uses: softprops/action-gh-release@v1
         with:
+          name: v${{ env.GitVersion_SemVer }}
           files: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
