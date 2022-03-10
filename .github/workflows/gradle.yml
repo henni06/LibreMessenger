@@ -29,3 +29,9 @@ jobs:
         with:
           name: app
           path: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
+      - name: Release with Notes
+        uses: softprops/action-gh-release@v1
+        with:
+          files: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
