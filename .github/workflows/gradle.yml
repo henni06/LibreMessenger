@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: briar-android/build/outputs/apk/official/release/libre-release.apk
+          path: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
