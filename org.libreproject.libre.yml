@@ -1,0 +1,34 @@
+AntiFeatures:
+  - HopeNot
+Categories:
+  -
+License:
+AuthorName:
+AuthorEmail:
+AuthorWebSite:
+WebSite:
+SourceCode:
+IssueTracker:
+Translation:
+Changelog:
+Donate:
+Bitcoin:
+
+AutoName:
+
+RepoType: git
+Repo:
+
+Builds:
+  - versionName: '0.1.0'
+    versionCode: 1
+    commit: v1.0
+    subdir: app
+    submodules: true
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: '1.0'
+CurrentVersionCode: 1
