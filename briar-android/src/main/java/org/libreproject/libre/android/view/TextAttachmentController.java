@@ -78,10 +78,10 @@ public class TextAttachmentController extends TextSendController
 
 		onStartingMessage();
 		loadingUris = true;
-		imageUris.addAll(uris);
+		//imageUris.addAll(uris);
 
 		LiveData<AttachmentResult> result =
-				attachmentManager.storeAttachments(imageUris, false);
+				attachmentManager.storeAttachments(uris, false);
 		result.observe(attachmentListener, new Observer<AttachmentResult>() {
 			@Override
 			public void onChanged(@Nullable AttachmentResult attachmentResult) {
