@@ -22,6 +22,7 @@ jobs:
           distribution: 'temurin'
       - name: Build release APK
         run: bash ./gradlew assembleRelease
+        ls
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
