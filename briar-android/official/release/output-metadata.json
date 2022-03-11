@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "org.libreproject.libre.android",
+  "variantName": "officialRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 10401,
+      "versionName": "0.0.9",
+      "outputFile": "Libre-official-release.apk"
+    }
+  ],
+  "elementType": "File"
+}
