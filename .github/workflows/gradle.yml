@@ -23,16 +23,16 @@ jobs:
       - name: Build release APK
         run: bash ./gradlew assembleRelease
       - name: check folder
-        run: ls /home/runner/work/LibreMessenger/LibreMessenger/briar-android/official
+        run: ls /home/runner/work/LibreMessenger/LibreMessenger/briar-android/official/release
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
+          path: briar-android/official/release/Libre-official-release-unsigned.apk
       - name: Release with Notes
         uses: softprops/action-gh-release@v1
         with:
           tag_name:  tag_name:${{github.run_id}}
-          files: briar-android/build/outputs/apk/official/release/Libre-official-release-unsigned.apk
+          files: briar-android/official/release/Libre-official-release-unsigned.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
