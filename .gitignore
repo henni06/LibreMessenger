@@ -27,3 +27,5 @@ build/
 captures
 *.iml
 projectFilesBackup/
+briar-android/official/release
+libre.jks
