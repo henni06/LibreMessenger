@@ -28,11 +28,11 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: briar-android/official/release/Libre-official-release-unsigned.apk
+          path: briar-android/official/release/Libre-official-release.apk
       - name: Release with Notes
         uses: softprops/action-gh-release@v1
         with:
           tag_name:  tag_name:${{github.run_id}}
-          files: briar-android/official/release/Libre-official-release-unsigned.apk
+          files: briar-android/official/release/Libre-official-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
