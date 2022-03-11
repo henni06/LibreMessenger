@@ -32,7 +32,7 @@ jobs:
       - name: Release with Notes
         uses: softprops/action-gh-release@v1
         with:
-          tag_name:  tag_name:test-${{github.run_number}}
+          tag_name: test-${{github.run_number}}
           files: briar-android/official/release/Libre-official-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
