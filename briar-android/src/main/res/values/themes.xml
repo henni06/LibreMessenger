@@ -16,7 +16,7 @@
 	<style name="BriarTheme.NoActionBar" parent="LibreTheme">
 		<item name="windowActionBar">false</item>
 		<item name="windowNoTitle">true</item>
-		<item name="toolbarStyle">@style/BriarToolbar</item>
+		<item name="toolbarStyle">@style/LibreToolbar</item>
 	</style>
 
 	<style name="BriarTheme.ActionBarOverlay" parent="BriarTheme.NoActionBar">

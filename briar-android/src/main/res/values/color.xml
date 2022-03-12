@@ -65,7 +65,7 @@
 	<color name="libre_button_background_color">@color/libre_accent</color>
 	<color name="libre_selected_button_background_color">@color/libre_gray_500</color>
 
-	<color name="libre_button_text_positive">@color/emoji_white</color>
+	<color name="libre_button_text_positive">@color/color_primary</color>
 	<color name="libre_button_text_neutral">@color/libre_night_500</color>
 	<color name="libre_button_text_negative">@color/libre_red_500</color>
 	<color name="libre_button_text_disabled">#28000000</color>

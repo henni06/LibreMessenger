@@ -3,26 +3,26 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<style name="BriarToolbar" parent="Widget.AppCompat.Toolbar">
+	<style name="LibreToolbar" parent="Widget.AppCompat.Toolbar">
 		<item name="android:background">?colorPrimary</item>
 		<item name="android:textColorPrimary">@color/libre_text_primary_inverse</item>
 		<item name="android:textSize">@dimen/text_size_medium</item>
 		<item name="colorPrimary">@color/libre_primary</item>
-		<item name="titleTextAppearance">@style/BriarToolbarTitleTextAppearance</item>
-		<item name="subtitleTextAppearance">@style/BriarToolbarSubTitleTextAppearance</item>
-		<item name="android:theme">@style/BriarToolbarTheme</item>
+		<item name="titleTextAppearance">@style/LibreToolbarTitleTextAppearance</item>
+		<item name="subtitleTextAppearance">@style/LibreToolbarSubTitleTextAppearance</item>
+		<item name="android:theme">@style/LibreToolbarTheme</item>
 		<item name="popupTheme">@style/PopupMenu</item>
 	</style>
 
-	<style name="BriarToolbarTheme">
+	<style name="LibreToolbarTheme">
 		<item name="colorControlNormal">@color/libre_text_primary_inverse</item>
 	</style>
 
-	<style name="BriarToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+	<style name="LibreToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
 		<item name="android:textColor">@color/libre_text_primary_inverse</item>
 	</style>
 
-	<style name="BriarToolbarSubTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+	<style name="LibreToolbarSubTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
 		<item name="android:textColor">@color/libre_text_secondary_inverse</item>
 	</style>
 
