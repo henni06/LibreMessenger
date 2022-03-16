@@ -1,16 +1,19 @@
 package org.libreproject.libre.android.conversation;
 
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.libreproject.bramble.api.nullsafety.NotNullByDefault;
 import org.libreproject.libre.R;
 import org.libreproject.libre.android.attachment.AttachmentItem;
+import org.libreproject.libre.android.view.EmojiTextInputView;
 
 import androidx.annotation.UiThread;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -24,7 +27,8 @@ import static androidx.core.widget.ImageViewCompat.setImageTintList;
 @UiThread
 @NotNullByDefault
 class ConversationMessageViewHolder extends ConversationItemViewHolder {
-
+	private com.vanniktech.emoji.EmojiTextView text;
+	private boolean playing;
 	private final ImageAdapter adapter;
 	private final ViewGroup statusLayout;
 	private final int timeColor, timeColorBubble;
@@ -43,6 +47,9 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 		// image list
 		RecyclerView list = v.findViewById(R.id.imageList);
 		list.setRecycledViewPool(imageViewPool);
+
+		text=v.findViewById(R.id.text);
+
 		audioLayout = (LinearLayout) v.findViewById(R.id.audioLayout);
 		adapter = new ImageAdapter(v.getContext(), listener);
 		list.setAdapter(adapter);
@@ -128,17 +135,67 @@ class ConversationMessageViewHolder extends ConversationItemViewHolder {
 
 	private void bindAudioItem(ConversationMessageItem item) {
 		audioLayout.setVisibility(View.VISIBLE);
+		TextView txtDuration=audioLayout.findViewById(R.id.txtDuration);
+		ImageView imgPlay=audioLayout.findViewById(R.id.audioImage);
+
+		String durationText="";
+		try{
+			int durationVal=Integer.parseInt(item.getText());
+			int hour=durationVal/60;
+			int minute=(durationVal-hour*60);
+			String sHour=Integer.toString(hour);
+			if(hour<10){
+				sHour="0"+sHour;
+			}
+			String sMinute=Integer.toString(minute);
+			if(minute<10){
+				sMinute="0"+sMinute;
+			}
+			durationText=sHour+":"+sMinute;
+
+		}
+		catch(Exception e){}
+		txtDuration.setText(durationText);
+		text.setVisibility(View.GONE);
 		audioLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//AttachmentItem aItem=new AttachmentItem();
-				;
-				listener.onAttachmentClicked(ConversationMessageViewHolder.this.itemView,item,item.getAttachments().get(0));
-				//item.getAttachments();
+				if(playing){
+					playing=false;
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+						imgPlay.setImageDrawable(itemView.getContext()
+								.getDrawable(
+										android.R.drawable.ic_media_play));
+					}
+					listener.onSpeechStopped();
+				}else {
+					playing=true;
+					//AttachmentItem aItem=new AttachmentItem();
+					;
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+						imgPlay.setImageDrawable(itemView.getContext()
+								.getDrawable(
+										android.R.drawable.ic_media_pause));
+					}
+
+					listener.onSpeechAttachmentClicked(
+							ConversationMessageViewHolder.this, item,
+							item.getAttachments().get(0), true);
+					//item.getAttachments();
+				}
+
 
 
 			}
 		});
+	}
+
+	public void onSpeechStop(){
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			ImageView imgPlay=audioLayout.findViewById(R.id.audioImage);
+			imgPlay.setImageDrawable(itemView.getContext().getDrawable(android.R.drawable.ic_media_play));
+		}
 	}
 
 	private void resetStatusLayoutForText() {

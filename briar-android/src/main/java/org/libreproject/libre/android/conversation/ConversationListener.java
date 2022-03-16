@@ -18,6 +18,11 @@ interface ConversationListener {
 	void onAttachmentClicked(View view, ConversationMessageItem messageItem,
 			AttachmentItem attachmentItem);
 
+	void onSpeechAttachmentClicked(ConversationMessageViewHolder viewHolder, ConversationMessageItem messageItem,
+			AttachmentItem attachmentItem,boolean play);
+
+	void onSpeechStopped();
+
 	void onAutoDeleteTimerNoticeClicked();
 
 }
