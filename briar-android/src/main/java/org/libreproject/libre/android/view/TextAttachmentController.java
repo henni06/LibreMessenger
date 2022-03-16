@@ -72,7 +72,7 @@ public class TextAttachmentController extends TextSendController
 		});
 	}
 
-	public void onSpeechReceived(String filename){
+	public void onSpeechReceived(String filename,int duration){
 		ArrayList<Uri> uris=new ArrayList<>();
 		uris.add(Uri.fromFile(new File(filename)));
 
@@ -94,7 +94,7 @@ public class TextAttachmentController extends TextSendController
 							attachmentResult.getItemResults());
 					if (noError && attachmentResult.isFinished()) {
 						onAllAttachmentsCreated();
-						listener.onSendClick(textInput.getText(),
+						listener.onSendClick(Integer.toString(duration),
 								attachmentManager.getAttachmentHeadersForSending(),
 								expectedTimer);
 

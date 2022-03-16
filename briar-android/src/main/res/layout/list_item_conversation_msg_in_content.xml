@@ -23,14 +23,20 @@
 		android:orientation="vertical"
 		android:visibility="gone"
 		app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-		app:layout_constraintBottom_toTopOf="@+id/text"
+		app:layout_constraintBottom_toTopOf="@+id/loContent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:spanCount="2"
 		tools:ignore="ContentDescription"
 		tools:listitem="@layout/list_item_image" />
-
+	<androidx.appcompat.widget.LinearLayoutCompat
+		android:layout_width="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		android:id="@+id/loContent"
+		android:orientation="horizontal"
+		android:layout_height="wrap_content">
 	<com.vanniktech.emoji.EmojiTextView
 		android:id="@+id/text"
 		style="@style/TextMessage"
@@ -42,13 +48,45 @@
 		android:layout_marginBottom="@dimen/message_bubble_padding_bottom_inner"
 		android:textColor="?android:attr/textColorPrimary"
 		app:layout_constrainedWidth="true"
+
 		app:layout_constraintBottom_toTopOf="@+id/statusLayout"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/imageList"
 		tools:text="The text of a message which can sometimes be a bit longer as well" />
+	<LinearLayout
+		android:id="@+id/audioLayout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="1dp"
+		android:visibility="gone"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toEndOf="parent"
 
+		app:layout_constraintHorizontal_bias="1.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		<ImageView
+			android:id="@+id/audioImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:srcCompat="@android:drawable/ic_media_play"
+			app:tint="@color/libre_brand_green"
+			android:layout_marginTop="1dp"
+			android:layout_marginBottom="1dp"
+			tools:layout_editor_absoluteX="12dp"
+			tools:layout_editor_absoluteY="51dp" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/txtDuration"
+			android:textColor="@color/libre_text_primary_inverse"
+			android:text="00:00"></TextView>
+	</LinearLayout>
+	</androidx.appcompat.widget.LinearLayoutCompat>
 	<LinearLayout
 		android:id="@+id/statusLayout"
 		android:layout_width="wrap_content"
@@ -61,7 +99,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="1.0"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/text">
+		app:layout_constraintTop_toBottomOf="@+id/loContent">
 
 		<TextView
 			android:id="@+id/time"
@@ -82,29 +120,6 @@
 			tools:visibility="visible" />
 
 	</LinearLayout>
-	<LinearLayout
-		android:id="@+id/audioLayout"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginLeft="1dp"
 
-		android:orientation="horizontal"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toEndOf="parent"
-		android:visibility="gone"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
-	<ImageView
-		android:id="@+id/audioImage"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:srcCompat="@android:drawable/ic_media_play"
-		app:tint="@color/libre_brand_green"
-		android:layout_marginTop="1dp"
-		android:layout_marginBottom="1dp"
-		tools:layout_editor_absoluteX="12dp"
-		tools:layout_editor_absoluteY="51dp" />
-	</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

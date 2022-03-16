@@ -176,6 +176,8 @@ public class ConversationActivity extends BriarActivity
 
 	public static final String CONTACT_ID = "briar.CONTACT_ID";
 
+	private long speechStartTime=0;
+
 	private static final Logger LOG =
 			getLogger(ConversationActivity.class.getName());
 
@@ -211,6 +213,7 @@ public class ConversationActivity extends BriarActivity
 	@Inject
 	volatile GroupInvitationManager groupInvitationManager;
 
+	private static MediaPlayer mediaPlayer;
 	private final Map<MessageId, String> textCache = new ConcurrentHashMap<>();
 	private final Observer<String> contactNameObserver = name -> {
 		requireNonNull(name);
@@ -860,7 +863,7 @@ public class ConversationActivity extends BriarActivity
 			myAudioRecorder
 					.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 			myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-
+			speechStartTime=System.currentTimeMillis();
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
 				speechFileName= getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) + "/tmpSpeech"+System.currentTimeMillis()+".3gp";
 			}
@@ -884,9 +887,12 @@ public class ConversationActivity extends BriarActivity
 
 	@Override
 	public void onAttachSpeechStop() {
+
 		if(recording) {
+			int duration=(int)(System.currentTimeMillis()-speechStartTime)/1000;
 			myAudioRecorder.stop();
-		((TextAttachmentController) sendController).onSpeechReceived(speechFileName);
+
+		((TextAttachmentController) sendController).onSpeechReceived(speechFileName,duration);
 		}
 	}
 
@@ -1177,44 +1183,7 @@ public class ConversationActivity extends BriarActivity
 	@Override
 	public void onAttachmentClicked(View view,
 			ConversationMessageItem messageItem, AttachmentItem item) {
-		if(item.getHeader().getContentType().startsWith("audio/")){
-			try {
 
-
-				InputStream is=this.attachmentRetriever.getMessageAttachment(item.getHeader()).getStream();
-				File file = File.createTempFile("audiomessage", null, this.getCacheDir());
-
-				copyInputStreamToFile(is, file);
-				MediaPlayer mediaPlayer = new MediaPlayer();
-				mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-				mediaPlayer.setDataSource(file.getPath());
-				mediaPlayer.setOnErrorListener(
-						new MediaPlayer.OnErrorListener() {
-							@Override
-							public boolean onError(MediaPlayer mp, int what,
-									int extra) {
-
-								return false;
-							}
-						});
-				mediaPlayer.setOnPreparedListener(
-						new MediaPlayer.OnPreparedListener() {
-							@Override
-							public void onPrepared(MediaPlayer mp) {
-
-								mp.start();
-							}
-						});
-				mediaPlayer.prepareAsync();
-
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-
-
-		}else {
 			String name;
 			if (messageItem.isIncoming()) {
 				// must be available when items are being displayed
@@ -1235,6 +1204,78 @@ public class ConversationActivity extends BriarActivity
 			ActivityOptionsCompat options =
 					makeSceneTransitionAnimation(this, view, transitionName);
 			ActivityCompat.startActivity(this, i, options.toBundle());
+
+	}
+
+	@Override
+	public void onSpeechAttachmentClicked(ConversationMessageViewHolder viewHolder,
+			ConversationMessageItem messageItem, AttachmentItem attachmentItem,
+			boolean play) {
+		if(mediaPlayer==null) {
+			mediaPlayer = new MediaPlayer();
+		}
+		if(!play){
+			mediaPlayer.stop();
+		}
+		if(attachmentItem.getHeader().getContentType().startsWith("audio/")){
+			try {
+
+
+				InputStream is=this.attachmentRetriever.getMessageAttachment(attachmentItem.getHeader()).getStream();
+				File file = File.createTempFile("audiomessage", null, this.getCacheDir());
+
+				copyInputStreamToFile(is, file);
+
+				mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+				mediaPlayer.setDataSource(file.getPath());
+				mediaPlayer.setOnErrorListener(
+						new MediaPlayer.OnErrorListener() {
+							@Override
+							public boolean onError(MediaPlayer mp, int what,
+									int extra) {
+
+								return false;
+							}
+						});
+
+				mediaPlayer.setOnPreparedListener(
+						new MediaPlayer.OnPreparedListener() {
+							@Override
+							public void onPrepared(MediaPlayer mp) {
+
+								mp.start();
+								mediaPlayer.setOnCompletionListener(
+										new MediaPlayer.OnCompletionListener() {
+											@Override
+											public void onCompletion(MediaPlayer mp) {
+												viewHolder.onSpeechStop();
+												mp.release();
+												mediaPlayer=null;
+											}
+										});
+							}
+						});
+
+
+				mediaPlayer.prepareAsync();
+
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+
+
+		}
+
+	}
+
+	@Override
+	public void onSpeechStopped() {
+		if(mediaPlayer!=null){
+			mediaPlayer.stop();
+			mediaPlayer.release();
+			mediaPlayer=null;
 		}
 	}
 
