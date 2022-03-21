@@ -52,7 +52,7 @@ public class RssFeedDeleteFeedDialogFragment extends DialogFragment {
 		GroupId groupId = new GroupId(
 				requireNonNull(requireArguments().getByteArray(GROUP_ID)));
 		AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(),
-				R.style.BriarDialogTheme);
+				R.style.LibreDialogTheme);
 		builder.setTitle(getString(R.string.blogs_rss_remove_feed));
 		builder.setMessage(
 				getString(R.string.blogs_rss_remove_feed_dialog_message));

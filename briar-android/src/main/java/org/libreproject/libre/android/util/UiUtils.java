@@ -506,7 +506,7 @@ public class UiUtils {
 
 	public static void showLocationDialog(Context ctx) {
 		AlertDialog.Builder builder =
-				new AlertDialog.Builder(ctx, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(ctx, R.style.LibreDialogTheme);
 		builder.setTitle(R.string.permission_location_setting_title);
 		builder.setMessage(R.string.permission_location_setting_body);
 		builder.setNegativeButton(R.string.cancel, null);

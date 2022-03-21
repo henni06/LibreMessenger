@@ -99,7 +99,7 @@ class AddNearbyContactPermissionManager {
 
 	private void showDenialDialog(@StringRes int title, @StringRes int body) {
 		AlertDialog.Builder builder =
-				new AlertDialog.Builder(ctx, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(ctx, R.style.LibreDialogTheme);
 		builder.setTitle(title);
 		builder.setMessage(body);
 		builder.setPositiveButton(R.string.ok, getGoToSettingsListener(ctx));
@@ -110,7 +110,7 @@ class AddNearbyContactPermissionManager {
 
 	private void showRationale(@StringRes int title, @StringRes int body) {
 		AlertDialog.Builder builder =
-				new AlertDialog.Builder(ctx, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(ctx, R.style.LibreDialogTheme);
 		builder.setTitle(title);
 		builder.setMessage(body);
 		builder.setNeutralButton(R.string.continue_button,

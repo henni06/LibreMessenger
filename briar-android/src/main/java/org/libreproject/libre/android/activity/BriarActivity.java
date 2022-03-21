@@ -190,7 +190,7 @@ public abstract class BriarActivity extends BaseActivity {
 
 	protected void showDozeDialog(String message) {
 		AlertDialog.Builder b =
-				new AlertDialog.Builder(this, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(this, R.style.LibreDialogTheme);
 		b.setMessage(message);
 		b.setView(R.layout.checkbox);
 		b.setPositiveButton(R.string.fix,

@@ -202,7 +202,7 @@ public class PanicPreferencesFragment extends PreferenceFragmentCompat
 		};
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),
-				R.style.BriarDialogTheme);
+				R.style.LibreDialogTheme);
 		builder.setTitle(getString(R.string.dialog_title_connect_panic_app));
 
 		CharSequence app = getString(R.string.unknown_app);

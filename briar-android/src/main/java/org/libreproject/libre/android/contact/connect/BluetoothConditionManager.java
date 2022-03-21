@@ -65,7 +65,7 @@ class BluetoothConditionManager {
 	}
 
 	private void showDenialDialog(Context ctx, Runnable onLocationDenied) {
-		new AlertDialog.Builder(ctx, R.style.BriarDialogTheme)
+		new AlertDialog.Builder(ctx, R.style.LibreDialogTheme)
 				.setTitle(R.string.permission_location_title)
 				.setMessage(R.string.permission_location_denied_body)
 				.setPositiveButton(R.string.ok, getGoToSettingsListener(ctx))
@@ -76,7 +76,7 @@ class BluetoothConditionManager {
 
 	private void showRationale(Context ctx,
 			ActivityResultLauncher<String> permissionRequest) {
-		new AlertDialog.Builder(ctx, R.style.BriarDialogTheme)
+		new AlertDialog.Builder(ctx, R.style.LibreDialogTheme)
 				.setTitle(R.string.permission_location_title)
 				.setMessage(R.string.permission_location_request_body)
 				.setPositiveButton(R.string.ok, (dialog, which) ->

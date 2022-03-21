@@ -30,7 +30,7 @@
 		<item name="android:activityCloseExitAnimation">@anim/screen_new_out</item>
 	</style>
 
-	<style name="BriarDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.MinWidth">
+	<style name="LibreDialogTheme" parent="Theme.AppCompat.DayNight.Dialog.MinWidth">
 		<item name="colorPrimary">@color/libre_primary</item>
 		<item name="colorPrimaryDark">@color/libre_primary_dark</item>
 		<item name="colorAccent">@color/libre_accent</item>
@@ -43,7 +43,7 @@
 		<item name="android:filterTouchesWhenObscured">true</item>
 	</style>
 
-	<style name="BriarFullScreenDialogTheme" parent="BriarDialogTheme">
+	<style name="LibreFullScreenDialogTheme" parent="LibreDialogTheme">
 		<item name="android:windowIsFloating">false</item>
 		<item name="android:windowAnimationStyle">@style/FullScreenDialogAnimation</item>
 	</style>
@@ -54,12 +54,12 @@
 	</style>
 
 	<!-- Use this with care. Only used for the screen filter warning dialog -->
-	<style name="BriarDialogThemeNoFilter" parent="BriarDialogTheme">
+	<style name="BriarDialogThemeNoFilter" parent="LibreDialogTheme">
 		<item name="android:filterTouchesWhenObscured">false</item>
 	</style>
 
 	<!-- Uses neutral colors for the buttons -->
-	<style name="BriarDialogTheme.Neutral" parent="BriarDialogTheme">
+	<style name="BriarDialogTheme.Neutral" parent="LibreDialogTheme">
 		<item name="buttonBarPositiveButtonStyle">@style/BriarButtonFlat.Neutral</item>
 		<item name="buttonBarNeutralButtonStyle">@style/BriarButtonFlat.Neutral</item>
 		<item name="buttonBarNegativeButtonStyle">@style/BriarButtonFlat.Neutral</item>
@@ -70,7 +70,7 @@
 		<item name="android:windowExitAnimation">@anim/fade_out</item>
 	</style>
 
-	<style name="OnboardingDialogTheme" parent="BriarDialogTheme">
+	<style name="OnboardingDialogTheme" parent="LibreDialogTheme">
 		<item name="android:background">@color/libre_primary</item>
 		<item name="android:textColorPrimary">@color/libre_text_primary_inverse</item>
 		<item name="android:textColorSecondary">@color/libre_text_secondary_inverse</item>
