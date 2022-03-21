@@ -127,7 +127,7 @@ public class PasswordFragment extends BaseFragment implements TextWatcher {
 
 	private void onForgottenPasswordClick() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),
-				R.style.BriarDialogTheme);
+				R.style.LibreDialogTheme);
 		builder.setTitle(R.string.dialog_title_lost_password);
 		builder.setMessage(R.string.dialog_message_lost_password);
 		builder.setPositiveButton(R.string.cancel, null);

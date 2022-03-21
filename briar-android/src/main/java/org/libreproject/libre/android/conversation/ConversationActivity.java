@@ -92,14 +92,9 @@ import org.libreproject.libre.api.messaging.PrivateMessageHeader;
 import org.libreproject.libre.api.privategroup.invitation.GroupInvitationManager;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -914,7 +909,7 @@ public class ConversationActivity extends BriarActivity
 
 	private void askToDeleteAllMessages() {
 		AlertDialog.Builder builder =
-				new AlertDialog.Builder(this, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(this, R.style.LibreDialogTheme);
 		builder.setTitle(getString(R.string.dialog_title_delete_all_messages));
 		builder.setMessage(
 				getString(R.string.dialog_message_delete_all_messages));
@@ -994,7 +989,7 @@ public class ConversationActivity extends BriarActivity
 		String msg = join(fails, "\n\n");
 		// show dialog
 		AlertDialog.Builder builder =
-				new AlertDialog.Builder(this, R.style.BriarDialogTheme);
+				new AlertDialog.Builder(this, R.style.LibreDialogTheme);
 		builder.setTitle(
 				getString(R.string.dialog_title_not_all_messages_deleted));
 		builder.setMessage(msg);
@@ -1007,7 +1002,7 @@ public class ConversationActivity extends BriarActivity
 				(dialog, which) -> removeContact();
 		AlertDialog.Builder builder =
 				new AlertDialog.Builder(ConversationActivity.this,
-						R.style.BriarDialogTheme);
+						R.style.LibreDialogTheme);
 		builder.setTitle(getString(R.string.dialog_title_delete_contact));
 		builder.setMessage(
 				getString(R.string.dialog_message_delete_contact));

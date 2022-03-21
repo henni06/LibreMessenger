@@ -213,7 +213,7 @@ public interface AndroidComponent
 
 	void inject(EmojiTextInputView textInputView);
 
-	void inject(BriarModelLoader briarModelLoader);
+	void inject(BriarModelLoader libreModelLoader);
 
 	void inject(SettingsFragment settingsFragment);
 

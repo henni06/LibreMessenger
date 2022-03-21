@@ -221,7 +221,7 @@ public class BlogFragment extends BaseFragment
 
 	private void showDeleteDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(),
-				R.style.BriarDialogTheme);
+				R.style.LibreDialogTheme);
 		builder.setTitle(getString(R.string.blogs_remove_blog));
 		builder.setMessage(
 				getString(R.string.blogs_remove_blog_dialog_message));

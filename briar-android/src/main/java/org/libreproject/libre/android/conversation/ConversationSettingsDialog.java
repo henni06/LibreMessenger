@@ -68,7 +68,7 @@ public class ConversationSettingsDialog extends DialogFragment {
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setStyle(DialogFragment.STYLE_NO_FRAME,
-				R.style.BriarFullScreenDialogTheme);
+				R.style.LibreFullScreenDialogTheme);
 	}
 
 	@Nullable
