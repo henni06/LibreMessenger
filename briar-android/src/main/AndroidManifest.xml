@@ -91,7 +91,7 @@
 			android:label="@string/crash_report_title"
 			android:launchMode="singleInstance"
 			android:process=":briar_error_handler"
-			android:theme="@style/BriarTheme.NoActionBar"
+			android:theme="@style/LibreTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateHidden" />
 
 		<activity
@@ -99,7 +99,7 @@
 			android:exported="false"
 			android:label="@string/feedback_title"
 			android:parentActivityName="org.libreproject.libre.android.settings.SettingsActivity"
-			android:theme="@style/BriarTheme.NoActionBar"
+			android:theme="@style/LibreTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
@@ -121,7 +121,7 @@
 		<activity
 			android:name="org.libreproject.libre.android.splash.SplashScreenActivity"
 			android:label="@string/app_name"
-			android:theme="@style/BriarTheme.NoActionBar">
+			android:theme="@style/LibreTheme.NoActionBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
@@ -133,7 +133,7 @@
 		<activity
 			android:name="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
 			android:launchMode="singleTask"
-			android:theme="@style/BriarTheme.NoActionBar">
+			android:theme="@style/LibreTheme.NoActionBar">
 			<intent-filter android:label="@string/add_contact_remotely_title_case">
 				<action android:name="android.intent.action.VIEW" />
 
@@ -153,7 +153,7 @@
 			android:name="org.libreproject.libre.android.conversation.ConversationActivity"
 			android:label="@string/app_name"
 			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
-			android:theme="@style/BriarTheme.NoActionBar"
+			android:theme="@style/LibreTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateUnchanged">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
@@ -183,7 +183,7 @@
 			android:name="org.libreproject.libre.android.privategroup.conversation.GroupActivity"
 			android:label="@string/app_name"
 			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
-			android:theme="@style/BriarTheme.NoActionBar"
+			android:theme="@style/LibreTheme.NoActionBar"
 
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
@@ -263,7 +263,7 @@
 			android:name="org.libreproject.libre.android.forum.ForumActivity"
 			android:label="@string/app_name"
 			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
-			android:theme="@style/BriarTheme.NoActionBar"
+			android:theme="@style/LibreTheme.NoActionBar"
 			android:windowSoftInputMode="adjustResize|stateHidden">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
@@ -311,7 +311,7 @@
 		<activity
 			android:name="org.libreproject.libre.android.blog.BlogActivity"
 			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
-			android:theme="@style/BriarTheme.NoActionBar">
+			android:theme="@style/LibreTheme.NoActionBar">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
@@ -341,7 +341,7 @@
 			android:name="org.libreproject.libre.android.contact.add.nearby.AddNearbyContactActivity"
 			android:label="@string/add_contact_title"
 			android:parentActivityName="org.libreproject.libre.android.navdrawer.NavDrawerActivity"
-			android:theme="@style/BriarTheme.NoActionBar">
+			android:theme="@style/LibreTheme.NoActionBar">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value="org.libreproject.libre.android.navdrawer.NavDrawerActivity" />
@@ -441,7 +441,7 @@
 			android:name="org.libreproject.libre.android.account.UnlockActivity"
 			android:label="@string/lock_unlock"
 			android:launchMode="singleTask"
-			android:theme="@style/BriarTheme.NoActionBar" />
+			android:theme="@style/LibreTheme.NoActionBar" />
 
 		<activity
 			android:name="org.libreproject.libre.android.contact.add.remote.AddContactActivity"

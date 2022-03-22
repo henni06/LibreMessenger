@@ -72,7 +72,7 @@
 
 	<Button
 		android:id="@+id/connectedButton"
-		style="@style/BriarButton"
+		style="@style/LibreButton"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginHorizontal="16dp"

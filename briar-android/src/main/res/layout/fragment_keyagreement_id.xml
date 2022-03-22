@@ -65,7 +65,7 @@
 
 		<Button
 			android:id="@+id/continueButton"
-			style="@style/BriarButton"
+			style="@style/LibreButton"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/margin_medium"
