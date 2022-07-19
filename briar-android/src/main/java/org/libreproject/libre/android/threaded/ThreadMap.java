@@ -536,7 +536,7 @@ public class ThreadMap extends Fragment {
 		ApplicationInfo applicationInfo = this.getContext().getApplicationInfo();
 		Configuration.getInstance().setUserAgentValue(getString(applicationInfo.labelRes));
 		map = (MapView) view.findViewById(R.id.map);
-
+		map.getOverlays().add(new MapEventsOverlay(mReceive));
 		map.setTileSource(TileSourceFactory.WIKIMEDIA);
 		//map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
 		map.setMultiTouchControls(true);

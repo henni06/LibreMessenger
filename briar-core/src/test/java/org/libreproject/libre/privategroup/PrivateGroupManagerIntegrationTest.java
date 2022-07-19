@@ -3,6 +3,7 @@ package org.libreproject.libre.privategroup;
 import org.libreproject.bramble.api.contact.Contact;
 import org.libreproject.bramble.api.data.BdfList;
 import org.libreproject.bramble.api.sync.GroupId;
+import org.libreproject.bramble.api.sync.Message;
 import org.libreproject.bramble.api.sync.MessageId;
 import org.libreproject.bramble.test.TestDatabaseConfigModule;
 import org.libreproject.libre.api.client.MessageTracker.GroupCount;
@@ -89,7 +90,7 @@ public class PrivateGroupManagerIntegrationTest
 				groupManager0.getPreviousMsgId(groupId0);
 		GroupMessage msg = groupMessageFactory
 				.createGroupMessage(groupId0, time, null, author0, text,
-						previousMsgId);
+						previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 		assertEquals(msg.getMessage().getId(),
 				groupManager0.getPreviousMsgId(groupId0));
@@ -125,7 +126,8 @@ public class PrivateGroupManagerIntegrationTest
 
 		// create and add test message with no previousMsgId
 		GroupMessage msg = groupMessageFactory.createGroupMessage(groupId0,
-				c0.getClock().currentTimeMillis(), null, author0, "test", null);
+				c0.getClock().currentTimeMillis(), null, author0, "test", null,
+				Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -138,7 +140,7 @@ public class PrivateGroupManagerIntegrationTest
 		MessageId previousMsgId = new MessageId(getRandomId());
 		msg = groupMessageFactory.createGroupMessage(groupId0,
 				c0.getClock().currentTimeMillis(), null, author0, "test",
-				previousMsgId);
+				previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -151,7 +153,7 @@ public class PrivateGroupManagerIntegrationTest
 		previousMsgId = groupManager1.getPreviousMsgId(groupId0);
 		msg = groupMessageFactory.createGroupMessage(groupId0,
 				c0.getClock().currentTimeMillis(), null, author0, "test",
-				previousMsgId);
+				previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -170,7 +172,7 @@ public class PrivateGroupManagerIntegrationTest
 		MessageId previousMsgId = groupManager0.getPreviousMsgId(groupId0);
 		GroupMessage msg = groupMessageFactory.createGroupMessage(groupId0,
 				c0.getClock().currentTimeMillis(), parentMsgId, author0, "test",
-				previousMsgId);
+				previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -183,7 +185,7 @@ public class PrivateGroupManagerIntegrationTest
 		parentMsgId = previousMsgId;
 		msg = groupMessageFactory.createGroupMessage(groupId0,
 				c0.getClock().currentTimeMillis(), parentMsgId, author0, "test",
-				previousMsgId);
+				previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -201,7 +203,7 @@ public class PrivateGroupManagerIntegrationTest
 		MessageId previousMsgId = groupManager0.getPreviousMsgId(groupId0);
 		GroupMessage msg = groupMessageFactory
 				.createGroupMessage(groupId0, 42, null, author0, "test",
-						previousMsgId);
+						previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -214,7 +216,7 @@ public class PrivateGroupManagerIntegrationTest
 		long time = c0.getClock().currentTimeMillis();
 		msg = groupMessageFactory
 				.createGroupMessage(groupId0, time, null, author0, "test",
-						previousMsgId);
+						previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message
@@ -225,7 +227,7 @@ public class PrivateGroupManagerIntegrationTest
 		previousMsgId = msg.getMessage().getId();
 		msg = groupMessageFactory
 				.createGroupMessage(groupId0, time, previousMsgId, author0,
-						"test2", previousMsgId);
+						"test2", previousMsgId, Message.MessageType.DEFAULT);
 		groupManager0.addLocalMessage(msg);
 
 		// sync test message

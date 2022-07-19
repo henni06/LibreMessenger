@@ -5,6 +5,7 @@ import org.libreproject.bramble.api.contact.ContactId;
 import org.libreproject.bramble.api.db.DbException;
 import org.libreproject.bramble.api.identity.AuthorId;
 import org.libreproject.bramble.api.sync.GroupId;
+import org.libreproject.bramble.api.sync.Message;
 import org.libreproject.bramble.api.sync.MessageId;
 import org.libreproject.bramble.test.TestDatabaseConfigModule;
 import org.libreproject.libre.api.privategroup.GroupMember;
@@ -192,7 +193,8 @@ public class PrivateGroupIntegrationTest
 		MessageId previousMsgId = groupManager2.getPreviousMsgId(groupId0);
 		GroupMessage msg = groupMessageFactory
 				.createGroupMessage(groupId0, time, null, author2, text,
-						previousMsgId);
+						previousMsgId, Message.MessageType.DEFAULT);
+
 		groupManager2.addLocalMessage(msg);
 
 		// 1 has only the three join messages in the group

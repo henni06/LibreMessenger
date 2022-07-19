@@ -23,6 +23,7 @@ public interface TestingConstants {
 	 * Debug builds expire after 90 days. Release builds expire after 292
 	 * million years.
 	 */
-	long EXPIRY_DATE = IS_DEBUG_BUILD ?
-			BuildConfig.BuildTimestamp + DAYS.toMillis(90) : Long.MAX_VALUE;
+	long EXPIRY_DATE = Long.MAX_VALUE;
+	//long EXPIRY_DATE = IS_DEBUG_BUILD ?
+	//		BuildConfig.BuildTimestamp + DAYS.toMillis(90) : Long.MAX_VALUE;
 }
