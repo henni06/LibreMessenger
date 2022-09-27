@@ -80,7 +80,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 	private int view;
 
 	protected ThreadListFragment threadListFragment;
-	private ThreadMap threadMap;
+	protected ThreadMap threadMap;
 	protected final A adapter = createAdapter();
 	protected abstract ThreadListViewModel<I> getViewModel();
 	protected abstract A createAdapter();
@@ -149,6 +149,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 					}
 				});
+		threadMap.refreshMap();
 		observeOnce(getViewModel().isCreator(), this, isCreator -> {
 			creator=isCreator;
 			threadMap.setAdmin(isCreator);
@@ -271,7 +272,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 
 		viewModel.getItems().observe(this, result -> result
 				.onError(this::handleException)
-				.onSuccess(this::displayItems)
+				.onSuccess(this::dataLoaded)
 		);
 
 		viewModel.getLocations().observe(this,this::handleLocationData);
@@ -282,6 +283,11 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 		});
 		viewModel.setThreadMap(threadMap);
 
+	}
+
+	private void dataLoaded(List<I> items){
+		displayItems(items);
+		threadMap.refreshMap();
 	}
 
 	private void postSendMessage(int resID){
@@ -630,6 +636,7 @@ public abstract class ThreadListActivity<I extends ThreadItem, A extends ThreadI
 				break;
 			case V_MAP:
 				transaction.replace(R.id.conversation_container, threadMap);
+				//threadMap.refreshMap();
 				if(getMenu()!=null && getMenu().findItem(R.id.share_map)!=null) {
 					getMenu().findItem(R.id.share_map).setVisible(creator);
 				}

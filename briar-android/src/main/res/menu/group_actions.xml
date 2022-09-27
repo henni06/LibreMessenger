@@ -10,14 +10,15 @@
 		android:visible="false"
 		app:showAsAction="ifRoom"
 		tools:visible="true" />
-	<item
-		android:id="@+id/action_group_invite"
-		android:icon="@drawable/invite_user"
-		android:title="@string/groups_invite_members"
-		android:visible="false"
-		app:showAsAction="ifRoom"
-		tools:visible="true" />
 
+	<group android:id="@+id/grpFunctions">
+		<item
+			android:id="@+id/action_group_invite"
+			android:icon="@drawable/invite_user"
+			android:title="@string/groups_invite_members"
+			android:visible="false"
+			app:showAsAction="never"
+			tools:visible="true" />
 	<item
 		android:id="@+id/action_group_member_list"
 		android:icon="@drawable/ic_group_white"
@@ -47,6 +48,8 @@
 		android:visible="false"
 		app:showAsAction="never"
 		tools:visible="true" />
+	</group>
+	<group android:id="@+id/mapFunctions">
 	<item
 		android:id="@+id/action_location_share"
 		android:title="@string/menu_send_location"
@@ -56,8 +59,8 @@
 	<item
 		android:id="@+id/action_show_map_functions"
 		android:title="@string/menu_show_map_functions"
-		android:visible="true"
-		android:enabled="false"
+		android:visible="false"
+		android:enabled="true"
 		app:showAsAction="never"
 		tools:visible="true" />
 
@@ -67,5 +70,12 @@
 		android:visible="true"
 		app:showAsAction="never"
 		tools:visible="true" />
+	<item
+		android:id="@+id/action_clear_map"
+		android:title="@string/menu_clear_map"
+		android:visible="false"
+		app:showAsAction="never"
+		tools:visible="true" />
+	</group>
 
 </menu>

@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import static android.view.View.GONE;
@@ -110,7 +111,7 @@ public class GroupActivity extends
 		this.menu=menu;
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.group_actions, menu);
-
+		MenuCompat.setGroupDividerEnabled(menu,true);
 		// show items based on role (which will not change, so observe once)
 		observeOnce(viewModel.isCreator(), this, isCreator -> {
 			menu.findItem(R.id.action_group_reveal).setVisible(!isCreator);
@@ -166,16 +167,23 @@ public class GroupActivity extends
 		} else if(itemId==R.id.action_map){
 			if(getView()==V_LIST){
 				showView(V_MAP);
+
 				menu.findItem(R.id.action_map).setTitle(R.string.menu_list);
-				menu.findItem(R.id.action_show_map_functions).setEnabled(creator);
+				menu.findItem(R.id.action_show_map_functions).setVisible(creator);
+
+				menu.findItem(R.id.action_clear_map).setVisible(creator);
+
 			}else{
 				showView(V_LIST);
 				if(creator){
-					menu.findItem(R.id.action_show_map_functions).setEnabled(false);
+					menu.findItem(R.id.action_show_map_functions).setVisible(false);
 				}
 				menu.findItem(R.id.action_map).setTitle(R.string.menu_map);
+				menu.findItem(R.id.action_clear_map).setVisible(false);
 			}
 			return true;
+		} else if(itemId==R.id.action_clear_map){
+			threadMap.clearMap();
 		}
 		return super.onOptionsItemSelected(item);
 	}

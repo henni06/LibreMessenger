@@ -820,5 +820,6 @@
 	<string name="toast_warning_sent">Warning was sent</string>
 	<string name="toast_information_sent">Information was sent</string>
 	<string name="toast_meeting_sent">Meeting point was sent</string>
+	<string name="menu_clear_map">Clear map</string>
 
 </resources>
