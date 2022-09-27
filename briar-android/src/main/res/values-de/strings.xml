@@ -760,6 +760,7 @@
   <string name="toast_warning_sent">Warnung wurde versandt</string>
   <string name="toast_information_sent">Information wurde versandt</string>
   <string name="toast_meeting_sent">Treffpunkt wurde versandt</string>
+  <string name="menu_clear_map">Karte löschen</string>
 
 
 </resources>

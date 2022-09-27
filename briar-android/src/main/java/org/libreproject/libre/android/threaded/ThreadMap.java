@@ -47,12 +47,17 @@ import org.libreproject.libre.android.privategroup.conversation.GroupMessageItem
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.events.MapListener;
+import org.osmdroid.events.ScrollEvent;
+import org.osmdroid.events.ZoomEvent;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -328,8 +333,11 @@ public class ThreadMap extends Fragment {
 		refreshMap();
 	}
 
-	protected void refreshMap(){
+	public void refreshMap(){
 		try {
+			if(map==null){
+				return;
+			}
 			map.getOverlays().clear();
 			map.getOverlays().add(new MapEventsOverlay(mReceive));
 			for (int i = 0; i < locations.size(); i++) {
@@ -345,6 +353,7 @@ public class ThreadMap extends Fragment {
 					locations.remove(i);
 				} else {
 					Marker locationMarker = new Marker(map);
+
 					String titleMessage = "";
 
 					//locationMarker.setDefaultIcon();
@@ -367,10 +376,11 @@ public class ThreadMap extends Fragment {
 										.format(messageDate);
 					}
 					locationMarker.setTitle(titleMessage);
-
+					
 
 					if (iLocationInfo.type
 							.equals(LocationInfo.LocationInfoType.USERPOSITION)) {
+
 						int size = 64;
 
 
@@ -536,6 +546,7 @@ public class ThreadMap extends Fragment {
 		ApplicationInfo applicationInfo = this.getContext().getApplicationInfo();
 		Configuration.getInstance().setUserAgentValue(getString(applicationInfo.labelRes));
 		map = (MapView) view.findViewById(R.id.map);
+
 		map.getOverlays().add(new MapEventsOverlay(mReceive));
 		map.setTileSource(TileSourceFactory.WIKIMEDIA);
 		//map.setTileSource(TileSourceFactory.HIKEBIKEMAP);
@@ -667,6 +678,7 @@ public class ThreadMap extends Fragment {
 
 		Thread thread=new Thread(runnable);
 		thread.start();
+		refreshMap();
 		return view;
 	}
 
@@ -886,5 +898,13 @@ public class ThreadMap extends Fragment {
 			locations.remove(selectedLocationInfo);
 			refreshMap();
 		}
+	}
+
+	public void clearMap(){
+		for(LocationInfo locationInfo:locations){
+			viewModel.createAndStoreMessage(LocationMessageProducer.buildMarkerMessage(locationInfo,LocationMessageProducer.Actions.DELETE),null);
+		}
+		locations.clear();
+		refreshMap();
 	}
 }
